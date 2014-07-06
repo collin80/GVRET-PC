@@ -1,4 +1,4 @@
-﻿namespace CruiserGuardianManager
+﻿namespace GVRET
 {
     partial class MainForm
     {

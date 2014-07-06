@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace CruiserGuardianManager
+namespace GVRET
 {
     static class Program
     {

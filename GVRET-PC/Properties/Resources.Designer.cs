@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CruiserGuardianManager.Properties {
+namespace GVRET.Properties {
     using System;
     
     
