@@ -11,15 +11,19 @@ using System.Diagnostics;
 using System.Threading;
 using System.IO;
 
-/*
- * allow connection to multiple servers and/or serial ports
- * 
- * real-time logging to file so that computer glitch still captures most of the log
- */
-
-
 namespace GVRET
 {
+    enum STATE //keep this enum synchronized with the Arduino firmware project
+    {
+        IDLE,
+        GET_COMMAND,
+        BUILD_CAN_FRAME,
+        TIME_SYNC,
+        GET_DIG_INPUTS,
+        GET_ANALOG_INPUTS,
+        SET_DIG_OUTPUTS,
+        SETUP_CANBUS
+    }
     public partial class MainForm : Form
     {
         byte[] inputBuffer = new byte[2048];
@@ -27,7 +31,8 @@ namespace GVRET
 
         List<CANFrame> frameCache = new List<CANFrame>(10000); //initially we allocate 10,000 entries in the list
 
-        int rx_state = 0;
+        STATE rx_state = STATE.IDLE;
+        int rx_step = 0;
         int len;
         int frameCount = 0;
         byte[] buffer = new byte[128];
@@ -108,16 +113,102 @@ namespace GVRET
                     Debug.Print(rx_state.ToString());
                     switch (rx_state)
                     {
-                        case 0:
-                            if (c == 0x14) rx_state++;
+                        case STATE.IDLE:
+                            if (c == 0xF1) rx_state = STATE.GET_COMMAND;
                             break;
-                        default:
-                            buildFrame.timestamp = DateTime.Now;
-                                onGotCANFrame(buildFrame); //call the listeners
-                                frameCount++;
-                                buildFrame = new CANFrame();
-                            
-				            break;
+                        case STATE.GET_COMMAND:
+                            switch (c)
+                            {
+                                case 0: //receiving a can frame
+                                    rx_state = STATE.BUILD_CAN_FRAME;
+                                    rx_step = 0;
+                                    break;
+                                case 1: //we don't accept time sync commands from the firmware
+                                    rx_state = STATE.IDLE;
+                                    break;
+                                case 2: //process a return reply for digital input states.
+                                    rx_state = STATE.GET_DIG_INPUTS;
+                                    rx_step = 0;
+                                    break;
+                                case 3: //process a return reply for analog inputs
+                                    rx_state = STATE.GET_ANALOG_INPUTS;
+                                    break;
+                                case 4: //we set digital outputs we don't accept replies so nothing here.
+                                    rx_state = STATE.IDLE;
+                                    break;
+                                case 5: //we set canbus specs we don't accept replies.
+                                    rx_state = STATE.IDLE;
+                                    break;
+                            }
+                            break;
+                        case STATE.BUILD_CAN_FRAME:
+                		    buffer[1 + rx_step] = c;
+		                    switch (rx_step) {
+		                    case 0:
+			                    buildFrame.ID = c;
+			                    break;
+		                    case 1:
+			                    buildFrame.ID |= c << 8;
+			                    break;
+		                    case 2:
+			                    buildFrame.ID |= c << 16;
+			                    break;
+		                    case 3:
+			                    buildFrame.ID |= c << 24;
+			                    if ((buildFrame.ID & 1 << 31) == 1 << 31) 
+			                    {
+				                    buildFrame.ID &= 0x7FFFFFFF;
+				                    buildFrame.extended = true;
+			                    }
+			                    else buildFrame.extended = false;
+			                    break;
+		                    case 4:
+			                    buildFrame.len = c & 0xF;
+			                    if (buildFrame.len > 8) buildFrame.len = 8;
+			                    break;
+		                    default:
+			                    if (rx_step < buildFrame.len + 5)
+			                    {
+			                        buildFrame.data[rx_step - 5] = c;
+			                    }
+			                    else 
+			                    {
+				                    rx_state = STATE.IDLE;
+				                    //this would be the checksum byte. Compute and compare.
+				                    byte temp8 = c;//checksumCalc(buff, step);
+				                    if (temp8 == c) 
+				                    {
+                                        buildFrame.timestamp = DateTime.Now;
+                                        onGotCANFrame(buildFrame); //call the listeners
+                                        frameCount++;
+                                        buildFrame = new CANFrame();						                
+				                    }
+			                    }
+			                    break;
+		                    }
+                    		rx_step++;
+                            break;
+                        case STATE.GET_ANALOG_INPUTS: //get 9 bytes - 2 per analog input plus checksum
+                		    buffer[1 + rx_step] = c;
+                            switch (rx_step)
+                            {
+                            case 0:
+                                    break;
+                            }
+                            rx_step++;
+                            break;
+                        case STATE.GET_DIG_INPUTS: //get two bytes. One for digital in status and one for checksum.
+                		    buffer[1 + rx_step] = c;
+                            switch (rx_step)
+                            {
+                                case 0:
+                                    break;
+                                case 1:
+                                    rx_state = STATE.IDLE;
+                                    break;
+                            }
+                            rx_step++;
+                            break;                         
                     }
                 }
             }
@@ -242,6 +333,8 @@ namespace GVRET
 
             label3.Text = "";
             label11.Text = "";
+            cbCAN1Speed.SelectedIndex = 0;
+            cbCAN2Speed.SelectedIndex = 0;
 
             //a fast background thread that does nothing but check the buffer for new data
             bufferProc.DoWork += new DoWorkEventHandler(delegate(object o, DoWorkEventArgs args)
@@ -585,6 +678,33 @@ namespace GVRET
             {
                 contLogging = false; //stop trying to log on error.
             }
+        }
+
+        private void setCANSpeeds(int Speed1, int Speed2)
+        {
+        }
+
+        private void cbCAN1Speed_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void cbCAN2Speed_SelectedIndexChanged(object sender, EventArgs e)
+        {   
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            int Speed1 = 0, Speed2 = 0;
+            if (cbCAN1Speed.SelectedIndex > 0)
+            {
+                Speed1 = int.Parse(cbCAN1Speed.Items[cbCAN1Speed.SelectedIndex].ToString());
+            }
+            if (cbCAN2Speed.SelectedIndex > 0)
+            {
+                Speed2 = int.Parse(cbCAN2Speed.Items[cbCAN2Speed.SelectedIndex].ToString());
+            }
+            Debug.Print("S1:" + Speed1.ToString() + " S2:" + Speed2.ToString());
+            setCANSpeeds(Speed1, Speed2);
         }
     }
 

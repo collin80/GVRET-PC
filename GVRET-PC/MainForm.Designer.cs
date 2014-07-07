@@ -39,6 +39,12 @@
             this.btnSaveLog = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Timestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frameID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frameExt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frameBus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Length = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.pbActivity = new System.Windows.Forms.PictureBox();
@@ -46,17 +52,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cbPortNum = new System.Windows.Forms.ComboBox();
             this.btnContLog = new System.Windows.Forms.Button();
-            this.Timestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.frameID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.frameExt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.frameBus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Length = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbCAN1Speed = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cbCAN2Speed = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbActivity)).BeginInit();
             this.SuspendLayout();
@@ -79,9 +80,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(780, 164);
+            this.button4.Location = new System.Drawing.Point(706, 141);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(149, 23);
+            this.button4.Size = new System.Drawing.Size(136, 23);
             this.button4.TabIndex = 4;
             this.button4.Text = "Enable Auto Capture";
             this.button4.UseVisualStyleBackColor = true;
@@ -89,9 +90,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(780, 189);
+            this.button1.Location = new System.Drawing.Point(843, 141);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 23);
+            this.button1.Size = new System.Drawing.Size(137, 23);
             this.button1.TabIndex = 7;
             this.button1.Text = "Clear List";
             this.button1.UseVisualStyleBackColor = true;
@@ -100,7 +101,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(780, 220);
+            this.checkBox1.Location = new System.Drawing.Point(706, 170);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(156, 17);
             this.checkBox1.TabIndex = 8;
@@ -111,7 +112,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(796, 250);
+            this.label2.Location = new System.Drawing.Point(703, 200);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(108, 13);
             this.label2.TabIndex = 9;
@@ -120,7 +121,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(797, 263);
+            this.label3.Location = new System.Drawing.Point(817, 200);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(37, 13);
             this.label3.TabIndex = 10;
@@ -128,9 +129,9 @@
             // 
             // btnSaveLog
             // 
-            this.btnSaveLog.Location = new System.Drawing.Point(781, 349);
+            this.btnSaveLog.Location = new System.Drawing.Point(706, 316);
             this.btnSaveLog.Name = "btnSaveLog";
-            this.btnSaveLog.Size = new System.Drawing.Size(149, 23);
+            this.btnSaveLog.Size = new System.Drawing.Size(269, 23);
             this.btnSaveLog.TabIndex = 15;
             this.btnSaveLog.Text = "Save Displayed Data to File";
             this.btnSaveLog.UseVisualStyleBackColor = true;
@@ -160,10 +161,48 @@
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             // 
+            // Timestamp
+            // 
+            this.Timestamp.FillWeight = 130F;
+            this.Timestamp.HeaderText = "Timestamp";
+            this.Timestamp.Name = "Timestamp";
+            this.Timestamp.Width = 130;
+            // 
+            // frameID
+            // 
+            this.frameID.FillWeight = 75F;
+            this.frameID.HeaderText = "ID";
+            this.frameID.Name = "frameID";
+            this.frameID.Width = 75;
+            // 
+            // frameExt
+            // 
+            this.frameExt.HeaderText = "Ext";
+            this.frameExt.Name = "frameExt";
+            this.frameExt.Width = 50;
+            // 
+            // frameBus
+            // 
+            this.frameBus.HeaderText = "Bus";
+            this.frameBus.Name = "frameBus";
+            this.frameBus.Width = 50;
+            // 
+            // Length
+            // 
+            this.Length.HeaderText = "Len";
+            this.Length.Name = "Length";
+            this.Length.Width = 50;
+            // 
+            // data
+            // 
+            this.data.HeaderText = "Data";
+            this.data.Name = "data";
+            this.data.Width = 280;
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(797, 294);
+            this.label11.Location = new System.Drawing.Point(817, 227);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(37, 13);
             this.label11.TabIndex = 33;
@@ -172,7 +211,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(797, 277);
+            this.label12.Location = new System.Drawing.Point(704, 227);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(112, 13);
             this.label12.TabIndex = 32;
@@ -217,51 +256,13 @@
             // 
             // btnContLog
             // 
-            this.btnContLog.Location = new System.Drawing.Point(780, 320);
+            this.btnContLog.Location = new System.Drawing.Point(705, 286);
             this.btnContLog.Name = "btnContLog";
-            this.btnContLog.Size = new System.Drawing.Size(149, 24);
+            this.btnContLog.Size = new System.Drawing.Size(270, 24);
             this.btnContLog.TabIndex = 40;
             this.btnContLog.Text = "Start Continuous Logging";
             this.btnContLog.UseVisualStyleBackColor = true;
             this.btnContLog.Click += new System.EventHandler(this.button6_Click_1);
-            // 
-            // Timestamp
-            // 
-            this.Timestamp.FillWeight = 130F;
-            this.Timestamp.HeaderText = "Timestamp";
-            this.Timestamp.Name = "Timestamp";
-            this.Timestamp.Width = 130;
-            // 
-            // frameID
-            // 
-            this.frameID.FillWeight = 75F;
-            this.frameID.HeaderText = "ID";
-            this.frameID.Name = "frameID";
-            this.frameID.Width = 75;
-            // 
-            // frameExt
-            // 
-            this.frameExt.HeaderText = "Ext";
-            this.frameExt.Name = "frameExt";
-            this.frameExt.Width = 50;
-            // 
-            // frameBus
-            // 
-            this.frameBus.HeaderText = "Bus";
-            this.frameBus.Name = "frameBus";
-            this.frameBus.Width = 50;
-            // 
-            // Length
-            // 
-            this.Length.HeaderText = "Len";
-            this.Length.Name = "Length";
-            this.Length.Width = 50;
-            // 
-            // data
-            // 
-            this.data.HeaderText = "Data";
-            this.data.Name = "data";
-            this.data.Width = 280;
             // 
             // cbCAN1Speed
             // 
@@ -276,15 +277,16 @@
             this.cbCAN1Speed.Name = "cbCAN1Speed";
             this.cbCAN1Speed.Size = new System.Drawing.Size(90, 21);
             this.cbCAN1Speed.TabIndex = 42;
+            this.cbCAN1Speed.SelectedIndexChanged += new System.EventHandler(this.cbCAN1Speed_SelectedIndexChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(713, 65);
+            this.label4.Location = new System.Drawing.Point(703, 65);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 13);
             this.label4.TabIndex = 41;
-            this.label4.Text = "CAN1";
+            this.label4.Text = "CAN0";
             // 
             // cbCAN2Speed
             // 
@@ -299,15 +301,16 @@
             this.cbCAN2Speed.Name = "cbCAN2Speed";
             this.cbCAN2Speed.Size = new System.Drawing.Size(90, 21);
             this.cbCAN2Speed.TabIndex = 44;
+            this.cbCAN2Speed.SelectedIndexChanged += new System.EventHandler(this.cbCAN2Speed_SelectedIndexChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(847, 65);
+            this.label5.Location = new System.Drawing.Point(840, 65);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(35, 13);
             this.label5.TabIndex = 43;
-            this.label5.Text = "CAN2";
+            this.label5.Text = "CAN1";
             // 
             // label6
             // 
@@ -318,11 +321,22 @@
             this.label6.TabIndex = 45;
             this.label6.Text = "CAN SPEED:";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(706, 89);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(274, 23);
+            this.button2.TabIndex = 46;
+            this.button2.Text = "Set Speeds";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(987, 514);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cbCAN2Speed);
             this.Controls.Add(this.label5);
@@ -384,6 +398,7 @@
         private System.Windows.Forms.ComboBox cbCAN2Speed;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button button2;
     }
 }
 
