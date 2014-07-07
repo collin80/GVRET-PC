@@ -697,11 +697,39 @@ namespace GVRET
             int Speed1 = 0, Speed2 = 0;
             if (cbCAN1Speed.SelectedIndex > 0)
             {
-                Speed1 = int.Parse(cbCAN1Speed.Items[cbCAN1Speed.SelectedIndex].ToString());
+                switch (cbCAN1Speed.SelectedIndex) 
+                {
+                    case 1:
+                        Speed1 = 125000;
+                        break;
+                    case 2:
+                        Speed1 = 250000;
+                        break;
+                    case 3:
+                        Speed1 = 500000;
+                        break;
+                    case 4:
+                        Speed1 = 1000000;
+                        break;
+                }
             }
             if (cbCAN2Speed.SelectedIndex > 0)
             {
-                Speed2 = int.Parse(cbCAN2Speed.Items[cbCAN2Speed.SelectedIndex].ToString());
+                switch (cbCAN2Speed.SelectedIndex)
+                {
+                    case 1:
+                        Speed2 = 125000;
+                        break;
+                    case 2:
+                        Speed2 = 250000;
+                        break;
+                    case 3:
+                        Speed2 = 500000;
+                        break;
+                    case 4:
+                        Speed2 = 1000000;
+                        break;
+                }                
             }
             Debug.Print("S1:" + Speed1.ToString() + " S2:" + Speed2.ToString());
             setCANSpeeds(Speed1, Speed2);
