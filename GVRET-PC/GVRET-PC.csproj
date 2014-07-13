@@ -8,8 +8,8 @@
     <ProjectGuid>{3FF0A70B-9B01-4F70-8681-7725FCBE7A11}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CruiserGuardianManager</RootNamespace>
-    <AssemblyName>CruiserGuardianManager</AssemblyName>
+    <RootNamespace>GVRET</RootNamespace>
+    <AssemblyName>GVRET-PC</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>

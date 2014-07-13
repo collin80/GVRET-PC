@@ -63,9 +63,11 @@ namespace GVRET
             int btr,c;
             SerialPort sp = (SerialPort)sender;
 
+            //Debug.Print("Data Received!");
+
             lock (inputBuffer)
             {
-                //Debug.Print("DataReceived: Got some son!");
+               // Debug.Print("locked and loaded!");
                 btr = sp.BytesToRead;
                 for (c = 0; c < btr; c++)
                 {
@@ -95,7 +97,6 @@ namespace GVRET
             byte c;
             byte[] decbytes = new byte[16];
             
-            //Debug.WriteLine("Starting Process Input");
             c = 0;
 
             lock (inputBuffer)
@@ -110,7 +111,7 @@ namespace GVRET
                     bufferReadPointer++;
                     bufferReadPointer = bufferReadPointer % 2048;
                     //Debug.Print(c.ToString("X2"));
-                    Debug.Print(rx_state.ToString());
+                    //Debug.Print(rx_state.ToString());
                     switch (rx_state)
                     {
                         case STATE.IDLE:
@@ -175,14 +176,14 @@ namespace GVRET
 			                    {
 				                    rx_state = STATE.IDLE;
 				                    //this would be the checksum byte. Compute and compare.
-				                    byte temp8 = c;//checksumCalc(buff, step);
-				                    if (temp8 == c) 
-				                    {
+				                    //byte temp8 = c;//checksumCalc(buff, step);
+				                    //if (temp8 == c) 
+				                    //{
                                         buildFrame.timestamp = DateTime.Now;
                                         onGotCANFrame(buildFrame); //call the listeners
                                         frameCount++;
                                         buildFrame = new CANFrame();						                
-				                    }
+				                    //}
 			                    }
 			                    break;
 		                    }
@@ -268,6 +269,7 @@ namespace GVRET
             }
             else
             {
+                Debug.Print("Opening serial port");
                 serialPort1.PortName = cbPortNum.Text;
                 serialPort1.Open();
                 runBGThread = true;
@@ -682,6 +684,19 @@ namespace GVRET
 
         private void setCANSpeeds(int Speed1, int Speed2)
         {
+            buffer[0] = 0xF1; //start of a command over serial
+            buffer[1] = 5; //setup canbus
+            buffer[2] = (byte)(Speed1 & 0xFF); //four bytes of ID LSB first
+            buffer[3] = (byte)(Speed1 >> 8);
+            buffer[4] = (byte)(Speed1 >> 16);
+            buffer[5] = (byte)(Speed1 >> 24);
+            buffer[6] = (byte)(Speed2 & 0xFF); //four bytes of ID LSB first
+            buffer[7] = (byte)(Speed2 >> 8);
+            buffer[8] = (byte)(Speed2 >> 16);
+            buffer[9] = (byte)(Speed2 >> 24);
+            buffer[10] = 0;
+            serialPort1.Write(buffer, 0, 11);
+
         }
 
         private void cbCAN1Speed_SelectedIndexChanged(object sender, EventArgs e)

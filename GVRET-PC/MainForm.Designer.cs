@@ -65,7 +65,9 @@
             // serialPort1
             // 
             this.serialPort1.BaudRate = 115200;
-            this.serialPort1.PortName = "COM4";
+            this.serialPort1.DtrEnable = true;
+            this.serialPort1.PortName = "COM5";
+            this.serialPort1.RtsEnable = true;
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
             // btnConnect
@@ -370,7 +372,6 @@
 
         #endregion
 
-        private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button1;
@@ -399,6 +400,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button2;
+        private System.IO.Ports.SerialPort serialPort1;
     }
 }
 
