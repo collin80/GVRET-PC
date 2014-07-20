@@ -1,0 +1,26 @@
+Colored screen with all 64 bits possible in a frame and the ability to select ranges graphically to designate them as a data item.
+This screen would be where the data definitions are edited. Have the ability to load and save the definitions and then apply them
+to the incoming data to turn it into a decoded format. 
+
+Reverse engineering helper by asking the user to set a baseline then do actions at beeps. Say, touch nothing then when it beeps
+push the lock button then the next time it beeps push unlock then it beeps again and you push lock. During this the system
+will process the frames to see if there is a frame that changes reliably when the lock button is pressed or if a new frame shows up.
+Or, don't push accelerator then slowly push it at beep then at beep hold it as steady as possible then at next beep slowly back off.
+Four types of detectors: 
+single toggle - A single event happens back and forth - door lock, brake press detection, etc
+multi-toggle - The same basic message has multiple states - gear shifter, wind shield wipers, fan, etc
+ramp - The value can fluctuate over a range that is easily controllable up/down - accelerator pedal, RPM, power
+taper - The value can change over a range but somewhat slowly - temperature, voltage, etc
+
+Flo-View - Allow user to select one frame ID from the list of all IDs seen so far. Then push a button to set the reference
+point (or allow all 8 bytes to be typed in). From this point on the 8x8 bit field plus 8 data byte values will update
+according to the current data. This will show which bits are changing and somewhat of the pattern in which they change. 
+There should be a way to play forward the frames at a slower speed than they really come in so that it is easier
+to find the patterns. Also, it should be possible to either set a reference or to always use the previous frame as reference 
+and maybe to switch between those two at will to find patterns.
+
+Once guesses are made about the value of bits for a frame it should be possible to show details for a frame by clicking
+on it or something to bring up a screen that shows the details worked out. This allows frames to be decoded and the
+decoding checked for potential accuracy.
+
+Picturebox for the 64 bit data view. If it is 8x8 grid and each box is 25 pixels then 25*8 = 200 square
