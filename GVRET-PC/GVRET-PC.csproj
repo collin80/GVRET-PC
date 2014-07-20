@@ -63,6 +63,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CANDataGrid.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CANDataGrid.Designer.cs">
+      <DependentUpon>CANDataGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FlowViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FlowViewForm.Designer.cs">
+      <DependentUpon>FlowViewForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +83,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CANDataGrid.resx">
+      <DependentUpon>CANDataGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FlowViewForm.resx">
+      <DependentUpon>FlowViewForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -85,7 +103,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -749,6 +749,12 @@ namespace GVRET
             Debug.Print("S1:" + Speed1.ToString() + " S2:" + Speed2.ToString());
             setCANSpeeds(Speed1, Speed2);
         }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FlowViewForm theForm = new FlowViewForm();
+            theForm.Show();
+        }
     }
 
     //not much of a class... more of a struct. Just stores a bunch of data in a compact format.
