@@ -40,17 +40,17 @@ namespace GVRET
             autoUpdateReference = newVal;
         }
 
-        public void setReference(byte[] refVals) 
+        public void setReference(byte[] refVals, bool refresh = true) 
         {
             if (refVals.Length < 8) return;
             for (int x = 0; x < 8; x++) 
             {
                 refData[x] = refVals[x];
             }
-            refreshView();
+            if (refresh) refreshView();
         }
 
-        public void updateData(byte[] newData)
+        public void updateData(byte[] newData, bool refresh = true)
         {
             if (newData.Length < 8) return;
             for (int x = 0; x < 8; x++)
@@ -58,7 +58,7 @@ namespace GVRET
                 if (autoUpdateReference) refData[x] = data[x];
                 data[x] = newData[x];
             }
-            refreshView();
+            if (refresh) refreshView();
         }
 
         /*
