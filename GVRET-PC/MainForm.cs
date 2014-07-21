@@ -753,6 +753,7 @@ namespace GVRET
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FlowViewForm theForm = new FlowViewForm();
+            theForm.setParent(this);
             theForm.Show();
         }
     }

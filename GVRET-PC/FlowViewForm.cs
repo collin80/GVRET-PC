@@ -12,9 +12,22 @@ namespace GVRET
     public partial class FlowViewForm : Form
     {
 
+        public MainForm parent;
+
         public FlowViewForm()
         {
             InitializeComponent();
+        }
+
+        public void setParent(MainForm val) 
+        {
+            parent = val;
+            parent.onGotCANFrame += GotCANFrame;
+        }
+
+        public void GotCANFrame(CANFrame frame) 
+        { 
+
         }
 
         private void canDataGrid1_Load(object sender, EventArgs e)
@@ -28,6 +41,16 @@ namespace GVRET
             Random myRand = new Random();
             myRand.NextBytes(data);
             canDataGrid1.updateData(data);
+        }
+
+        private void FlowViewForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FlowViewForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            parent.onGotCANFrame -= GotCANFrame;
         }
     }
 }
