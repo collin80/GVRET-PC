@@ -12,6 +12,10 @@ multi-toggle - The same basic message has multiple states - gear shifter, wind s
 ramp - The value can fluctuate over a range that is easily controllable up/down - accelerator pedal, RPM, power
 taper - The value can change over a range but somewhat slowly - temperature, voltage, etc
 
+For things like taper and ramp (maybe others) it should be possible to guess what value things should be at currently and where you
+plan to go to and use that info with a fuzzy boundary to try to find the proper value. For this heuristics will have to be used. 
+That is, try to find out of the value is a multiple of the value and/or if there is a bias value.
+
 Flo-View - Allow user to select one frame ID from the list of all IDs seen so far. Then push a button to set the reference
 point (or allow all 8 bytes to be typed in). From this point on the 8x8 bit field plus 8 data byte values will update
 according to the current data. This will show which bits are changing and somewhat of the pattern in which they change. 
