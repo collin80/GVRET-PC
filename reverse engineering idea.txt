@@ -17,7 +17,9 @@ point (or allow all 8 bytes to be typed in). From this point on the 8x8 bit fiel
 according to the current data. This will show which bits are changing and somewhat of the pattern in which they change. 
 There should be a way to play forward the frames at a slower speed than they really come in so that it is easier
 to find the patterns. Also, it should be possible to either set a reference or to always use the previous frame as reference 
-and maybe to switch between those two at will to find patterns.
+and maybe to switch between those two at will to find patterns. Keep a buffer of 1000 frames. When capture is selected the buffer
+starts to fill up. At any time the user can push play to play them at a specific rate (drop down list or slider) with a pause button
+to stop. Also, single step buttons for left/right and a view that shows where someone is in the buffer.
 
 Once guesses are made about the value of bits for a frame it should be possible to show details for a frame by clicking
 on it or something to bring up a screen that shows the details worked out. This allows frames to be decoded and the
