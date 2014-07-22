@@ -25,6 +25,14 @@ and maybe to switch between those two at will to find patterns. Keep a buffer of
 starts to fill up. At any time the user can push play to play them at a specific rate (drop down list or slider) with a pause button
 to stop. Also, single step buttons for left/right and a view that shows where someone is in the buffer.
 
+Guesstomater - Allow the user to specify the value of something they'd like to find. For instance, maybe they know the RPM is around
+1100RPM. So, they enter that in. Then they rev up to 2000RPM, hold it there, and enter that in. After several values are entered in
+the system will try to find where these values might be. It should handle searching for bias and scaling factor. This should be possible
+since we'll know the offset between values the user typed in. In the above instance, 1100 and 2000 means that the value changed by about 
+900 out of 1100/2000 so look for frames where the value changed by this ratio. Once we find a frame where the data value changed by the
+proper ratio we can then find the bias. And the difference in actual ratio gives the scaling factor.
+
+
 Once guesses are made about the value of bits for a frame it should be possible to show details for a frame by clicking
 on it or something to bring up a screen that shows the details worked out. This allows frames to be decoded and the
 decoding checked for potential accuracy.
