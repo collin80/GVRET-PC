@@ -12,9 +12,12 @@ multi-toggle - The same basic message has multiple states - gear shifter, wind s
 ramp - The value can fluctuate over a range that is easily controllable up/down - accelerator pedal, RPM, power
 taper - The value can change over a range but somewhat slowly - temperature, voltage, etc
 
+For the single, multi, etc it should be possible to either use tone command or have it toggle 
+
 For things like taper and ramp (maybe others) it should be possible to guess what value things should be at currently and where you
 plan to go to and use that info with a fuzzy boundary to try to find the proper value. For this heuristics will have to be used. 
-That is, try to find out of the value is a multiple of the value and/or if there is a bias value.
+That is, try to find out of the value is a multiple of the value and/or if there is a bias value. This is covered below
+as guesstomater.
 
 Flo-View - Allow user to select one frame ID from the list of all IDs seen so far. Then push a button to set the reference
 point (or allow all 8 bytes to be typed in). From this point on the 8x8 bit field plus 8 data byte values will update
@@ -30,11 +33,10 @@ Guesstomater - Allow the user to specify the value of something they'd like to f
 the system will try to find where these values might be. It should handle searching for bias and scaling factor. This should be possible
 since we'll know the offset between values the user typed in. In the above instance, 1100 and 2000 means that the value changed by about 
 900 out of 1100/2000 so look for frames where the value changed by this ratio. Once we find a frame where the data value changed by the
-proper ratio we can then find the bias. And the difference in actual ratio gives the scaling factor.
-
+proper ratio we can then find the bias. And the difference in actual ratio gives the scaling factor. The fuzzyiness of matching should
+be able to be set.
 
 Once guesses are made about the value of bits for a frame it should be possible to show details for a frame by clicking
 on it or something to bring up a screen that shows the details worked out. This allows frames to be decoded and the
 decoding checked for potential accuracy.
 
-Picturebox for the 64 bit data view. If it is 8x8 grid and each box is 25 pixels then 25*8 = 200 square
