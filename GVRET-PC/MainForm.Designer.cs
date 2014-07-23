@@ -59,13 +59,12 @@
             this.label6 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.rEToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.singleToggleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.multiToggleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rampToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.taperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flowViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fuzzyScopeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbActivity)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -345,7 +344,6 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
             this.toolStripMenuItem1,
             this.rEToolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -353,13 +351,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(987, 24);
             this.menuStrip1.TabIndex = 47;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
-            this.fileToolStripMenuItem.Text = "&Flow View";
-            this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -372,8 +363,8 @@
             this.rEToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.singleToggleToolStripMenuItem,
             this.multiToggleToolStripMenuItem,
-            this.rampToolStripMenuItem,
-            this.taperToolStripMenuItem});
+            this.flowViewToolStripMenuItem,
+            this.fuzzyScopeToolStripMenuItem});
             this.rEToolsToolStripMenuItem.Name = "rEToolsToolStripMenuItem";
             this.rEToolsToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.rEToolsToolStripMenuItem.Text = "&RE Tools";
@@ -381,26 +372,28 @@
             // singleToggleToolStripMenuItem
             // 
             this.singleToggleToolStripMenuItem.Name = "singleToggleToolStripMenuItem";
-            this.singleToggleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.singleToggleToolStripMenuItem.Text = "&Single Toggle";
+            this.singleToggleToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.singleToggleToolStripMenuItem.Text = "&Single / Multi State";
+            this.singleToggleToolStripMenuItem.Click += new System.EventHandler(this.singleToggleToolStripMenuItem_Click);
             // 
             // multiToggleToolStripMenuItem
             // 
             this.multiToggleToolStripMenuItem.Name = "multiToggleToolStripMenuItem";
-            this.multiToggleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.multiToggleToolStripMenuItem.Text = "&Multi Toggle";
+            this.multiToggleToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.multiToggleToolStripMenuItem.Text = "&Range State";
             // 
-            // rampToolStripMenuItem
+            // flowViewToolStripMenuItem
             // 
-            this.rampToolStripMenuItem.Name = "rampToolStripMenuItem";
-            this.rampToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.rampToolStripMenuItem.Text = "&Ramp";
+            this.flowViewToolStripMenuItem.Name = "flowViewToolStripMenuItem";
+            this.flowViewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.flowViewToolStripMenuItem.Text = "&Flow View";
+            this.flowViewToolStripMenuItem.Click += new System.EventHandler(this.flowViewToolStripMenuItem_Click);
             // 
-            // taperToolStripMenuItem
+            // fuzzyScopeToolStripMenuItem
             // 
-            this.taperToolStripMenuItem.Name = "taperToolStripMenuItem";
-            this.taperToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.taperToolStripMenuItem.Text = "&Taper";
+            this.fuzzyScopeToolStripMenuItem.Name = "fuzzyScopeToolStripMenuItem";
+            this.fuzzyScopeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fuzzyScopeToolStripMenuItem.Text = "F&uzzy Scope";
             // 
             // MainForm
             // 
@@ -475,13 +468,12 @@
         private System.Windows.Forms.Button button2;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem rEToolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem singleToggleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem multiToggleToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rampToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem taperToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem flowViewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fuzzyScopeToolStripMenuItem;
     }
 }
 

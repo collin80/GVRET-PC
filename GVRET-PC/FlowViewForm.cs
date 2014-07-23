@@ -40,7 +40,7 @@ namespace GVRET
 
         private void updateFrameCounter() 
         {
-            lblFrames.Text = frameCacheReadPos.ToString() + " of " + frameCacheWritePos.ToString();
+            lblFrames.Text = (frameCacheReadPos + 1).ToString() + " of " + frameCacheWritePos.ToString();
         }
 
         //try to update position within the cache. Bool specifies direction
@@ -48,7 +48,7 @@ namespace GVRET
         {
             if (forward)
             {
-                if (frameCacheReadPos < frameCacheWritePos) frameCacheReadPos++;
+                if (frameCacheReadPos < (frameCacheWritePos - 1)) frameCacheReadPos++;
             }
             else
             {
@@ -112,6 +112,12 @@ namespace GVRET
                     if (frameCacheWritePos == 1000) return;
                     //enqueue frame
                     frameCache[frameCacheWritePos++] = frame;
+
+                    //The special significance of this if is that it fills out the frame
+                    //on screen because we will be showing that frame by default according to the program
+                    //so it makes sense to ensure we see it immediately.
+                    if (frameCacheWritePos == 1) updateDataView();
+                    else updateFrameCounter();
                 }
             }
         }
@@ -123,7 +129,7 @@ namespace GVRET
 
         private void FlowViewForm_Load(object sender, EventArgs e)
         {
-
+            updateFrameCounter();
         }
 
         private void FlowViewForm_FormClosing(object sender, FormClosingEventArgs e)

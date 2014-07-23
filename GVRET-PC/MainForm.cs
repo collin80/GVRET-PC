@@ -182,7 +182,7 @@ namespace GVRET
                                         buildFrame.timestamp = DateTime.Now;
                                         onGotCANFrame(buildFrame); //call the listeners
                                         frameCount++;
-                                        buildFrame = new CANFrame();						                
+                                        buildFrame = new CANFrame(); //easy way to clear it out				                
 				                    //}
 			                    }
 			                    break;
@@ -750,11 +750,16 @@ namespace GVRET
             setCANSpeeds(Speed1, Speed2);
         }
 
-        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void flowViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FlowViewForm theForm = new FlowViewForm();
             theForm.setParent(this);
             theForm.Show();
+        }
+
+        private void singleToggleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

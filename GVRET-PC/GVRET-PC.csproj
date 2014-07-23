@@ -69,11 +69,23 @@
     <Compile Include="CANDataGrid.Designer.cs">
       <DependentUpon>CANDataGrid.cs</DependentUpon>
     </Compile>
+    <Compile Include="DiscreteStateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DiscreteStateForm.Designer.cs">
+      <DependentUpon>DiscreteStateForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FlowViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FlowViewForm.Designer.cs">
       <DependentUpon>FlowViewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FuzzyScopeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FuzzyScopeForm.Designer.cs">
+      <DependentUpon>FuzzyScopeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -83,6 +95,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RangeStateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RangeStateForm.Designer.cs">
+      <DependentUpon>RangeStateForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CANDataGrid.resx">
       <DependentUpon>CANDataGrid.cs</DependentUpon>
     </EmbeddedResource>
