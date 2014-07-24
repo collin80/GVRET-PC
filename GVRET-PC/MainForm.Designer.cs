@@ -47,7 +47,6 @@
             this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.pbActivity = new System.Windows.Forms.PictureBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbPortNum = new System.Windows.Forms.ComboBox();
@@ -65,9 +64,10 @@
             this.multiToggleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fuzzyScopeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pbActivity = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbActivity)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbActivity)).BeginInit();
             this.SuspendLayout();
             // 
             // serialPort1
@@ -227,16 +227,6 @@
             this.label12.TabIndex = 32;
             this.label12.Text = "# of frames displaying:";
             // 
-            // pbActivity
-            // 
-            this.pbActivity.BackColor = System.Drawing.Color.White;
-            this.pbActivity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbActivity.Location = new System.Drawing.Point(12, 424);
-            this.pbActivity.Name = "pbActivity";
-            this.pbActivity.Size = new System.Drawing.Size(969, 117);
-            this.pbActivity.TabIndex = 34;
-            this.pbActivity.TabStop = false;
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -385,15 +375,26 @@
             // flowViewToolStripMenuItem
             // 
             this.flowViewToolStripMenuItem.Name = "flowViewToolStripMenuItem";
-            this.flowViewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.flowViewToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.flowViewToolStripMenuItem.Text = "&Flow View";
             this.flowViewToolStripMenuItem.Click += new System.EventHandler(this.flowViewToolStripMenuItem_Click);
             // 
             // fuzzyScopeToolStripMenuItem
             // 
             this.fuzzyScopeToolStripMenuItem.Name = "fuzzyScopeToolStripMenuItem";
-            this.fuzzyScopeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fuzzyScopeToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.fuzzyScopeToolStripMenuItem.Text = "F&uzzy Scope";
+            this.fuzzyScopeToolStripMenuItem.Click += new System.EventHandler(this.fuzzyScopeToolStripMenuItem_Click);
+            // 
+            // pbActivity
+            // 
+            this.pbActivity.BackColor = System.Drawing.Color.White;
+            this.pbActivity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbActivity.Location = new System.Drawing.Point(12, 424);
+            this.pbActivity.Name = "pbActivity";
+            this.pbActivity.Size = new System.Drawing.Size(969, 117);
+            this.pbActivity.TabIndex = 34;
+            this.pbActivity.TabStop = false;
             // 
             // MainForm
             // 
@@ -428,9 +429,9 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbActivity)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbActivity)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

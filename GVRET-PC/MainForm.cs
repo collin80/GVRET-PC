@@ -761,6 +761,13 @@ namespace GVRET
         {
 
         }
+
+        private void fuzzyScopeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FuzzyScopeForm theForm = new FuzzyScopeForm();
+            theForm.setParent(this);
+            theForm.Show();
+        }
     }
 
     //not much of a class... more of a struct. Just stores a bunch of data in a compact format.

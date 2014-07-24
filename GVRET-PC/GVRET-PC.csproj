@@ -107,6 +107,9 @@
     <EmbeddedResource Include="FlowViewForm.resx">
       <DependentUpon>FlowViewForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FuzzyScopeForm.resx">
+      <DependentUpon>FuzzyScopeForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
