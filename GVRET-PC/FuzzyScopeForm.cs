@@ -115,6 +115,11 @@ namespace GVRET
 
         }
 
+        private void FuzzyScopeForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            parent.onGotCANFrame -= GotCANFrame;
+        }
+
     }
 
     struct SearchItem

@@ -41,10 +41,10 @@
             this.btnReset = new System.Windows.Forms.Button();
             this.lblFuzzy = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackFuzzy)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -165,29 +165,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Permutations";
             // 
-            // checkBox1
+            // checkBox4
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(7, 16);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(114, 17);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Decade (10, 1/10)";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = true;
-            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(7, 39);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(124, 17);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "Century (100, 1/100)";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(6, 83);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(133, 17);
+            this.checkBox4.TabIndex = 3;
+            this.checkBox4.Text = "Gonzo (Try everything)";
+            this.checkBox4.UseVisualStyleBackColor = true;
             // 
             // checkBox3
             // 
@@ -202,15 +188,29 @@
             this.checkBox3.UseVisualStyleBackColor = true;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
-            // checkBox4
+            // checkBox2
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(6, 83);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(133, 17);
-            this.checkBox4.TabIndex = 3;
-            this.checkBox4.Text = "Gonzo (Try everything)";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Checked = true;
+            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox2.Location = new System.Drawing.Point(7, 39);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(124, 17);
+            this.checkBox2.TabIndex = 1;
+            this.checkBox2.Text = "Century (100, 1/100)";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(7, 16);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(114, 17);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Text = "Decade (10, 1/10)";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
@@ -242,6 +242,7 @@
             this.Controls.Add(this.ckCapture);
             this.Name = "FuzzyScopeForm";
             this.Text = "Fuzzy Scope";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FuzzyScopeForm_FormClosing);
             this.Load += new System.EventHandler(this.FuzzyScopeForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackFuzzy)).EndInit();
             this.groupBox1.ResumeLayout(false);
