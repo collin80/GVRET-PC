@@ -13,8 +13,10 @@ namespace GVRET
     {
 
         public MainForm parent;
+
+        private static int cacheSize = 5000;
         
-        private CANFrame[] frameCache = new CANFrame[1000];
+        private CANFrame[] frameCache = new CANFrame[cacheSize];
         private int frameCacheReadPos = 0;
         private int frameCacheWritePos = 0;
 
@@ -109,7 +111,7 @@ namespace GVRET
             {
                 if (frame.ID == targettedID)
                 {
-                    if (frameCacheWritePos == 1000) return;
+                    if (frameCacheWritePos == cacheSize) return;
                     //enqueue frame
                     frameCache[frameCacheWritePos++] = frame;
 
