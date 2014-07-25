@@ -104,6 +104,9 @@
     <EmbeddedResource Include="CANDataGrid.resx">
       <DependentUpon>CANDataGrid.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DiscreteStateForm.resx">
+      <DependentUpon>DiscreteStateForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FlowViewForm.resx">
       <DependentUpon>FlowViewForm.cs</DependentUpon>
     </EmbeddedResource>
