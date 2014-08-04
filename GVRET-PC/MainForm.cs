@@ -53,8 +53,6 @@ namespace GVRET
         public MainForm()
         {
             InitializeComponent();
-            onGotCANFrame += GotCANFrame;
-            buildFrame = new CANFrame();
         }
 
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
@@ -262,7 +260,7 @@ namespace GVRET
         {
             if (serialPort1.IsOpen)
             {
-                runBGThread = false;
+                //runBGThread = false;
                 Thread.Sleep(500);
                 serialPort1.Close();
                 btnConnect.Text = "Connect To Dongle";
@@ -272,9 +270,6 @@ namespace GVRET
                 Debug.Print("Opening serial port");
                 serialPort1.PortName = cbPortNum.Text;
                 serialPort1.Open();
-                runBGThread = true;
-                bufferProc.RunWorkerAsync();
-                trafficGraph.RunWorkerAsync();
                 btnConnect.Text = "Disconnect from Dongle";
                 byte[] tempBuff = {0xE7, 0xE7};
                 serialPort1.Write(tempBuff, 0, 2);
@@ -466,6 +461,16 @@ namespace GVRET
                     }
                 } while (runBGThread);
             });
+
+
+            onGotCANFrame += GotCANFrame;
+            buildFrame = new CANFrame();
+            //Run the background threads right away so that things like
+            //simulators and file loaders can still inject canbus messages without an actual
+            //physical connection
+            runBGThread = true;
+            bufferProc.RunWorkerAsync();
+            trafficGraph.RunWorkerAsync();
 
         }
 
