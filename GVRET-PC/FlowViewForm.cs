@@ -51,10 +51,12 @@ namespace GVRET
             if (forward)
             {
                 if (frameCacheReadPos < (frameCacheWritePos - 1)) frameCacheReadPos++;
+                else if (ckLoop.Checked) frameCacheReadPos = 0;
             }
             else
             {
                 if (frameCacheReadPos > 0) frameCacheReadPos--;
+                else if (ckLoop.Checked) frameCacheReadPos = frameCacheWritePos - 1;
             }
 
             if (ckAutoRef.Checked)
@@ -221,9 +223,11 @@ namespace GVRET
             }
 
             updateDataView();
-
-            if (frameCacheReadPos == 0) playbackActive = false;
-            if (frameCacheReadPos == frameCacheWritePos) playbackActive = false;
+            if (!ckLoop.Checked)
+            {
+                if (frameCacheReadPos == 0) playbackActive = false;
+                if (frameCacheReadPos == frameCacheWritePos) playbackActive = false;
+            }
         }
     }
 }

@@ -276,6 +276,8 @@ namespace GVRET
                 bufferProc.RunWorkerAsync();
                 trafficGraph.RunWorkerAsync();
                 btnConnect.Text = "Disconnect from Dongle";
+                byte[] tempBuff = {0xE7, 0xE7};
+                serialPort1.Write(tempBuff, 0, 2);
             }
         }
 
@@ -530,53 +532,16 @@ namespace GVRET
         public delegate void CANFrameDelegate(CANFrame frame);
         public event CANFrameDelegate onGotCANFrame;
 
+        //Allows another window to cause a frame to appear as if it came into the system via a normal route.
+        //Mostly just used by file loading windows to inject frames from a file
+        //Could also be used by node simulators
+        public void sideloadFrame(CANFrame frame)
+        {
+            onGotCANFrame(frame);
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
-            Stream outStream;
-            System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
-            Byte[] bytes;
-            string[] temp_str;
-            char[] delim = new char[1];
-
-            saveFileDialog1.RestoreDirectory = true;
-
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                if ((outStream = saveFileDialog1.OpenFile()) != null)
-                {
-                    bytes = encoding.GetBytes("Time Stamp,ID,Extended,Bus,LEN,D1,D2,D3,D4,D5,D6,D7,D8");
-                    outStream.Write(bytes, 0, bytes.Length);
-                    outStream.WriteByte(10);
-
-                    for (int c = 0; c < dataGridView1.Rows.Count; c++)
-                    {
-                        //blast out timestamp, id, extended, bus, and length                        
-                        for (int d = 0; d < 5; d++)
-                        {
-                            bytes = encoding.GetBytes(dataGridView1.Rows[c].Cells[d].Value.ToString());
-                            outStream.Write(bytes, 0, bytes.Length);
-                            outStream.WriteByte(44); //a comma
-                        }
-
-                        //the final stuff is hex encoded and all in a long string... can't have it
-                        delim[0] = ' ';
-                        temp_str = dataGridView1.Rows[c].Cells[5].Value.ToString().Split(delim);
-                        for (int d = 0; d < temp_str.Length; d++)
-                        {
-                            if (temp_str[d] != "")
-                            {
-                                bytes = encoding.GetBytes(temp_str[d]);
-                                outStream.Write(bytes, 0, bytes.Length);
-                                outStream.WriteByte(44); //a comma
-                            }
-                        }
-                        outStream.WriteByte(10);
-                    }
-
-                   outStream.Close();
-                }
-            }
-            
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -667,14 +632,16 @@ namespace GVRET
                 continuousOutput.Write(bytes, 0, bytes.Length);
                 continuousOutput.WriteByte(44);
 
-                for (temp = 0; temp < thisFrame.len; temp++)
+                for (temp = 0; temp < 8; temp++)
                 {
                     bytes = encoding.GetBytes(thisFrame.data[temp].ToString("X2"));
                     continuousOutput.Write(bytes, 0, bytes.Length);
                     continuousOutput.WriteByte(44);
                 }
 
+                continuousOutput.WriteByte(13);
                 continuousOutput.WriteByte(10);
+
             }
             catch
             {
@@ -765,6 +732,70 @@ namespace GVRET
         private void fuzzyScopeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FuzzyScopeForm theForm = new FuzzyScopeForm();
+            theForm.setParent(this);
+            theForm.Show();
+        }
+
+        private void saveFramesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Stream outStream;
+            System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
+            Byte[] bytes;
+            string[] temp_str;
+            char[] delim = new char[1];
+
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if ((outStream = saveFileDialog1.OpenFile()) != null)
+                {
+                    bytes = encoding.GetBytes("Time Stamp,ID,Extended,Bus,LEN,D1,D2,D3,D4,D5,D6,D7,D8");
+                    outStream.Write(bytes, 0, bytes.Length);
+                    outStream.WriteByte(10);
+
+                    for (int c = 0; c < dataGridView1.Rows.Count; c++)
+                    {
+                        //blast out timestamp, id, extended, bus, and length                        
+                        for (int d = 0; d < 5; d++)
+                        {
+                            bytes = encoding.GetBytes(dataGridView1.Rows[c].Cells[d].Value.ToString());
+                            outStream.Write(bytes, 0, bytes.Length);
+                            outStream.WriteByte(44); //a comma
+                        }
+
+                        //the final stuff is hex encoded and all in a long string... can't have it
+                        delim[0] = ' ';
+                        temp_str = dataGridView1.Rows[c].Cells[5].Value.ToString().Split(delim);
+                        for (int d = 0; d < temp_str.Length; d++)
+                        {
+                            if (temp_str[d] != "")
+                            {
+                                bytes = encoding.GetBytes(temp_str[d]);
+                                outStream.Write(bytes, 0, bytes.Length);
+                                outStream.WriteByte(44); //a comma
+                            }
+                        }
+
+
+                        for (int d = temp_str.Length - 1; d < 8; d++) 
+                        {
+                            outStream.WriteByte(48);
+                            outStream.WriteByte(44);
+                        }
+
+                        outStream.WriteByte(13);
+                        outStream.WriteByte(10);
+                    }
+
+                    outStream.Close();
+                }
+            }
+        }
+
+        private void loadFramesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FileLoadingForm theForm = new FileLoadingForm();
             theForm.setParent(this);
             theForm.Show();
         }

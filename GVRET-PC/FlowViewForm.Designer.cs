@@ -32,14 +32,6 @@
             this.listFrameIDs = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtVal0 = new System.Windows.Forms.TextBox();
-            this.txtVal1 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtVal2 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtVal3 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.txtVal7 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtVal6 = new System.Windows.Forms.TextBox();
@@ -48,6 +40,14 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtVal4 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.txtVal3 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtVal2 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtVal1 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtVal0 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtRef7 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -68,18 +68,19 @@
             this.ckAutoRef = new System.Windows.Forms.CheckBox();
             this.ckCapture = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblFrames = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.numPlaybackSpeed = new System.Windows.Forms.NumericUpDown();
-            this.label19 = new System.Windows.Forms.Label();
-            this.lblFrames = new System.Windows.Forms.Label();
             this.canDataGrid1 = new GVRET.CANDataGrid();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnReverse = new System.Windows.Forms.Button();
             this.btnForwardOne = new System.Windows.Forms.Button();
             this.btnPlay = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnPause = new System.Windows.Forms.Button();
             this.btnBackOne = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.ckLoop = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -128,70 +129,6 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Current Values:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 23);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(13, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "0";
-            // 
-            // txtVal0
-            // 
-            this.txtVal0.Location = new System.Drawing.Point(7, 37);
-            this.txtVal0.Name = "txtVal0";
-            this.txtVal0.Size = new System.Drawing.Size(29, 20);
-            this.txtVal0.TabIndex = 1;
-            // 
-            // txtVal1
-            // 
-            this.txtVal1.Location = new System.Drawing.Point(44, 37);
-            this.txtVal1.Name = "txtVal1";
-            this.txtVal1.Size = new System.Drawing.Size(29, 20);
-            this.txtVal1.TabIndex = 3;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(44, 23);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(13, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "1";
-            // 
-            // txtVal2
-            // 
-            this.txtVal2.Location = new System.Drawing.Point(80, 37);
-            this.txtVal2.Name = "txtVal2";
-            this.txtVal2.Size = new System.Drawing.Size(29, 20);
-            this.txtVal2.TabIndex = 5;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(80, 23);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(13, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "2";
-            // 
-            // txtVal3
-            // 
-            this.txtVal3.Location = new System.Drawing.Point(115, 37);
-            this.txtVal3.Name = "txtVal3";
-            this.txtVal3.Size = new System.Drawing.Size(29, 20);
-            this.txtVal3.TabIndex = 7;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(115, 23);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(13, 13);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "3";
             // 
             // txtVal7
             // 
@@ -256,6 +193,70 @@
             this.label9.Size = new System.Drawing.Size(13, 13);
             this.label9.TabIndex = 8;
             this.label9.Text = "4";
+            // 
+            // txtVal3
+            // 
+            this.txtVal3.Location = new System.Drawing.Point(115, 37);
+            this.txtVal3.Name = "txtVal3";
+            this.txtVal3.Size = new System.Drawing.Size(29, 20);
+            this.txtVal3.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(115, 23);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(13, 13);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "3";
+            // 
+            // txtVal2
+            // 
+            this.txtVal2.Location = new System.Drawing.Point(80, 37);
+            this.txtVal2.Name = "txtVal2";
+            this.txtVal2.Size = new System.Drawing.Size(29, 20);
+            this.txtVal2.TabIndex = 5;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(80, 23);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(13, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "2";
+            // 
+            // txtVal1
+            // 
+            this.txtVal1.Location = new System.Drawing.Point(44, 37);
+            this.txtVal1.Name = "txtVal1";
+            this.txtVal1.Size = new System.Drawing.Size(29, 20);
+            this.txtVal1.TabIndex = 3;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(44, 23);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(13, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "1";
+            // 
+            // txtVal0
+            // 
+            this.txtVal0.Location = new System.Drawing.Point(7, 37);
+            this.txtVal0.Name = "txtVal0";
+            this.txtVal0.Size = new System.Drawing.Size(29, 20);
+            this.txtVal0.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 23);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(13, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "0";
             // 
             // groupBox2
             // 
@@ -424,7 +425,7 @@
             // 
             this.ckCapture.AutoSize = true;
             this.ckCapture.Enabled = false;
-            this.ckCapture.Location = new System.Drawing.Point(164, 185);
+            this.ckCapture.Location = new System.Drawing.Point(162, 206);
             this.ckCapture.Name = "ckCapture";
             this.ckCapture.Size = new System.Drawing.Size(96, 17);
             this.ckCapture.TabIndex = 18;
@@ -433,6 +434,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.ckLoop);
             this.groupBox3.Controls.Add(this.btnReverse);
             this.groupBox3.Controls.Add(this.lblFrames);
             this.groupBox3.Controls.Add(this.label19);
@@ -445,10 +447,28 @@
             this.groupBox3.Controls.Add(this.numPlaybackSpeed);
             this.groupBox3.Location = new System.Drawing.Point(131, 13);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(159, 160);
+            this.groupBox3.Size = new System.Drawing.Size(159, 187);
             this.groupBox3.TabIndex = 20;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Playback Control";
+            // 
+            // lblFrames
+            // 
+            this.lblFrames.Location = new System.Drawing.Point(9, 157);
+            this.lblFrames.Name = "lblFrames";
+            this.lblFrames.Size = new System.Drawing.Size(139, 13);
+            this.lblFrames.TabIndex = 28;
+            this.lblFrames.Text = "x of y";
+            this.lblFrames.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label19
+            // 
+            this.label19.Location = new System.Drawing.Point(12, 136);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(133, 13);
+            this.label19.TabIndex = 27;
+            this.label19.Text = "Current Frame:";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label18
             // 
@@ -487,24 +507,6 @@
             0});
             this.numPlaybackSpeed.ValueChanged += new System.EventHandler(this.numPlaybackSpeed_ValueChanged);
             // 
-            // label19
-            // 
-            this.label19.Location = new System.Drawing.Point(12, 109);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(133, 13);
-            this.label19.TabIndex = 27;
-            this.label19.Text = "Current Frame:";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // lblFrames
-            // 
-            this.lblFrames.Location = new System.Drawing.Point(9, 130);
-            this.lblFrames.Name = "lblFrames";
-            this.lblFrames.Size = new System.Drawing.Size(139, 13);
-            this.lblFrames.TabIndex = 28;
-            this.lblFrames.Text = "x of y";
-            this.lblFrames.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // canDataGrid1
             // 
             this.canDataGrid1.Location = new System.Drawing.Point(467, -1);
@@ -512,6 +514,10 @@
             this.canDataGrid1.Size = new System.Drawing.Size(270, 255);
             this.canDataGrid1.TabIndex = 0;
             this.canDataGrid1.Load += new System.EventHandler(this.canDataGrid1_Load);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // btnReverse
             // 
@@ -573,9 +579,15 @@
             this.btnBackOne.UseVisualStyleBackColor = true;
             this.btnBackOne.Click += new System.EventHandler(this.btnBackOne_Click);
             // 
-            // timer1
+            // ckLoop
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.ckLoop.Location = new System.Drawing.Point(28, 101);
+            this.ckLoop.Name = "ckLoop";
+            this.ckLoop.Size = new System.Drawing.Size(107, 24);
+            this.ckLoop.TabIndex = 31;
+            this.ckLoop.Text = "Loop Playback";
+            this.ckLoop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ckLoop.UseVisualStyleBackColor = true;
             // 
             // FlowViewForm
             // 
@@ -659,5 +671,6 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button btnReverse;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.CheckBox ckLoop;
     }
 }

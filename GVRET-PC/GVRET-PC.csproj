@@ -3,14 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3FF0A70B-9B01-4F70-8681-7725FCBE7A11}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GVRET</RootNamespace>
     <AssemblyName>GVRET-PC</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -51,6 +49,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsvHelper">
+      <HintPath>..\packages\CsvHelper.2.7.0\lib\net40-client\CsvHelper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -69,20 +70,24 @@
     <Compile Include="CANDataGrid.Designer.cs">
       <DependentUpon>CANDataGrid.cs</DependentUpon>
     </Compile>
+    <Compile Include="CSVFrame.cs" />
     <Compile Include="DiscreteStateForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DiscreteStateForm.Designer.cs">
       <DependentUpon>DiscreteStateForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileLoadingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileLoadingForm.Designer.cs">
+      <DependentUpon>FileLoadingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FlowViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FlowViewForm.Designer.cs">
       <DependentUpon>FlowViewForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FuzzyScopeForm.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="FuzzyScopeForm.Designer.cs">
       <DependentUpon>FuzzyScopeForm.cs</DependentUpon>
@@ -94,6 +99,9 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="FuzzyScopeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RangeStateForm.cs">
       <SubType>Form</SubType>
@@ -106,6 +114,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DiscreteStateForm.resx">
       <DependentUpon>DiscreteStateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileLoadingForm.resx">
+      <DependentUpon>FileLoadingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FlowViewForm.resx">
       <DependentUpon>FlowViewForm.cs</DependentUpon>
@@ -127,6 +138,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

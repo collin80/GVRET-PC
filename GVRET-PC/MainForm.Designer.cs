@@ -36,7 +36,6 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnSaveLog = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Timestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -64,6 +63,8 @@
             this.multiToggleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fuzzyScopeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFramesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadFramesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbActivity = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -136,16 +137,6 @@
             this.label3.Size = new System.Drawing.Size(37, 13);
             this.label3.TabIndex = 10;
             this.label3.Text = "TEMP";
-            // 
-            // btnSaveLog
-            // 
-            this.btnSaveLog.Location = new System.Drawing.Point(707, 353);
-            this.btnSaveLog.Name = "btnSaveLog";
-            this.btnSaveLog.Size = new System.Drawing.Size(269, 23);
-            this.btnSaveLog.TabIndex = 15;
-            this.btnSaveLog.Text = "Save Displayed Data to File";
-            this.btnSaveLog.UseVisualStyleBackColor = true;
-            this.btnSaveLog.Click += new System.EventHandler(this.button2_Click);
             // 
             // saveFileDialog1
             // 
@@ -335,7 +326,9 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
-            this.rEToolsToolStripMenuItem});
+            this.rEToolsToolStripMenuItem,
+            this.saveFramesToolStripMenuItem,
+            this.loadFramesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(987, 24);
@@ -386,6 +379,20 @@
             this.fuzzyScopeToolStripMenuItem.Text = "F&uzzy Scope";
             this.fuzzyScopeToolStripMenuItem.Click += new System.EventHandler(this.fuzzyScopeToolStripMenuItem_Click);
             // 
+            // saveFramesToolStripMenuItem
+            // 
+            this.saveFramesToolStripMenuItem.Name = "saveFramesToolStripMenuItem";
+            this.saveFramesToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
+            this.saveFramesToolStripMenuItem.Text = "&Save Frames";
+            this.saveFramesToolStripMenuItem.Click += new System.EventHandler(this.saveFramesToolStripMenuItem_Click);
+            // 
+            // loadFramesToolStripMenuItem
+            // 
+            this.loadFramesToolStripMenuItem.Name = "loadFramesToolStripMenuItem";
+            this.loadFramesToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
+            this.loadFramesToolStripMenuItem.Text = "&Load Frames";
+            this.loadFramesToolStripMenuItem.Click += new System.EventHandler(this.loadFramesToolStripMenuItem_Click);
+            // 
             // pbActivity
             // 
             this.pbActivity.BackColor = System.Drawing.Color.White;
@@ -412,7 +419,6 @@
             this.Controls.Add(this.pbActivity);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.btnSaveLog);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.checkBox1);
@@ -445,7 +451,6 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnSaveLog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label11;
@@ -475,6 +480,8 @@
         private System.Windows.Forms.ToolStripMenuItem multiToggleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem flowViewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fuzzyScopeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveFramesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadFramesToolStripMenuItem;
     }
 }
 
