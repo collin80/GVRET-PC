@@ -95,6 +95,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MicroLibrary.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="FuzzyScopeForm.cs">
       <SubType>Form</SubType>

@@ -15,6 +15,7 @@
         {
             if (disposing && (components != null))
             {
+                blackPen.Dispose();
                 components.Dispose();
             }
             base.Dispose(disposing);

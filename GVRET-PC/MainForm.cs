@@ -29,7 +29,7 @@ namespace GVRET
         byte[] inputBuffer = new byte[2048];
         byte[] keyBytes = new byte[16]; //storage for our enc/dec key
 
-        List<CANFrame> frameCache = new List<CANFrame>(10000); //initially we allocate 10,000 entries in the list
+        List<CANFrame> frameCache = new List<CANFrame>(100000); //initially we allocate 100,000 entries in the list
 
         STATE rx_state = STATE.IDLE;
         int rx_step = 0;
@@ -234,26 +234,34 @@ namespace GVRET
         }
 
 
+        public delegate void showFrameDelegate(CANFrame frame);
         //Displays the given frame in the data view grid.
         private void showFrame(CANFrame frame)
         {
-            StringBuilder data = new StringBuilder();
-            int temp;
-
-            int n = dataGridView1.Rows.Add();
-            //time, id, ext, bus, len, data
-            dataGridView1.Rows[n].Cells[0].Value = frame.timestamp.ToString("dd MMM yy HH:mm:ss.fff");
-            dataGridView1.Rows[n].Cells[1].Value = frame.ID.ToString("X8");
-            dataGridView1.Rows[n].Cells[2].Value = frame.extended.ToString();
-            dataGridView1.Rows[n].Cells[3].Value = frame.bus.ToString();
-            dataGridView1.Rows[n].Cells[4].Value = frame.len.ToString();
-            data.Clear();
-            for (int c = 0; c < frame.len; c++)
+            if (this.InvokeRequired)
             {
-                data.Append(frame.data[c].ToString("X2"));
-                data.Append(" ");
+                this.Invoke(new showFrameDelegate(showFrame), frame);
             }
-            dataGridView1.Rows[n].Cells[5].Value = data.ToString(); //Payload
+            else
+            {
+                StringBuilder data = new StringBuilder();
+                int temp;
+
+                int n = dataGridView1.Rows.Add();
+                //time, id, ext, bus, len, data
+                dataGridView1.Rows[n].Cells[0].Value = frame.timestamp.ToString("dd MMM yy HH:mm:ss.fff");
+                dataGridView1.Rows[n].Cells[1].Value = frame.ID.ToString("X8");
+                dataGridView1.Rows[n].Cells[2].Value = frame.extended.ToString();
+                dataGridView1.Rows[n].Cells[3].Value = frame.bus.ToString();
+                dataGridView1.Rows[n].Cells[4].Value = frame.len.ToString();
+                data.Clear();
+                for (int c = 0; c < frame.len; c++)
+                {
+                    data.Append(frame.data[c].ToString("X2"));
+                    data.Append(" ");
+                }
+                dataGridView1.Rows[n].Cells[5].Value = data.ToString(); //Payload
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -279,13 +287,13 @@ namespace GVRET
         private void RefreshFrameDisplay() 
         {
             dataGridView1.Rows.Clear();
-            foreach (CANFrame frame in frameCache)
+            for (int d = 0; d < frameCache.Count; d++)
             {
-                showFrame(frame);
+               showFrame(frameCache[d]);
             }
 
             //now, if we've selected to auto scroll then go to the bottom of the list
-            if (checkBox1.Checked) dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.RowCount - 1;
+            if (checkBox1.Checked && dataGridView1.RowCount > 0) dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.RowCount - 1;
 
             //Resort the thing if we've specified a desired sort order
             if (dataGridView1.SortOrder == SortOrder.Ascending)

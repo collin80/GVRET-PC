@@ -43,7 +43,7 @@
             this.btnPause = new System.Windows.Forms.Button();
             this.btnBackOne = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numPlaybackSpeed)).BeginInit();
             this.SuspendLayout();
@@ -91,25 +91,25 @@
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(25, 59);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(110, 13);
+            this.label18.Size = new System.Drawing.Size(108, 13);
             this.label18.TabIndex = 20;
-            this.label18.Text = "Playback Speed (ms):";
+            this.label18.Text = "Playback Speed (us):";
             // 
             // numPlaybackSpeed
             // 
             this.numPlaybackSpeed.Increment = new decimal(new int[] {
-            10,
+            500,
             0,
             0,
             0});
             this.numPlaybackSpeed.Location = new System.Drawing.Point(28, 75);
             this.numPlaybackSpeed.Maximum = new decimal(new int[] {
-            3000,
+            100000,
             0,
             0,
             0});
             this.numPlaybackSpeed.Minimum = new decimal(new int[] {
-            20,
+            500,
             0,
             0,
             0});
@@ -117,7 +117,7 @@
             this.numPlaybackSpeed.Size = new System.Drawing.Size(101, 20);
             this.numPlaybackSpeed.TabIndex = 21;
             this.numPlaybackSpeed.Value = new decimal(new int[] {
-            20,
+            20000,
             0,
             0,
             0});
@@ -205,12 +205,15 @@
             // 
             // openFileDialog1
             // 
+            this.openFileDialog1.DefaultExt = "csv";
             this.openFileDialog1.FileName = "FileToLoad.csv";
+            this.openFileDialog1.Filter = "CSV Files|*.csv";
             // 
-            // timer1
+            // timer2
             // 
-            this.timer1.Interval = 20;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timer2.Enabled = true;
+            this.timer2.Interval = 250;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // FileLoadingForm
             // 
@@ -247,6 +250,6 @@
         private System.Windows.Forms.CheckBox ckLoop;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timer2;
     }
 }

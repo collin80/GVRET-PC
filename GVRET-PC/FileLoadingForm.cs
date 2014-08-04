@@ -20,10 +20,15 @@ namespace GVRET
         private bool playbackActive = false, playbackForward = true;
         private int playbackPos = 0;
         private int numFrames;
+        MicroLibrary.MicroTimer fastTimer;
 
         public FileLoadingForm()
         {
             InitializeComponent();
+            fastTimer = new MicroLibrary.MicroTimer();
+            fastTimer.MicroTimerElapsed +=
+               new MicroLibrary.MicroTimer.MicroTimerElapsedEventHandler(OnTimedEvent);
+            fastTimer.Interval = 20000; //in microseconds
         }
 
         private void FileLoadingForm_Load(object sender, EventArgs e)
@@ -57,7 +62,7 @@ namespace GVRET
             }
             //Debug.Print(playbackPos.ToString());
             parent.sideloadFrame(loadedFrames[playbackPos]);
-            updateFrameCounter();
+            //updateFrameCounter();
         }
 
 
@@ -77,7 +82,10 @@ namespace GVRET
                     {
                         string[] theseTokens = thisLine.Split(',');
                         thisFrame = new CANFrame();
-                        thisFrame.timestamp = DateTime.Parse(theseTokens[0]);
+                        if (theseTokens[0].Length > 10)
+                            thisFrame.timestamp = DateTime.Parse(theseTokens[0]);
+                        else
+                            thisFrame.timestamp = DateTime.Now;
                         thisFrame.ID = int.Parse(theseTokens[1], System.Globalization.NumberStyles.HexNumber);
                         thisFrame.extended = bool.Parse(theseTokens[2]);
                         thisFrame.bus = int.Parse(theseTokens[3]);
@@ -87,18 +95,18 @@ namespace GVRET
                     }
                 }
                 numFrames = loadedFrames.Count;
-                updateFrameCounter();
+                //updateFrameCounter();
             }
         }
 
         private void numPlaybackSpeed_ValueChanged(object sender, EventArgs e)
         {
-            timer1.Interval = (int)numPlaybackSpeed.Value;
+            fastTimer.Interval = (int)numPlaybackSpeed.Value;
         }
 
         private void btnBackOne_Click(object sender, EventArgs e)
         {
-            timer1.Stop(); //pushing this button halts automatic playback
+            fastTimer.Stop(); //pushing this button halts automatic playback
             playbackActive = false;
 
             updatePosition(false);
@@ -107,7 +115,7 @@ namespace GVRET
 
         private void btnForwardOne_Click(object sender, EventArgs e)
         {
-            timer1.Stop(); //pushing this button halts automatic playback
+            fastTimer.Stop(); //pushing this button halts automatic playback
             playbackActive = false;
 
             updatePosition(true);
@@ -116,7 +124,7 @@ namespace GVRET
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            timer1.Stop(); //pushing this button halts automatic playback
+            fastTimer.Stop(); //pushing this button halts automatic playback
             playbackActive = false;
             playbackPos = 0;
             updateFrameCounter();
@@ -124,7 +132,7 @@ namespace GVRET
 
         private void btnPause_Click(object sender, EventArgs e)
         {
-            timer1.Stop(); //pushing this button pauses automatic playback
+            fastTimer.Stop(); //pushing this button pauses automatic playback
             playbackActive = false;
         }
 
@@ -132,22 +140,23 @@ namespace GVRET
         {
             playbackActive = true;
             playbackForward = false;
-            timer1.Start();
+            fastTimer.Start();
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
             playbackActive = true;
             playbackForward = true;
-            timer1.Start();
+            fastTimer.Start();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void OnTimedEvent(object sender,
+                                  MicroLibrary.MicroTimerEventArgs timerEventArgs)
         {
             //Debug.Print("tick");
             if (!playbackActive)
             {
-                timer1.Stop();
+                fastTimer.Stop();
                 return;
             }
             if (playbackForward)
@@ -166,6 +175,11 @@ namespace GVRET
                 if (playbackPos == 0) playbackActive = false;
                 if (playbackPos == (numFrames - 1)) playbackActive = false;
             }
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            updateFrameCounter();
         }
     }
 }
