@@ -30,18 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.lblFrames = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.numPlaybackSpeed = new System.Windows.Forms.NumericUpDown();
-            this.button1 = new System.Windows.Forms.Button();
             this.ckLoop = new System.Windows.Forms.CheckBox();
             this.btnReverse = new System.Windows.Forms.Button();
+            this.lblFrames = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.btnForwardOne = new System.Windows.Forms.Button();
             this.btnPlay = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnPause = new System.Windows.Forms.Button();
             this.btnBackOne = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
+            this.numPlaybackSpeed = new System.Windows.Forms.NumericUpDown();
+            this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.groupBox3.SuspendLayout();
@@ -68,71 +68,6 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Playback Control";
             // 
-            // lblFrames
-            // 
-            this.lblFrames.Location = new System.Drawing.Point(7, 161);
-            this.lblFrames.Name = "lblFrames";
-            this.lblFrames.Size = new System.Drawing.Size(147, 23);
-            this.lblFrames.TabIndex = 28;
-            this.lblFrames.Text = "x of y";
-            this.lblFrames.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label19
-            // 
-            this.label19.Location = new System.Drawing.Point(0, 140);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(151, 21);
-            this.label19.TabIndex = 27;
-            this.label19.Text = "Current Frame:";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(25, 59);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(108, 13);
-            this.label18.TabIndex = 20;
-            this.label18.Text = "Playback Speed (us):";
-            // 
-            // numPlaybackSpeed
-            // 
-            this.numPlaybackSpeed.Increment = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.numPlaybackSpeed.Location = new System.Drawing.Point(28, 75);
-            this.numPlaybackSpeed.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numPlaybackSpeed.Minimum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.numPlaybackSpeed.Name = "numPlaybackSpeed";
-            this.numPlaybackSpeed.Size = new System.Drawing.Size(101, 20);
-            this.numPlaybackSpeed.TabIndex = 21;
-            this.numPlaybackSpeed.Value = new decimal(new int[] {
-            20000,
-            0,
-            0,
-            0});
-            this.numPlaybackSpeed.ValueChanged += new System.EventHandler(this.numPlaybackSpeed_ValueChanged);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(14, 205);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(159, 23);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "Load From File";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // ckLoop
             // 
             this.ckLoop.Location = new System.Drawing.Point(28, 101);
@@ -152,6 +87,24 @@
             this.btnReverse.TabIndex = 29;
             this.btnReverse.UseVisualStyleBackColor = true;
             this.btnReverse.Click += new System.EventHandler(this.btnReverse_Click);
+            // 
+            // lblFrames
+            // 
+            this.lblFrames.Location = new System.Drawing.Point(7, 161);
+            this.lblFrames.Name = "lblFrames";
+            this.lblFrames.Size = new System.Drawing.Size(147, 23);
+            this.lblFrames.TabIndex = 28;
+            this.lblFrames.Text = "x of y";
+            this.lblFrames.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label19
+            // 
+            this.label19.Location = new System.Drawing.Point(0, 140);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(151, 21);
+            this.label19.TabIndex = 27;
+            this.label19.Text = "Current Frame:";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // btnForwardOne
             // 
@@ -203,11 +156,57 @@
             this.btnBackOne.UseVisualStyleBackColor = true;
             this.btnBackOne.Click += new System.EventHandler(this.btnBackOne_Click);
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(25, 59);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(108, 13);
+            this.label18.TabIndex = 20;
+            this.label18.Text = "Playback Speed (us):";
+            // 
+            // numPlaybackSpeed
+            // 
+            this.numPlaybackSpeed.Increment = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numPlaybackSpeed.Location = new System.Drawing.Point(28, 75);
+            this.numPlaybackSpeed.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numPlaybackSpeed.Minimum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numPlaybackSpeed.Name = "numPlaybackSpeed";
+            this.numPlaybackSpeed.Size = new System.Drawing.Size(101, 20);
+            this.numPlaybackSpeed.TabIndex = 21;
+            this.numPlaybackSpeed.Value = new decimal(new int[] {
+            20000,
+            0,
+            0,
+            0});
+            this.numPlaybackSpeed.ValueChanged += new System.EventHandler(this.numPlaybackSpeed_ValueChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(14, 205);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(159, 23);
+            this.button1.TabIndex = 22;
+            this.button1.Text = "Load From File";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "csv";
-            this.openFileDialog1.FileName = "FileToLoad.csv";
-            this.openFileDialog1.Filter = "CSV Files|*.csv";
+            this.openFileDialog1.Filter = "GVRET Logs|*.csv|BusMaster Logs|*.log";
             // 
             // timer2
             // 

@@ -65,35 +65,87 @@ namespace GVRET
             //updateFrameCounter();
         }
 
+        private void loadCSVFile(string filename)
+        {
+            CANFrame thisFrame;
+            StreamReader csvStream = new StreamReader(filename);
+            csvStream.ReadLine(); //ignore header line
+            loadedFrames = new List<CANFrame>();
+            while (!csvStream.EndOfStream)
+            {
+                string thisLine = csvStream.ReadLine();
+                if (thisLine.Length > 1)
+                {
+                    string[] theseTokens = thisLine.Split(',');
+                    thisFrame = new CANFrame();
+                    if (theseTokens[0].Length > 10)
+                        thisFrame.timestamp = DateTime.Parse(theseTokens[0]);
+                    else
+                        thisFrame.timestamp = DateTime.Now;
+                    thisFrame.ID = int.Parse(theseTokens[1], System.Globalization.NumberStyles.HexNumber);
+                    thisFrame.extended = bool.Parse(theseTokens[2]);
+                    thisFrame.bus = int.Parse(theseTokens[3]);
+                    thisFrame.len = int.Parse(theseTokens[4]);
+                    for (int d = 0; d < 8; d++) thisFrame.data[d] = byte.Parse(theseTokens[5 + d], System.Globalization.NumberStyles.HexNumber);
+                    loadedFrames.Add(thisFrame);
+                }
+            }
+            csvStream.Close();
+        }
+
+        private void loadLogFile(string filename)
+        {
+            CANFrame thisFrame;
+            StreamReader logStream = new StreamReader(filename);
+            string thisLine;
+
+            loadedFrames = new List<CANFrame>();
+            
+            while (!logStream.EndOfStream)
+            {
+                thisLine = logStream.ReadLine();
+
+                if (thisLine.StartsWith("***")) continue;
+
+                /*
+                tokens:
+                0 = timestamp
+                1 = Transmission direction
+                2 = Channel
+                3 = ID
+                4 = Type (s = standard, I believe x = extended)
+                5 = Data byte length
+                6-x = The data bytes
+                */
+                if (thisLine.Length > 1)
+                {
+                    string[] theseTokens = thisLine.Split(' ');
+                    thisFrame = new CANFrame();
+                    thisFrame.timestamp = DateTime.Now;
+                    thisFrame.ID = int.Parse(theseTokens[3].Substring(2), System.Globalization.NumberStyles.HexNumber);
+                    if (theseTokens[4] == "s") thisFrame.extended = false;
+                    else thisFrame.extended = true;                    
+                    thisFrame.bus = int.Parse(theseTokens[2]) - 1;
+                    thisFrame.len = int.Parse(theseTokens[5]);
+                    for (int c = 0; c < 8; c++) thisFrame.data[c] = 0;
+                    for (int d = 0; d < thisFrame.len; d++) thisFrame.data[d] = byte.Parse(theseTokens[6 + d], System.Globalization.NumberStyles.HexNumber);
+                    loadedFrames.Add(thisFrame);
+                }
+            }
+            logStream.Close();
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CANFrame thisFrame;
-
+            string filename;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                StreamReader csvStream = new StreamReader(openFileDialog1.FileName);
-                csvStream.ReadLine(); //ignore header line
-                loadedFrames = new List<CANFrame>();
-                while (!csvStream.EndOfStream)
-                {
-                    string thisLine = csvStream.ReadLine();
-                    if (thisLine.Length > 1)
-                    {
-                        string[] theseTokens = thisLine.Split(',');
-                        thisFrame = new CANFrame();
-                        if (theseTokens[0].Length > 10)
-                            thisFrame.timestamp = DateTime.Parse(theseTokens[0]);
-                        else
-                            thisFrame.timestamp = DateTime.Now;
-                        thisFrame.ID = int.Parse(theseTokens[1], System.Globalization.NumberStyles.HexNumber);
-                        thisFrame.extended = bool.Parse(theseTokens[2]);
-                        thisFrame.bus = int.Parse(theseTokens[3]);
-                        thisFrame.len = int.Parse(theseTokens[4]);
-                        for (int d = 0; d < 8; d++) thisFrame.data[d] = byte.Parse(theseTokens[5 + d], System.Globalization.NumberStyles.HexNumber);
-                        loadedFrames.Add(thisFrame);
-                    }
-                }
+                filename = openFileDialog1.FileName;
+                string fnSmall = filename.ToLower();
+                
+                if (fnSmall.EndsWith("csv")) loadCSVFile(filename);
+                if (fnSmall.EndsWith("log")) loadLogFile(filename);
+
                 numFrames = loadedFrames.Count;
                 //updateFrameCounter();
             }
