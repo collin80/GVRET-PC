@@ -38,12 +38,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Timestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.frameID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.frameExt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.frameBus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Length = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -66,6 +60,12 @@
             this.saveFramesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadFramesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbActivity = new System.Windows.Forms.PictureBox();
+            this.Timestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frameID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frameExt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frameBus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Length = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbActivity)).BeginInit();
@@ -161,44 +161,6 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
-            // 
-            // Timestamp
-            // 
-            this.Timestamp.FillWeight = 130F;
-            this.Timestamp.HeaderText = "Timestamp";
-            this.Timestamp.Name = "Timestamp";
-            this.Timestamp.Width = 130;
-            // 
-            // frameID
-            // 
-            this.frameID.FillWeight = 75F;
-            this.frameID.HeaderText = "ID";
-            this.frameID.Name = "frameID";
-            this.frameID.Width = 75;
-            // 
-            // frameExt
-            // 
-            this.frameExt.HeaderText = "Ext";
-            this.frameExt.Name = "frameExt";
-            this.frameExt.Width = 50;
-            // 
-            // frameBus
-            // 
-            this.frameBus.HeaderText = "Bus";
-            this.frameBus.Name = "frameBus";
-            this.frameBus.Width = 50;
-            // 
-            // Length
-            // 
-            this.Length.HeaderText = "Len";
-            this.Length.Name = "Length";
-            this.Length.Width = 50;
-            // 
-            // data
-            // 
-            this.data.HeaderText = "Data";
-            this.data.Name = "data";
-            this.data.Width = 280;
             // 
             // label11
             // 
@@ -403,6 +365,44 @@
             this.pbActivity.TabIndex = 34;
             this.pbActivity.TabStop = false;
             // 
+            // Timestamp
+            // 
+            this.Timestamp.FillWeight = 150F;
+            this.Timestamp.HeaderText = "Timestamp";
+            this.Timestamp.Name = "Timestamp";
+            this.Timestamp.Width = 150;
+            // 
+            // frameID
+            // 
+            this.frameID.FillWeight = 70F;
+            this.frameID.HeaderText = "ID";
+            this.frameID.Name = "frameID";
+            this.frameID.Width = 70;
+            // 
+            // frameExt
+            // 
+            this.frameExt.HeaderText = "Ext";
+            this.frameExt.Name = "frameExt";
+            this.frameExt.Width = 40;
+            // 
+            // frameBus
+            // 
+            this.frameBus.HeaderText = "Bus";
+            this.frameBus.Name = "frameBus";
+            this.frameBus.Width = 40;
+            // 
+            // Length
+            // 
+            this.Length.HeaderText = "Len";
+            this.Length.Name = "Length";
+            this.Length.Width = 50;
+            // 
+            // data
+            // 
+            this.data.HeaderText = "Data";
+            this.data.Name = "data";
+            this.data.Width = 165;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -460,12 +460,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbPortNum;
         private System.Windows.Forms.Button btnContLog;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Timestamp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn frameID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn frameExt;
-        private System.Windows.Forms.DataGridViewTextBoxColumn frameBus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Length;
-        private System.Windows.Forms.DataGridViewTextBoxColumn data;
         private System.Windows.Forms.ComboBox cbCAN1Speed;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbCAN2Speed;
@@ -482,6 +476,12 @@
         private System.Windows.Forms.ToolStripMenuItem fuzzyScopeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveFramesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadFramesToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Timestamp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn frameID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn frameExt;
+        private System.Windows.Forms.DataGridViewTextBoxColumn frameBus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Length;
+        private System.Windows.Forms.DataGridViewTextBoxColumn data;
     }
 }
 

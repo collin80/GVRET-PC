@@ -44,6 +44,9 @@
             this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.ckUseHex = new System.Windows.Forms.CheckBox();
+            this.cbCANSend = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numPlaybackSpeed)).BeginInit();
             this.SuspendLayout();
@@ -63,7 +66,7 @@
             this.groupBox3.Controls.Add(this.numPlaybackSpeed);
             this.groupBox3.Location = new System.Drawing.Point(12, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(159, 187);
+            this.groupBox3.Size = new System.Drawing.Size(159, 165);
             this.groupBox3.TabIndex = 21;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Playback Control";
@@ -90,7 +93,7 @@
             // 
             // lblFrames
             // 
-            this.lblFrames.Location = new System.Drawing.Point(7, 161);
+            this.lblFrames.Location = new System.Drawing.Point(6, 140);
             this.lblFrames.Name = "lblFrames";
             this.lblFrames.Size = new System.Drawing.Size(147, 23);
             this.lblFrames.TabIndex = 28;
@@ -99,7 +102,7 @@
             // 
             // label19
             // 
-            this.label19.Location = new System.Drawing.Point(0, 140);
+            this.label19.Location = new System.Drawing.Point(2, 128);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(151, 21);
             this.label19.TabIndex = 27;
@@ -195,9 +198,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(14, 205);
+            this.button1.Location = new System.Drawing.Point(8, 229);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(159, 23);
+            this.button1.Size = new System.Drawing.Size(168, 23);
             this.button1.TabIndex = 22;
             this.button1.Text = "Load From File";
             this.button1.UseVisualStyleBackColor = true;
@@ -214,11 +217,46 @@
             this.timer2.Interval = 250;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // ckUseHex
+            // 
+            this.ckUseHex.AutoSize = true;
+            this.ckUseHex.Location = new System.Drawing.Point(8, 206);
+            this.ckUseHex.Name = "ckUseHex";
+            this.ckUseHex.Size = new System.Drawing.Size(134, 17);
+            this.ckUseHex.TabIndex = 23;
+            this.ckUseHex.Text = "File uses hex encoding";
+            this.ckUseHex.UseVisualStyleBackColor = true;
+            // 
+            // cbCANSend
+            // 
+            this.cbCANSend.FormattingEnabled = true;
+            this.cbCANSend.Items.AddRange(new object[] {
+            "NONE",
+            "0",
+            "1",
+            "FROM FILE"});
+            this.cbCANSend.Location = new System.Drawing.Point(103, 179);
+            this.cbCANSend.Name = "cbCANSend";
+            this.cbCANSend.Size = new System.Drawing.Size(68, 21);
+            this.cbCANSend.TabIndex = 24;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 182);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 13);
+            this.label1.TabIndex = 25;
+            this.label1.Text = "Send To CANBus";
+            // 
             // FileLoadingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(185, 250);
+            this.ClientSize = new System.Drawing.Size(185, 260);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cbCANSend);
+            this.Controls.Add(this.ckUseHex);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox3);
             this.MaximizeBox = false;
@@ -230,6 +268,7 @@
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numPlaybackSpeed)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -250,5 +289,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.CheckBox ckUseHex;
+        private System.Windows.Forms.ComboBox cbCANSend;
+        private System.Windows.Forms.Label label1;
     }
 }

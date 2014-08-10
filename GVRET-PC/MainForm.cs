@@ -11,6 +11,17 @@ using System.Diagnostics;
 using System.Threading;
 using System.IO;
 
+/*
+ * Ideas still yet to add:
+ * Ability to read in and write DBC / DBF files
+ * Ability to define and/or edit the DBF style frame layouts so that these thigns can be tracked
+ * Ability to interpret the data by using the DBF info
+ * 
+ * For the DBF editting ability there should be a grid sort of like the bitfield grid but larger
+ * so that the user can select the contiguous bits to use for the given signal - color code it and list it on the grid
+ */
+
+
 namespace GVRET
 {
     enum STATE //keep this enum synchronized with the Arduino firmware project
@@ -249,7 +260,7 @@ namespace GVRET
 
                 int n = dataGridView1.Rows.Add();
                 //time, id, ext, bus, len, data
-                dataGridView1.Rows[n].Cells[0].Value = frame.timestamp.ToString("dd MMM yy HH:mm:ss.fff");
+                dataGridView1.Rows[n].Cells[0].Value = frame.timestamp.ToString("dd/MM/yy HH:mm:ss.fffff");
                 dataGridView1.Rows[n].Cells[1].Value = frame.ID.ToString("X8");
                 dataGridView1.Rows[n].Cells[2].Value = frame.extended.ToString();
                 dataGridView1.Rows[n].Cells[3].Value = frame.bus.ToString();
@@ -625,7 +636,7 @@ namespace GVRET
             try
             {
 
-                bytes = encoding.GetBytes(thisFrame.timestamp.ToString("dd MMM yy HH:mm:ss.fff"));
+                bytes = encoding.GetBytes(thisFrame.timestamp.Ticks.ToString());
                 continuousOutput.Write(bytes, 0, bytes.Length);
                 continuousOutput.WriteByte(44);
 
@@ -767,40 +778,38 @@ namespace GVRET
                     outStream.Write(bytes, 0, bytes.Length);
                     outStream.WriteByte(10);
 
-                    for (int c = 0; c < dataGridView1.Rows.Count; c++)
+                    for (int c = 0; c < frameCache.Count; c++)
                     {
-                        //blast out timestamp, id, extended, bus, and length                        
-                        for (int d = 0; d < 5; d++)
+                        bytes = encoding.GetBytes(frameCache[c].timestamp.Ticks.ToString());
+                        outStream.Write(bytes, 0, bytes.Length);
+                        outStream.WriteByte(44);
+
+                        bytes = encoding.GetBytes(frameCache[c].ID.ToString("X8"));
+                        outStream.Write(bytes, 0, bytes.Length);
+                        outStream.WriteByte(44);
+
+                        bytes = encoding.GetBytes(frameCache[c].extended.ToString());
+                        outStream.Write(bytes, 0, bytes.Length);
+                        outStream.WriteByte(44);
+
+                        bytes = encoding.GetBytes(frameCache[c].bus.ToString());
+                        outStream.Write(bytes, 0, bytes.Length);
+                        outStream.WriteByte(44);
+
+                        bytes = encoding.GetBytes(frameCache[c].len.ToString());
+                        outStream.Write(bytes, 0, bytes.Length);
+                        outStream.WriteByte(44);
+
+                        for (int temp = 0; temp < 8; temp++)
                         {
-                            bytes = encoding.GetBytes(dataGridView1.Rows[c].Cells[d].Value.ToString());
+                            bytes = encoding.GetBytes(frameCache[c].data[temp].ToString("X2"));
                             outStream.Write(bytes, 0, bytes.Length);
-                            outStream.WriteByte(44); //a comma
-                        }
-
-                        //the final stuff is hex encoded and all in a long string... can't have it
-                        delim[0] = ' ';
-                        temp_str = dataGridView1.Rows[c].Cells[5].Value.ToString().Split(delim);
-                        for (int d = 0; d < temp_str.Length; d++)
-                        {
-                            if (temp_str[d] != "")
-                            {
-                                bytes = encoding.GetBytes(temp_str[d]);
-                                outStream.Write(bytes, 0, bytes.Length);
-                                outStream.WriteByte(44); //a comma
-                            }
-                        }
-
-
-                        for (int d = temp_str.Length - 1; d < 8; d++) 
-                        {
-                            outStream.WriteByte(48);
                             outStream.WriteByte(44);
                         }
-
+                        //CrLf
                         outStream.WriteByte(13);
                         outStream.WriteByte(10);
                     }
-
                     outStream.Close();
                 }
             }

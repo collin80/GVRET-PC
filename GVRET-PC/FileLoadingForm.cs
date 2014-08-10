@@ -61,6 +61,7 @@ namespace GVRET
                 else if (ckLoop.Checked) playbackPos = numFrames - 1;
             }
             //Debug.Print(playbackPos.ToString());
+            loadedFrames[playbackPos].timestamp = DateTime.Now;
             parent.sideloadFrame(loadedFrames[playbackPos]);
             //updateFrameCounter();
         }
@@ -68,6 +69,13 @@ namespace GVRET
         private void loadCSVFile(string filename)
         {
             CANFrame thisFrame;
+            long temp;
+
+            System.Globalization.NumberStyles style;
+
+            if (ckUseHex.Checked) style = System.Globalization.NumberStyles.HexNumber;
+            else style = System.Globalization.NumberStyles.Integer;
+
             StreamReader csvStream = new StreamReader(filename);
             csvStream.ReadLine(); //ignore header line
             loadedFrames = new List<CANFrame>();
@@ -79,14 +87,20 @@ namespace GVRET
                     string[] theseTokens = thisLine.Split(',');
                     thisFrame = new CANFrame();
                     if (theseTokens[0].Length > 10)
-                        thisFrame.timestamp = DateTime.Parse(theseTokens[0]);
+                    {
+                        temp = Int64.Parse(theseTokens[0]);
+                        thisFrame.timestamp = DateTime.MinValue.AddTicks(temp);
+                    }
                     else
+                    {
                         thisFrame.timestamp = DateTime.Now;
-                    thisFrame.ID = int.Parse(theseTokens[1], System.Globalization.NumberStyles.HexNumber);
+                    }
+                    thisFrame.ID = int.Parse(theseTokens[1], style);
                     thisFrame.extended = bool.Parse(theseTokens[2]);
                     thisFrame.bus = int.Parse(theseTokens[3]);
                     thisFrame.len = int.Parse(theseTokens[4]);
-                    for (int d = 0; d < 8; d++) thisFrame.data[d] = byte.Parse(theseTokens[5 + d], System.Globalization.NumberStyles.HexNumber);
+                    for (int c = 0; c < 8; c++) thisFrame.data[c] = 0;
+                    for (int d = 0; d < thisFrame.len; d++) thisFrame.data[d] = byte.Parse(theseTokens[5 + d], style);
                     loadedFrames.Add(thisFrame);
                 }
             }
@@ -98,6 +112,10 @@ namespace GVRET
             CANFrame thisFrame;
             StreamReader logStream = new StreamReader(filename);
             string thisLine;
+            System.Globalization.NumberStyles style;
+
+            if (ckUseHex.Checked) style = System.Globalization.NumberStyles.HexNumber;
+            else style = System.Globalization.NumberStyles.Integer;
 
             loadedFrames = new List<CANFrame>();
             
@@ -122,13 +140,13 @@ namespace GVRET
                     string[] theseTokens = thisLine.Split(' ');
                     thisFrame = new CANFrame();
                     thisFrame.timestamp = DateTime.Now;
-                    thisFrame.ID = int.Parse(theseTokens[3].Substring(2), System.Globalization.NumberStyles.HexNumber);
+                    thisFrame.ID = int.Parse(theseTokens[3].Substring(2), style);
                     if (theseTokens[4] == "s") thisFrame.extended = false;
                     else thisFrame.extended = true;                    
                     thisFrame.bus = int.Parse(theseTokens[2]) - 1;
                     thisFrame.len = int.Parse(theseTokens[5]);
                     for (int c = 0; c < 8; c++) thisFrame.data[c] = 0;
-                    for (int d = 0; d < thisFrame.len; d++) thisFrame.data[d] = byte.Parse(theseTokens[6 + d], System.Globalization.NumberStyles.HexNumber);
+                    for (int d = 0; d < thisFrame.len; d++) thisFrame.data[d] = byte.Parse(theseTokens[6 + d], style);
                     loadedFrames.Add(thisFrame);
                 }
             }
