@@ -107,6 +107,66 @@ namespace GVRET
             csvStream.Close();
         }
 
+        private void loadMicrochipFile(string filename)
+        {
+            CANFrame thisFrame;
+            bool inComment = false;
+            StreamReader logStream = new StreamReader(filename);
+            string thisLine;
+
+            loadedFrames = new List<CANFrame>();
+
+            while (!logStream.EndOfStream)
+            {
+                thisLine = logStream.ReadLine();
+
+                if (thisLine.StartsWith("//"))
+                {
+                    inComment = !inComment;
+                }
+                else
+                {
+
+                    /*
+                    tokens:
+                    0 = timestamp
+                    1 = Transmission direction
+                    2 = ID
+                    3 = Data byte length
+                    4-x = The data bytes
+                    */
+                    if (thisLine.Length > 1 && !inComment)
+                    {
+                        string[] theseTokens = thisLine.Split(';');
+                        thisFrame = new CANFrame();
+                        thisFrame.timestamp = DateTime.Now;
+                        thisFrame.ID = parseNumberString(theseTokens[2]);
+                        if (thisFrame.ID <= 0x7FF) thisFrame.extended = false;
+                        else thisFrame.extended = true;
+                        thisFrame.bus = 0;
+                        thisFrame.len = int.Parse(theseTokens[3]);
+                        for (int c = 0; c < 8; c++) thisFrame.data[c] = 0;
+                        for (int d = 0; d < thisFrame.len; d++) thisFrame.data[d] = (byte)parseNumberString(theseTokens[4 + d]);
+                        loadedFrames.Add(thisFrame);
+                    }
+                }
+            }
+            logStream.Close();
+        }
+
+        //Used to parse a number that may or may not be in hex format. Checks for 0x before a number
+        //to specify that it is hex, otherwise assumes decimal.
+        private int parseNumberString(string valu)
+        {
+            int result = 0;
+            if (valu.ToLower().StartsWith("0x"))
+            {
+                result = int.Parse(valu.Substring(2), System.Globalization.NumberStyles.HexNumber);
+            }
+            else result = int.Parse(valu);
+            return result;
+        }
+
         private void loadLogFile(string filename)
         {
             CANFrame thisFrame;
@@ -163,6 +223,7 @@ namespace GVRET
                 
                 if (fnSmall.EndsWith("csv")) loadCSVFile(filename);
                 if (fnSmall.EndsWith("log")) loadLogFile(filename);
+                if (fnSmall.EndsWith("can")) loadMicrochipFile(filename);
 
                 numFrames = loadedFrames.Count;
                 //updateFrameCounter();

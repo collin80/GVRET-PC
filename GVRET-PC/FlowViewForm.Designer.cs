@@ -68,19 +68,19 @@
             this.ckAutoRef = new System.Windows.Forms.CheckBox();
             this.ckCapture = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.ckLoop = new System.Windows.Forms.CheckBox();
+            this.btnReverse = new System.Windows.Forms.Button();
             this.lblFrames = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.numPlaybackSpeed = new System.Windows.Forms.NumericUpDown();
-            this.canDataGrid1 = new GVRET.CANDataGrid();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnReverse = new System.Windows.Forms.Button();
             this.btnForwardOne = new System.Windows.Forms.Button();
             this.btnPlay = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnPause = new System.Windows.Forms.Button();
             this.btnBackOne = new System.Windows.Forms.Button();
-            this.ckLoop = new System.Windows.Forms.CheckBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.numPlaybackSpeed = new System.Windows.Forms.NumericUpDown();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.canDataGrid1 = new GVRET.CANDataGrid();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -93,6 +93,7 @@
             this.listFrameIDs.Location = new System.Drawing.Point(12, 29);
             this.listFrameIDs.Name = "listFrameIDs";
             this.listFrameIDs.Size = new System.Drawing.Size(105, 225);
+            this.listFrameIDs.Sorted = true;
             this.listFrameIDs.TabIndex = 1;
             this.listFrameIDs.SelectedIndexChanged += new System.EventHandler(this.listFrameIDs_SelectedIndexChanged);
             // 
@@ -431,6 +432,7 @@
             this.ckCapture.TabIndex = 18;
             this.ckCapture.Text = "Capture Traffic";
             this.ckCapture.UseVisualStyleBackColor = true;
+            this.ckCapture.CheckedChanged += new System.EventHandler(this.ckCapture_CheckedChanged);
             // 
             // groupBox3
             // 
@@ -452,6 +454,26 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Playback Control";
             // 
+            // ckLoop
+            // 
+            this.ckLoop.Location = new System.Drawing.Point(28, 101);
+            this.ckLoop.Name = "ckLoop";
+            this.ckLoop.Size = new System.Drawing.Size(107, 24);
+            this.ckLoop.TabIndex = 31;
+            this.ckLoop.Text = "Loop Playback";
+            this.ckLoop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ckLoop.UseVisualStyleBackColor = true;
+            // 
+            // btnReverse
+            // 
+            this.btnReverse.Image = global::GVRET.Properties.Resources.ReverseHS;
+            this.btnReverse.Location = new System.Drawing.Point(56, 23);
+            this.btnReverse.Name = "btnReverse";
+            this.btnReverse.Size = new System.Drawing.Size(23, 23);
+            this.btnReverse.TabIndex = 29;
+            this.btnReverse.UseVisualStyleBackColor = true;
+            this.btnReverse.Click += new System.EventHandler(this.btnReverse_Click);
+            // 
             // lblFrames
             // 
             this.lblFrames.Location = new System.Drawing.Point(9, 157);
@@ -469,65 +491,6 @@
             this.label19.TabIndex = 27;
             this.label19.Text = "Current Frame:";
             this.label19.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(25, 59);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(110, 13);
-            this.label18.TabIndex = 20;
-            this.label18.Text = "Playback Speed (ms):";
-            // 
-            // numPlaybackSpeed
-            // 
-            this.numPlaybackSpeed.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numPlaybackSpeed.Location = new System.Drawing.Point(28, 75);
-            this.numPlaybackSpeed.Maximum = new decimal(new int[] {
-            3000,
-            0,
-            0,
-            0});
-            this.numPlaybackSpeed.Minimum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.numPlaybackSpeed.Name = "numPlaybackSpeed";
-            this.numPlaybackSpeed.Size = new System.Drawing.Size(101, 20);
-            this.numPlaybackSpeed.TabIndex = 21;
-            this.numPlaybackSpeed.Value = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.numPlaybackSpeed.ValueChanged += new System.EventHandler(this.numPlaybackSpeed_ValueChanged);
-            // 
-            // canDataGrid1
-            // 
-            this.canDataGrid1.Location = new System.Drawing.Point(467, -1);
-            this.canDataGrid1.Name = "canDataGrid1";
-            this.canDataGrid1.Size = new System.Drawing.Size(270, 255);
-            this.canDataGrid1.TabIndex = 0;
-            this.canDataGrid1.Load += new System.EventHandler(this.canDataGrid1_Load);
-            // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // btnReverse
-            // 
-            this.btnReverse.Image = global::GVRET.Properties.Resources.ReverseHS;
-            this.btnReverse.Location = new System.Drawing.Point(56, 23);
-            this.btnReverse.Name = "btnReverse";
-            this.btnReverse.Size = new System.Drawing.Size(23, 23);
-            this.btnReverse.TabIndex = 29;
-            this.btnReverse.UseVisualStyleBackColor = true;
-            this.btnReverse.Click += new System.EventHandler(this.btnReverse_Click);
             // 
             // btnForwardOne
             // 
@@ -579,15 +542,54 @@
             this.btnBackOne.UseVisualStyleBackColor = true;
             this.btnBackOne.Click += new System.EventHandler(this.btnBackOne_Click);
             // 
-            // ckLoop
+            // label18
             // 
-            this.ckLoop.Location = new System.Drawing.Point(28, 101);
-            this.ckLoop.Name = "ckLoop";
-            this.ckLoop.Size = new System.Drawing.Size(107, 24);
-            this.ckLoop.TabIndex = 31;
-            this.ckLoop.Text = "Loop Playback";
-            this.ckLoop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.ckLoop.UseVisualStyleBackColor = true;
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(25, 59);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(110, 13);
+            this.label18.TabIndex = 20;
+            this.label18.Text = "Playback Speed (ms):";
+            // 
+            // numPlaybackSpeed
+            // 
+            this.numPlaybackSpeed.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numPlaybackSpeed.Location = new System.Drawing.Point(28, 75);
+            this.numPlaybackSpeed.Maximum = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
+            this.numPlaybackSpeed.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.numPlaybackSpeed.Name = "numPlaybackSpeed";
+            this.numPlaybackSpeed.Size = new System.Drawing.Size(101, 20);
+            this.numPlaybackSpeed.TabIndex = 21;
+            this.numPlaybackSpeed.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.numPlaybackSpeed.ValueChanged += new System.EventHandler(this.numPlaybackSpeed_ValueChanged);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // canDataGrid1
+            // 
+            this.canDataGrid1.Location = new System.Drawing.Point(467, -1);
+            this.canDataGrid1.Name = "canDataGrid1";
+            this.canDataGrid1.Size = new System.Drawing.Size(270, 255);
+            this.canDataGrid1.TabIndex = 0;
+            this.canDataGrid1.Load += new System.EventHandler(this.canDataGrid1_Load);
             // 
             // FlowViewForm
             // 
@@ -620,7 +622,7 @@
 
         #endregion
 
-        private CANDataGrid canDataGrid1;
+        private GVRET.CANDataGrid canDataGrid1;
         private System.Windows.Forms.ListBox listFrameIDs;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;

@@ -19,6 +19,12 @@ using System.IO;
  * 
  * For the DBF editting ability there should be a grid sort of like the bitfield grid but larger
  * so that the user can select the contiguous bits to use for the given signal - color code it and list it on the grid
+ * 
+ * Have a screen that shows every ID seen so far along with whether that ID seems to be periodic (and the period if so) or
+ * sporatic. Also how many bytes it tends to have and what the bytes seem to do (stay the same, increment, ramp, etc)
+ * 
+ * All screens should be synchronized to the master frame cache. Any of them should be able to peek into the cache.
+ * This allows all screens to get the same data
  */
 
 
@@ -38,9 +44,17 @@ namespace GVRET
     public partial class MainForm : Form
     {
         byte[] inputBuffer = new byte[2048];
-        byte[] keyBytes = new byte[16]; //storage for our enc/dec key
 
-        List<CANFrame> frameCache = new List<CANFrame>(100000); //initially we allocate 100,000 entries in the list
+        private List<CANFrame> frameCache = new List<CANFrame>(100000); //initially we allocate 100,000 entries in the list
+
+        //Allows for the possibility to do whatever we want with this instead of directly
+        //allowing access to the actual member variable.
+        public List<CANFrame> FrameCache {
+            get
+            {
+                return frameCache;
+            }
+        }
 
         STATE rx_state = STATE.IDLE;
         int rx_step = 0;

@@ -209,7 +209,7 @@
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "csv";
-            this.openFileDialog1.Filter = "GVRET Logs|*.csv|BusMaster Logs|*.log";
+            this.openFileDialog1.Filter = "GVRET Logs|*.csv|BusMaster Logs|*.log|Microchip Logs|*.can";
             // 
             // timer2
             // 

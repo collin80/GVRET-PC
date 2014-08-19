@@ -7,6 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+/*
+ * New plan. When the screen starts up it uses the existing frame cache from the main form
+ * to bootstrap which IDs exist. Then, when you pick an ID it grabs all of them from the frame cache
+ * thereafter it loads frames from GotCANFrame like normal. If you select a new ID it'll load those from
+ * the frame cache and then resume grabbing them just from the handler.
+ */
+
+
 namespace GVRET
 {
     public partial class FlowViewForm : Form
@@ -95,27 +103,68 @@ namespace GVRET
 
         }
 
-        public void GotCANFrame(CANFrame frame) 
-        { 
-            //first of all, always try to keep track of every ID we've ever seen while this form is open
-            //if we find one we haven't seen yet then add it
-            //foundID is really only used as a fast way to know if the frame ID has been seen before.
-            //I believe it to be faster to search than directly searching entries in the listbox
-            if (!foundID.Contains(frame.ID))
-            {
-                foundID.Add(frame.ID);
-                listFrameIDs.Items.Add(frame.ID.ToString("X2"));
-            }
 
-            //if we are currently capturing and this frame matches the ID we'd like
-            //to capture then place it into the buffer.
-            if (ckCapture.Checked)
+        public delegate void GotCANDelegate(CANFrame frame);
+        public void GotCANFrame(CANFrame frame) 
+        {
+            if (this.InvokeRequired)
             {
-                if (frame.ID == targettedID)
+                this.Invoke(new GotCANDelegate(GotCANFrame), frame);
+            }
+            else
+            {
+
+                //first of all, always try to keep track of every ID we've ever seen while this form is open
+                //if we find one we haven't seen yet then add it
+                //foundID is really only used as a fast way to know if the frame ID has been seen before.
+                //I believe it to be faster to search than directly searching entries in the listbox
+                if (!foundID.Contains(frame.ID))
+                {
+                    foundID.Add(frame.ID);
+                    listFrameIDs.Items.Add(frame.ID.ToString("X2"));
+                }
+
+                //if we are currently capturing and this frame matches the ID we'd like
+                //to capture then place it into the buffer.
+                if (ckCapture.Checked)
+                {
+                    if (frame.ID == targettedID)
+                    {
+                        if (frameCacheWritePos == cacheSize) return;
+                        //enqueue frame
+                        frameCache[frameCacheWritePos++] = frame;
+
+                        //The special significance of this if is that it fills out the frame
+                        //on screen because we will be showing that frame by default according to the program
+                        //so it makes sense to ensure we see it immediately.
+                        if (frameCacheWritePos == 1) updateDataView();
+                        else updateFrameCounter();
+                    }
+                }
+            }
+        }
+
+        private void canDataGrid1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void loadFromMainScreen()
+        {
+            List<CANFrame> frames = parent.FrameCache;
+
+            frameCacheReadPos = 0;
+            frameCacheWritePos = 0;
+            timer1.Stop();
+            playbackActive = false;
+
+            for (int i = 0; i < frames.Count; i++)
+            {
+                if (frames[i].ID == targettedID)
                 {
                     if (frameCacheWritePos == cacheSize) return;
                     //enqueue frame
-                    frameCache[frameCacheWritePos++] = frame;
+                    frameCache[frameCacheWritePos++] = frames[i];
 
                     //The special significance of this if is that it fills out the frame
                     //on screen because we will be showing that frame by default according to the program
@@ -126,13 +175,19 @@ namespace GVRET
             }
         }
 
-        private void canDataGrid1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void FlowViewForm_Load(object sender, EventArgs e)
         {
+            List<CANFrame> frames = parent.FrameCache;
+
+            for (int i = 0; i < frames.Count; i++)
+            {
+                if (!foundID.Contains(frames[i].ID))
+                {
+                    foundID.Add(frames[i].ID);
+                    listFrameIDs.Items.Add(frames[i].ID.ToString("X2"));
+                }
+            }
+
             updateFrameCounter();
         }
 
@@ -152,6 +207,8 @@ namespace GVRET
             {
                 targettedID = int.Parse(listFrameIDs.Items[listFrameIDs.SelectedIndex].ToString(), System.Globalization.NumberStyles.HexNumber);
                 ckCapture.Enabled = true;
+                if (ckCapture.Checked)
+                    loadFromMainScreen();
             }
             else
             {
@@ -227,6 +284,15 @@ namespace GVRET
             {
                 if (frameCacheReadPos == 0) playbackActive = false;
                 if (frameCacheReadPos == frameCacheWritePos) playbackActive = false;
+            }
+        }
+
+        private void ckCapture_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckCapture.Checked)
+            {
+                //get all historic data from main screen
+                loadFromMainScreen();
             }
         }
     }
