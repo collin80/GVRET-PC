@@ -25,6 +25,10 @@ using System.IO;
  * 
  * All screens should be synchronized to the master frame cache. Any of them should be able to peek into the cache.
  * This allows all screens to get the same data
+ * 
+ * Create a screen where one can select an ID and a range of bits and it'll plot those bits on a line where it ranges from min to max
+ * over that range so that one can see how the plot looks. This screen should allow for some interpretation changes such
+ * as signed/unsigned, scaling, bias. These things can be guesses.
  */
 
 
@@ -832,6 +836,13 @@ namespace GVRET
         private void loadFramesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FileLoadingForm theForm = new FileLoadingForm();
+            theForm.setParent(this);
+            theForm.Show();
+        }
+
+        private void graphDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GraphingForm theForm = new GraphingForm();
             theForm.setParent(this);
             theForm.Show();
         }

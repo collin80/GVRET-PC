@@ -49,6 +49,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GraphLib">
+      <HintPath>..\..\..\Documents\GraphDisplay\GraphLib\bin\Release\GraphLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -89,6 +92,12 @@
     <Compile Include="FuzzyScopeForm.Designer.cs">
       <DependentUpon>FuzzyScopeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GraphingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GraphingForm.Designer.cs">
+      <DependentUpon>GraphingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FuzzyScopeForm.resx">
       <DependentUpon>FuzzyScopeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraphingForm.resx">
+      <DependentUpon>GraphingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

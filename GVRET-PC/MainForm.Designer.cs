@@ -38,6 +38,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Timestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frameID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frameExt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frameBus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Length = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -60,12 +66,7 @@
             this.saveFramesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadFramesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbActivity = new System.Windows.Forms.PictureBox();
-            this.Timestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.frameID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.frameExt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.frameBus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Length = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.graphDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbActivity)).BeginInit();
@@ -161,6 +162,44 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
+            // 
+            // Timestamp
+            // 
+            this.Timestamp.FillWeight = 150F;
+            this.Timestamp.HeaderText = "Timestamp";
+            this.Timestamp.Name = "Timestamp";
+            this.Timestamp.Width = 150;
+            // 
+            // frameID
+            // 
+            this.frameID.FillWeight = 70F;
+            this.frameID.HeaderText = "ID";
+            this.frameID.Name = "frameID";
+            this.frameID.Width = 70;
+            // 
+            // frameExt
+            // 
+            this.frameExt.HeaderText = "Ext";
+            this.frameExt.Name = "frameExt";
+            this.frameExt.Width = 40;
+            // 
+            // frameBus
+            // 
+            this.frameBus.HeaderText = "Bus";
+            this.frameBus.Name = "frameBus";
+            this.frameBus.Width = 40;
+            // 
+            // Length
+            // 
+            this.Length.HeaderText = "Len";
+            this.Length.Name = "Length";
+            this.Length.Width = 50;
+            // 
+            // data
+            // 
+            this.data.HeaderText = "Data";
+            this.data.Name = "data";
+            this.data.Width = 165;
             // 
             // label11
             // 
@@ -309,7 +348,8 @@
             this.singleToggleToolStripMenuItem,
             this.multiToggleToolStripMenuItem,
             this.flowViewToolStripMenuItem,
-            this.fuzzyScopeToolStripMenuItem});
+            this.fuzzyScopeToolStripMenuItem,
+            this.graphDataToolStripMenuItem});
             this.rEToolsToolStripMenuItem.Name = "rEToolsToolStripMenuItem";
             this.rEToolsToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.rEToolsToolStripMenuItem.Text = "&RE Tools";
@@ -365,43 +405,12 @@
             this.pbActivity.TabIndex = 34;
             this.pbActivity.TabStop = false;
             // 
-            // Timestamp
+            // graphDataToolStripMenuItem
             // 
-            this.Timestamp.FillWeight = 150F;
-            this.Timestamp.HeaderText = "Timestamp";
-            this.Timestamp.Name = "Timestamp";
-            this.Timestamp.Width = 150;
-            // 
-            // frameID
-            // 
-            this.frameID.FillWeight = 70F;
-            this.frameID.HeaderText = "ID";
-            this.frameID.Name = "frameID";
-            this.frameID.Width = 70;
-            // 
-            // frameExt
-            // 
-            this.frameExt.HeaderText = "Ext";
-            this.frameExt.Name = "frameExt";
-            this.frameExt.Width = 40;
-            // 
-            // frameBus
-            // 
-            this.frameBus.HeaderText = "Bus";
-            this.frameBus.Name = "frameBus";
-            this.frameBus.Width = 40;
-            // 
-            // Length
-            // 
-            this.Length.HeaderText = "Len";
-            this.Length.Name = "Length";
-            this.Length.Width = 50;
-            // 
-            // data
-            // 
-            this.data.HeaderText = "Data";
-            this.data.Name = "data";
-            this.data.Width = 165;
+            this.graphDataToolStripMenuItem.Name = "graphDataToolStripMenuItem";
+            this.graphDataToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.graphDataToolStripMenuItem.Text = "&Graph Data";
+            this.graphDataToolStripMenuItem.Click += new System.EventHandler(this.graphDataToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -482,6 +491,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn frameBus;
         private System.Windows.Forms.DataGridViewTextBoxColumn Length;
         private System.Windows.Forms.DataGridViewTextBoxColumn data;
+        private System.Windows.Forms.ToolStripMenuItem graphDataToolStripMenuItem;
     }
 }
 

@@ -121,7 +121,7 @@ namespace GVRET
                 if (!foundID.Contains(frame.ID))
                 {
                     foundID.Add(frame.ID);
-                    listFrameIDs.Items.Add(frame.ID.ToString("X2"));
+                    listFrameIDs.Items.Add(frame.ID.ToString("X4"));
                 }
 
                 //if we are currently capturing and this frame matches the ID we'd like
@@ -184,7 +184,7 @@ namespace GVRET
                 if (!foundID.Contains(frames[i].ID))
                 {
                     foundID.Add(frames[i].ID);
-                    listFrameIDs.Items.Add(frames[i].ID.ToString("X2"));
+                    listFrameIDs.Items.Add(frames[i].ID.ToString("X4"));
                 }
             }
 
