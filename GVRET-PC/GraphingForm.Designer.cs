@@ -129,7 +129,7 @@
             this.display.DoubleBuffering = true;
             this.display.Location = new System.Drawing.Point(114, 5);
             this.display.Name = "display";
-            this.display.PlaySpeed = 0.5F;
+            this.display.PlaySpeed = 0F;
             this.display.Size = new System.Drawing.Size(888, 349);
             this.display.SolidGridColor = System.Drawing.Color.Blue;
             this.display.TabIndex = 5;

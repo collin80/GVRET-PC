@@ -72,16 +72,18 @@ namespace GVRET
 
             frames = new List<CANFrame>[numIDs];
 
-            for (int i = 0; i < numFrames; i++)
-            {
-                for (int j = 0; j < numIDs; j++) 
+            for (int c = 0; c < numIDs; c++) frames[c] = new List<CANFrame>();
+
+                for (int i = 0; i < numFrames; i++)
                 {
-                    if (pFrames[i].ID == foundID[j]) 
+                    for (int j = 0; j < numIDs; j++)
                     {
-                        frames[j].Add(pFrames[i]);
+                        if (pFrames[i].ID == foundID[j])
+                        {
+                            frames[j].Add(pFrames[i]);
+                        }
                     }
                 }
-            }
         }
 
         private int getIdxForID(int ID) 
@@ -226,7 +228,7 @@ namespace GVRET
             {
                 for (int j = 0; j < numFrames; j++)
                 {
-                    Graphs[which].valueCache[j] = ((frames[idx].ElementAt(j).data[v1] & Graphs[which].mask) - bias) * scale;
+                    Graphs[which].valueCache[j] = ((frames[idx].ElementAt(j).data[v1] & Graphs[which].mask) + bias) * scale;
                     if (Graphs[which].valueCache[j] > Graphs[which].maxVal) Graphs[which].maxVal = Graphs[which].valueCache[j];
                     if (Graphs[which].valueCache[j] < Graphs[which].minVal) Graphs[which].minVal = Graphs[which].valueCache[j];
                 }
@@ -245,7 +247,7 @@ namespace GVRET
                     }
                     tempValInt &= Graphs[which].mask;
                     tempValue = (float)tempValInt;
-                    Graphs[which].valueCache[j] = (tempValue - bias) * scale;
+                    Graphs[which].valueCache[j] = (tempValue + bias) * scale;
                     if (Graphs[which].valueCache[j] > Graphs[which].maxVal) Graphs[which].maxVal = Graphs[which].valueCache[j];
                     if (Graphs[which].valueCache[j] < Graphs[which].minVal) Graphs[which].minVal = Graphs[which].valueCache[j];
                 }
@@ -264,7 +266,7 @@ namespace GVRET
                     }
                     tempValInt &= Graphs[which].mask;
                     tempValue = (float)tempValInt;
-                    Graphs[which].valueCache[j] = (tempValue - bias) * scale;
+                    Graphs[which].valueCache[j] = (tempValue + bias) * scale;
                     if (Graphs[which].valueCache[j] > Graphs[which].maxVal) Graphs[which].maxVal = Graphs[which].valueCache[j];
                     if (Graphs[which].valueCache[j] < Graphs[which].minVal) Graphs[which].minVal = Graphs[which].valueCache[j];
                 }
@@ -296,7 +298,8 @@ namespace GVRET
             strBytes = "";
             strBias = "";
             strScale = "";
-            whichGraph = 1;
+            whichGraph = 0;
+            thisColor = pbColor1.BackColor;
 
             if (sender.Equals(btnRefresh1))
             {
@@ -306,7 +309,7 @@ namespace GVRET
                 strBias = txtBias1.Text;
                 strScale = txtScale1.Text;
                 thisColor = pbColor1.BackColor;
-                whichGraph = 1;
+                whichGraph = 0;
             }
             else if (sender.Equals(btnRefresh2))
             {
@@ -316,7 +319,7 @@ namespace GVRET
                 strBias = txtBias2.Text;
                 strScale = txtScale2.Text;
                 thisColor = pbColor2.BackColor;
-                whichGraph = 2;
+                whichGraph = 1;
             }
             else if (sender.Equals(btnRefresh3))
             {
@@ -326,7 +329,7 @@ namespace GVRET
                 strBias = txtBias3.Text;
                 strScale = txtScale3.Text;
                 thisColor = pbColor3.BackColor;
-                whichGraph = 3;
+                whichGraph = 2;
             }
             else if (sender.Equals(btnRefresh4))
             {
@@ -336,7 +339,7 @@ namespace GVRET
                 strBias = txtBias4.Text;
                 strScale = txtScale4.Text;
                 thisColor = pbColor4.BackColor;
-                whichGraph = 4;
+                whichGraph = 3;
             }
 
             ID = int.Parse(strID, System.Globalization.NumberStyles.HexNumber);
