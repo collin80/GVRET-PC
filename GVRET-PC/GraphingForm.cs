@@ -16,27 +16,14 @@ namespace GVRET
 
         public MainForm parent;
         private List<int> foundID = new List<int>();
-        private int targettedID = 0; //which ID are we looking for?
 
-        private static int cacheSize = 10000;
-        private CANFrame[] frameCache = new CANFrame[cacheSize];
-        private int frameCacheWritePos = 0;
+        private List<CANFrame>[] frames;
 
         GraphData[] Graphs = new GraphData[4];
 
         public GraphingForm()
         {
             InitializeComponent();
-            for (int i = 0; i < 4; i++)
-            {
-                Graphs[i].bias = 0;
-                Graphs[i].scale = 1.0;                
-            }
-
-            Graphs[0].color = pbColor1.BackColor;
-            Graphs[1].color = pbColor2.BackColor;
-            Graphs[2].color = pbColor3.BackColor;
-            Graphs[3].color = pbColor4.BackColor;
         }
 
         public void setParent(MainForm val)
@@ -64,15 +51,57 @@ namespace GVRET
                     foundID.Add(frame.ID);
                     listFrameIDs.Items.Add(frame.ID.ToString("X4"));
                 }
-
+                /*
                 if (frame.ID == targettedID)
                 {
 
                 }
+                 * */
             }
         }
 
+        /*
+         * Run through the whole frame cache and turn it into an ordered list of frames by ID.
+        */
+        private void parseFrameCache()
+        {
+            List<CANFrame> pFrames = parent.FrameCache;
 
+            int numFrames = pFrames.Count;
+            int numIDs = foundID.Count;
+
+            frames = new List<CANFrame>[numIDs];
+
+            for (int i = 0; i < numFrames; i++)
+            {
+                for (int j = 0; j < numIDs; j++) 
+                {
+                    if (pFrames[i].ID == foundID[j]) 
+                    {
+                        frames[j].Add(pFrames[i]);
+                    }
+                }
+            }
+        }
+
+        private int getIdxForID(int ID) 
+        {
+            for (int j = 0; j < foundID.Count; j++)
+            {
+                if (foundID[j] == ID) return j;
+            }
+            return -1;
+        }
+
+        private int getMaxFrames()
+        {
+            int max = 0;
+            for (int j = 0; j < frames.Length; j++) 
+            {
+                if (frames[j].Count > max) max = frames[j].Count;
+            }
+            return max;
+        }
 
         private void GraphingForm_Load(object sender, EventArgs e)
         {
@@ -108,25 +137,28 @@ namespace GVRET
 
             display.DataSources.Clear();
 
-            display.SetDisplayRangeX(0, frameCacheWritePos);
-            display.SetGridDistanceX((float)(frameCacheWritePos / 10.0));
+            int totalFrames = getMaxFrames();
+
+            display.SetDisplayRangeX(0, totalFrames);
+            display.SetGridDistanceX((float)(totalFrames / 10.0));
 
             for (int graph = 0; graph < 4; graph++)
             {
-                if (Graphs[graph].valueCache == null)
-                    setupGraph(graph, -1, -1);
-                display.DataSources.Add(new DataSource());
-                display.DataSources[graph].Name = "Graph " + (graph + 1);
-                display.DataSources[graph].OnRenderXAxisLabel += RenderXLabel;
+                if (Graphs[graph].valueCache != null)
+                {
+                    display.DataSources.Add(new DataSource());
+                    display.DataSources[graph].Name = "Graph " + (graph + 1);
+                    display.DataSources[graph].OnRenderXAxisLabel += RenderXLabel;
 
-                display.DataSources[graph].Length = frameCacheWritePos;
-                display.PanelLayout = PlotterGraphPaneEx.LayoutMode.NORMAL;
-                display.DataSources[graph].AutoScaleY = false;
-                display.DataSources[graph].SetDisplayRangeY((float)Graphs[graph].minVal, (float)Graphs[graph].maxVal);
-                display.DataSources[graph].SetGridDistanceY((float)((Graphs[graph].maxVal - Graphs[graph].minVal) / 10.0));
-                display.DataSources[graph].OnRenderYAxisLabel = RenderYLabel;
-                display.DataSources[graph].GraphColor = Graphs[graph].color;
-                fillDataSource(display.DataSources[graph], graph);
+                    display.DataSources[graph].Length = Graphs[graph].valueCache.Length;
+                    display.PanelLayout = PlotterGraphPaneEx.LayoutMode.NORMAL;
+                    display.DataSources[graph].AutoScaleY = false;
+                    display.DataSources[graph].SetDisplayRangeY((float)Graphs[graph].minVal, (float)Graphs[graph].maxVal);
+                    display.DataSources[graph].SetGridDistanceY((float)((Graphs[graph].maxVal - Graphs[graph].minVal) / 10.0));
+                    display.DataSources[graph].OnRenderYAxisLabel = RenderYLabel;
+                    display.DataSources[graph].GraphColor = Graphs[graph].color;
+                    fillDataSource(display.DataSources[graph], graph);
+                }
             }
 
             //ApplyColorSchema();
@@ -168,16 +200,21 @@ namespace GVRET
             }
         }
 
-        private void setupGraph(int which, int v1, int v2) 
+        private void setupGraph(int which) 
         {
-            double bias, scale;
-            
-            Graphs[which].valueCache = new double[frameCacheWritePos];
-            Graphs[which].minVal = 9999999.0;
-            Graphs[which].maxVal = -9999999.0;
+            float bias, scale;
+            int v1, v2, numFrames, idx;
+           
+            Graphs[which].minVal = 9999999.0F;
+            Graphs[which].maxVal = -9999999.0F;
 
             bias = Graphs[which].bias;
             scale = Graphs[which].scale;
+
+            v1 = Graphs[which].B1;
+            v2 = Graphs[which].B2;
+            idx = getIdxForID(Graphs[which].ID);
+            numFrames = frames[idx].Count;
 
             if (v1 == -1) return;
 
@@ -187,24 +224,27 @@ namespace GVRET
             //this is little endian.
             if ((v2 == -1) || (v1 == v2)) //single byte value
             {
-                for (int j = 0; j < frameCacheWritePos; j++)
+                for (int j = 0; j < numFrames; j++)
                 {
-                    Graphs[which].valueCache[j] = (frameCache[j].data[v1] - bias) * scale;
+                    Graphs[which].valueCache[j] = ((frames[idx].ElementAt(j).data[v1] & Graphs[which].mask) - bias) * scale;
                     if (Graphs[which].valueCache[j] > Graphs[which].maxVal) Graphs[which].maxVal = Graphs[which].valueCache[j];
                     if (Graphs[which].valueCache[j] < Graphs[which].minVal) Graphs[which].minVal = Graphs[which].valueCache[j];
                 }
             }
             else if (v2 > v1)  //big endian
             {
-                double tempValue;
+                float tempValue;
+                int tempValInt;
                 int numBytes = (v2 - v1) + 1;
-                for (int j = 0; j < frameCacheWritePos; j++)
+                for (int j = 0; j < numFrames; j++)
                 {
-                    tempValue = 0.0;
+                    tempValInt = 0;
                     for (int c = 0; c < numBytes; c++)
                     {
-                        tempValue += frameCache[j].data[v2 - c] * (256 * c);
+                        tempValInt += frames[idx].ElementAt(j).data[v2 - c] * (256 * c);
                     }
+                    tempValInt &= Graphs[which].mask;
+                    tempValue = (float)tempValInt;
                     Graphs[which].valueCache[j] = (tempValue - bias) * scale;
                     if (Graphs[which].valueCache[j] > Graphs[which].maxVal) Graphs[which].maxVal = Graphs[which].valueCache[j];
                     if (Graphs[which].valueCache[j] < Graphs[which].minVal) Graphs[which].minVal = Graphs[which].valueCache[j];
@@ -212,15 +252,18 @@ namespace GVRET
             }
             else //must be little endian then
             {
-                double tempValue;
+                float tempValue;
+                int tempValInt;
                 int numBytes = (v1 - v2) + 1;
-                for (int j = 0; j < frameCacheWritePos; j++)
+                for (int j = 0; j < numFrames; j++)
                 {
-                    tempValue = 0.0;
+                    tempValInt = 0;
                     for (int c = 0; c < numBytes; c++)
                     {
-                        tempValue += frameCache[j].data[v2 + c] * (256 * c);
+                        tempValInt += frames[idx].ElementAt(j).data[v2 + c] * (256 * c);
                     }
+                    tempValInt &= Graphs[which].mask;
+                    tempValue = (float)tempValInt;
                     Graphs[which].valueCache[j] = (tempValue - bias) * scale;
                     if (Graphs[which].valueCache[j] > Graphs[which].maxVal) Graphs[which].maxVal = Graphs[which].valueCache[j];
                     if (Graphs[which].valueCache[j] < Graphs[which].minVal) Graphs[which].minVal = Graphs[which].valueCache[j];
@@ -228,83 +271,124 @@ namespace GVRET
             }
         }
 
-        private void txtByte1_Leave(object sender, EventArgs e)
-        {
-            TextBox thisBox = (TextBox)sender;
-            int val1 = -1, val2 = -1;
-            string[] values = thisBox.Text.Split('-');
-            if (values.Length > 0)
-            {
-                val1 = int.Parse(values[0]);
-                if (values.Length > 1)
-                {
-                    val2 = int.Parse(values[1]);
-                }
-            }
-
-            setupGraph(0, val1, val2);
-            setupGraphs();
-
-        }
-
         private void listFrameIDs_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listFrameIDs.SelectedIndex > -1)
             {
-                targettedID = int.Parse(listFrameIDs.Items[listFrameIDs.SelectedIndex].ToString(), System.Globalization.NumberStyles.HexNumber);
-                loadFromMainScreen();
-                setupGraphs();
+                //targettedID = int.Parse(listFrameIDs.Items[listFrameIDs.SelectedIndex].ToString(), System.Globalization.NumberStyles.HexNumber);
+                //loadFromMainScreen();
+                //setupGraphs();
             }
             else
             {
             }
         }
 
-        private void loadFromMainScreen()
+        private void btnRefresh1_Click(object sender, EventArgs e)
         {
-            List<CANFrame> frames = parent.FrameCache;
+            int ID, Mask, B1, B2, whichGraph;
+            float Bias, Scale;
+            String strID, strMask, strBytes, strBias, strScale;
+            Color thisColor;
 
-            frameCacheWritePos = 0;
+            strID = "";
+            strMask = "";
+            strBytes = "";
+            strBias = "";
+            strScale = "";
+            whichGraph = 1;
 
-            for (int i = 0; i < frames.Count; i++)
+            if (sender.Equals(btnRefresh1))
             {
-                if (frames[i].ID == targettedID)
+                strID = txtID1.Text;
+                strMask = txtMask1.Text;
+                strBytes = txtByte1.Text;
+                strBias = txtBias1.Text;
+                strScale = txtScale1.Text;
+                thisColor = pbColor1.BackColor;
+                whichGraph = 1;
+            }
+            else if (sender.Equals(btnRefresh2))
+            {
+                strID = txtID2.Text;
+                strMask = txtMask2.Text;
+                strBytes = txtByte2.Text;
+                strBias = txtBias2.Text;
+                strScale = txtScale2.Text;
+                thisColor = pbColor2.BackColor;
+                whichGraph = 2;
+            }
+            else if (sender.Equals(btnRefresh3))
+            {
+                strID = txtID3.Text;
+                strMask = txtMask3.Text;
+                strBytes = txtByte3.Text;
+                strBias = txtBias3.Text;
+                strScale = txtScale3.Text;
+                thisColor = pbColor3.BackColor;
+                whichGraph = 3;
+            }
+            else if (sender.Equals(btnRefresh4))
+            {
+                strID = txtID4.Text;
+                strMask = txtMask4.Text;
+                strBytes = txtByte4.Text;
+                strBias = txtBias4.Text;
+                strScale = txtScale4.Text;
+                thisColor = pbColor4.BackColor;
+                whichGraph = 4;
+            }
+
+            ID = int.Parse(strID, System.Globalization.NumberStyles.HexNumber);
+            Mask = int.Parse(strMask, System.Globalization.NumberStyles.HexNumber);
+            Bias = float.Parse(strBias);
+            Scale = float.Parse(strScale);
+
+            B1 = -1;
+            B2 = -1;
+
+            string[] values = strBytes.Split('-');
+            if (values.Length > 0)
+            {
+                B1 = int.Parse(values[0]);
+                if (values.Length > 1)
                 {
-                    frameCache[frameCacheWritePos++] = frames[i];
+                    B2 = int.Parse(values[1]);
                 }
             }
-        }
 
-        private void txtBias1_TextChanged(object sender, EventArgs e)
-        {
+            Graphs[whichGraph].bias = Bias;
+            Graphs[whichGraph].scale = Scale;
+            Graphs[whichGraph].mask = Mask;
+            Graphs[whichGraph].B1 = B1;
+            Graphs[whichGraph].B2 = B2;
+            Graphs[whichGraph].ID = ID;
+            Graphs[whichGraph].color = thisColor;
 
-        }
+            //At long last all input value parsing is done. Now recalculate the given graph.
 
-        private void txtBias1_Leave(object sender, EventArgs e)
-        {
-            TextBox thisBox = (TextBox)sender;
-            double valu;
-            valu = double.Parse(thisBox.Text);
-            Graphs[0].bias = valu;
-        }
+            //Sort all frames into lists based on ID
+            parseFrameCache();
 
-        private void txtScale1_Leave(object sender, EventArgs e)
-        {
-            TextBox thisBox = (TextBox)sender;
-            double valu;
-            valu = double.Parse(thisBox.Text);
-            Graphs[0].scale = valu;
+            int idx = getIdxForID(ID);
+            if (idx > -1)
+            {
+                Graphs[whichGraph].valueCache = new float[frames[idx].Count];
+                setupGraph(whichGraph);
+                setupGraphs();                
+            }
         }
     }
 
     struct GraphData
     {
-        public double[] valueCache;
-        public double bias;
-        public double scale;
-        public double minVal;
-        public double maxVal;
+        public float[] valueCache;
+        public float min, max;
+        public float bias, scale;
+        public int mask;
+        public float minVal, maxVal;
+        public int ID;
+        public int B1, B2;
         public Color color;
     }
-
 }

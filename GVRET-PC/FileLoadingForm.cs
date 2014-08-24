@@ -156,7 +156,7 @@ namespace GVRET
 
         //Used to parse a number that may or may not be in hex format. Checks for 0x before a number
         //to specify that it is hex, otherwise assumes decimal.
-        private int parseNumberString(string valu)
+        public static int parseNumberString(string valu)
         {
             int result = 0;
             if (valu.ToLower().StartsWith("0x"))
