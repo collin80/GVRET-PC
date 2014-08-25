@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -156,7 +157,9 @@ namespace GVRET
                     display.PanelLayout = PlotterGraphPaneEx.LayoutMode.NORMAL;
                     display.DataSources[graph].AutoScaleY = false;
                     display.DataSources[graph].SetDisplayRangeY((float)Graphs[graph].minVal, (float)Graphs[graph].maxVal);
-                    display.DataSources[graph].SetGridDistanceY((float)((Graphs[graph].maxVal - Graphs[graph].minVal) / 10.0));
+                    float YDist = (float)((Graphs[graph].maxVal - Graphs[graph].minVal) / 5.0);
+                    if (YDist < 1.0f) YDist = 1.0f;
+                    display.DataSources[graph].SetGridDistanceY(YDist);
                     display.DataSources[graph].OnRenderYAxisLabel = RenderYLabel;
                     display.DataSources[graph].GraphColor = Graphs[graph].color;
                     fillDataSource(display.DataSources[graph], graph);
@@ -218,6 +221,8 @@ namespace GVRET
             idx = getIdxForID(Graphs[which].ID);
             numFrames = frames[idx].Count;
 
+            Debug.Print("SetupGraph for " + which.ToString() + " V1: " + v1.ToString() + " V2: " + v2.ToString() + " numFrames: " + numFrames.ToString());
+
             if (v1 == -1) return;
 
             //three options here. There can be no val2 in which case this is a single byte value
@@ -243,7 +248,7 @@ namespace GVRET
                     tempValInt = 0;
                     for (int c = 0; c < numBytes; c++)
                     {
-                        tempValInt += frames[idx].ElementAt(j).data[v2 - c] * (256 * c);
+                        tempValInt += (frames[idx].ElementAt(j).data[v2 - c] * (256 * c));
                     }
                     tempValInt &= Graphs[which].mask;
                     tempValue = (float)tempValInt;
@@ -288,7 +293,9 @@ namespace GVRET
 
         private void btnRefresh1_Click(object sender, EventArgs e)
         {
-            int ID, Mask, B1, B2, whichGraph;
+            int ID, B1, B2, whichGraph;
+            int Mask;
+                    
             float Bias, Scale;
             String strID, strMask, strBytes, strBias, strScale;
             Color thisColor;
@@ -351,6 +358,7 @@ namespace GVRET
             B2 = -1;
 
             string[] values = strBytes.Split('-');
+            Debug.Print("Split values: " + values.Length.ToString());
             if (values.Length > 0)
             {
                 B1 = int.Parse(values[0]);

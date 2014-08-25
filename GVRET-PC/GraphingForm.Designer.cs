@@ -298,6 +298,7 @@
             this.btnRefresh2.TabIndex = 12;
             this.btnRefresh2.Text = "Refresh";
             this.btnRefresh2.UseVisualStyleBackColor = true;
+            this.btnRefresh2.Click += new System.EventHandler(this.btnRefresh1_Click);
             // 
             // txtMask2
             // 
@@ -431,6 +432,7 @@
             this.btnRefresh3.TabIndex = 14;
             this.btnRefresh3.Text = "Refresh";
             this.btnRefresh3.UseVisualStyleBackColor = true;
+            this.btnRefresh3.Click += new System.EventHandler(this.btnRefresh1_Click);
             // 
             // txtMask3
             // 
@@ -564,6 +566,7 @@
             this.btnRefresh4.TabIndex = 15;
             this.btnRefresh4.Text = "Refresh";
             this.btnRefresh4.UseVisualStyleBackColor = true;
+            this.btnRefresh4.Click += new System.EventHandler(this.btnRefresh1_Click);
             // 
             // txtMask4
             // 
