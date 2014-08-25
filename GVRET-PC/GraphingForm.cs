@@ -99,9 +99,12 @@ namespace GVRET
         private int getMaxFrames()
         {
             int max = 0;
-            for (int j = 0; j < frames.Length; j++) 
+            for (int j = 0; j < 4; j++) 
             {
-                if (frames[j].Count > max) max = frames[j].Count;
+                if (Graphs[j].valueCache != null)
+                {
+                    if (Graphs[j].valueCache.Length > max) max = Graphs[j].valueCache.Length;
+                }
             }
             return max;
         }
