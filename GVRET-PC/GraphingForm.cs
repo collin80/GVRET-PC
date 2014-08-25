@@ -249,9 +249,11 @@ namespace GVRET
                 for (int j = 0; j < numFrames; j++)
                 {
                     tempValInt = 0;
+                    int expon = 1;
                     for (int c = 0; c < numBytes; c++)
                     {
-                        tempValInt += (frames[idx].ElementAt(j).data[v2 - c] * (256 * c));
+                        tempValInt += (frames[idx].ElementAt(j).data[v2 - c] * expon);
+                        expon *= 256;
                     }
                     tempValInt &= Graphs[which].mask;
                     tempValue = (float)tempValInt;
@@ -268,9 +270,11 @@ namespace GVRET
                 for (int j = 0; j < numFrames; j++)
                 {
                     tempValInt = 0;
+                    int expon=1;
                     for (int c = 0; c < numBytes; c++)
                     {
-                        tempValInt += frames[idx].ElementAt(j).data[v2 + c] * (256 * c);
+                        tempValInt += frames[idx].ElementAt(j).data[v2 + c] * expon;
+                        expon *= 256;
                     }
                     tempValInt &= Graphs[which].mask;
                     tempValue = (float)tempValInt;
