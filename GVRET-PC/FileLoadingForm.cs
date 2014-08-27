@@ -66,7 +66,7 @@ namespace GVRET
             //updateFrameCounter();
         }
 
-        private void loadCSVFile(string filename)
+        private void loadNativeCSVFile(string filename)
         {
             CANFrame thisFrame;
             long temp;
@@ -106,6 +106,49 @@ namespace GVRET
             }
             csvStream.Close();
         }
+
+        private void loadGenericCSVFile(string filename)
+        {
+            CANFrame thisFrame;
+            long temp;
+
+            System.Globalization.NumberStyles style;
+
+            if (ckUseHex.Checked) style = System.Globalization.NumberStyles.HexNumber;
+            else style = System.Globalization.NumberStyles.Integer;
+
+            StreamReader csvStream = new StreamReader(filename);
+            loadedFrames = new List<CANFrame>();
+            while (!csvStream.EndOfStream)
+            {
+                string thisLine = csvStream.ReadLine();
+                if (thisLine.Length > 1)
+                {
+                    string[] theseTokens = thisLine.Split(',');
+                    thisFrame = new CANFrame();
+                    if (theseTokens.Length > 1)
+                    {
+
+                    }
+
+                    thisFrame.timestamp = DateTime.Now;
+                    thisFrame.ID = int.Parse(theseTokens[0], style);
+                    if (thisFrame.ID > 0x7FF) thisFrame.extended = true;
+                    else thisFrame.extended = false;
+                    thisFrame.bus = 0;
+
+                    string[] dataBytes = theseTokens[1].Split(' ');
+                    thisFrame.len = dataBytes.Length;
+                    if (thisFrame.len > 8) thisFrame.len = 8;
+                    for (int c = 0; c < 8; c++) thisFrame.data[c] = 0;
+                    for (int d = 0; d < thisFrame.len; d++) thisFrame.data[d] = byte.Parse(dataBytes[d], style);
+
+                    loadedFrames.Add(thisFrame);
+                }
+            }
+            csvStream.Close();
+        }
+
 
         private void loadMicrochipFile(string filename)
         {
@@ -220,10 +263,23 @@ namespace GVRET
             {
                 filename = openFileDialog1.FileName;
                 string fnSmall = filename.ToLower();
-                
-                if (fnSmall.EndsWith("csv")) loadCSVFile(filename);
-                if (fnSmall.EndsWith("log")) loadLogFile(filename);
-                if (fnSmall.EndsWith("can")) loadMicrochipFile(filename);
+
+                switch (openFileDialog1.FilterIndex) { 
+                    case 1:
+                        loadNativeCSVFile(filename);
+                        break;
+                    case 2:
+                        loadGenericCSVFile(filename);
+                        break;
+                    case 3:
+                        loadLogFile(filename);
+                        break;
+                    case 4:
+                        loadMicrochipFile(filename);
+                        break;
+                    default:
+                        break;                 
+                }
 
                 numFrames = loadedFrames.Count;
                 //updateFrameCounter();
