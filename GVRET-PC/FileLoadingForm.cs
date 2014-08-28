@@ -76,7 +76,9 @@ namespace GVRET
             if (ckUseHex.Checked) style = System.Globalization.NumberStyles.HexNumber;
             else style = System.Globalization.NumberStyles.Integer;
 
-            StreamReader csvStream = new StreamReader(filename);
+            StreamReader csvStream = null;
+
+            csvStream = new StreamReader(filename);
             csvStream.ReadLine(); //ignore header line
             loadedFrames = new List<CANFrame>();
             while (!csvStream.EndOfStream)
@@ -118,6 +120,7 @@ namespace GVRET
             else style = System.Globalization.NumberStyles.Integer;
 
             StreamReader csvStream = new StreamReader(filename);
+
             loadedFrames = new List<CANFrame>();
             while (!csvStream.EndOfStream)
             {
@@ -128,22 +131,20 @@ namespace GVRET
                     thisFrame = new CANFrame();
                     if (theseTokens.Length > 1)
                     {
+                        thisFrame.timestamp = DateTime.Now;
+                        thisFrame.ID = int.Parse(theseTokens[0], style);
+                        if (thisFrame.ID > 0x7FF) thisFrame.extended = true;
+                        else thisFrame.extended = false;
+                        thisFrame.bus = 0;
 
+                        string[] dataBytes = theseTokens[1].Split(' ');
+                        thisFrame.len = dataBytes.Length;
+                        if (thisFrame.len > 8) thisFrame.len = 8;
+                        for (int c = 0; c < 8; c++) thisFrame.data[c] = 0;
+                        for (int d = 0; d < thisFrame.len; d++) thisFrame.data[d] = byte.Parse(dataBytes[d], style);
+
+                        loadedFrames.Add(thisFrame);
                     }
-
-                    thisFrame.timestamp = DateTime.Now;
-                    thisFrame.ID = int.Parse(theseTokens[0], style);
-                    if (thisFrame.ID > 0x7FF) thisFrame.extended = true;
-                    else thisFrame.extended = false;
-                    thisFrame.bus = 0;
-
-                    string[] dataBytes = theseTokens[1].Split(' ');
-                    thisFrame.len = dataBytes.Length;
-                    if (thisFrame.len > 8) thisFrame.len = 8;
-                    for (int c = 0; c < 8; c++) thisFrame.data[c] = 0;
-                    for (int d = 0; d < thisFrame.len; d++) thisFrame.data[d] = byte.Parse(dataBytes[d], style);
-
-                    loadedFrames.Add(thisFrame);
                 }
             }
             csvStream.Close();
@@ -264,24 +265,45 @@ namespace GVRET
                 filename = openFileDialog1.FileName;
                 string fnSmall = filename.ToLower();
 
-                switch (openFileDialog1.FilterIndex) { 
-                    case 1:
-                        loadNativeCSVFile(filename);
-                        break;
-                    case 2:
-                        loadGenericCSVFile(filename);
-                        break;
-                    case 3:
-                        loadLogFile(filename);
-                        break;
-                    case 4:
-                        loadMicrochipFile(filename);
-                        break;
-                    default:
-                        break;                 
+                //doing the try/catch here allows for a generic handling of any file loading related problems.
+                try
+                {
+                    switch (openFileDialog1.FilterIndex)
+                    {
+                        case 1:
+                            loadNativeCSVFile(filename);
+                            break;
+                        case 2:
+                            loadGenericCSVFile(filename);
+                            break;
+                        case 3:
+                            loadLogFile(filename);
+                            break;
+                        case 4:
+                            loadMicrochipFile(filename);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                catch (Exception ee)
+                {
+                    MessageBox.Show("Error while loading file! Aborted!");
+                }
+                numFrames = loadedFrames.Count;
+
+                //If the user does not intend to use the playback system then immediately add all of the frames to the
+                //main form instantly but make it seem like they came in 10ms apart to give them all a unique time stamp
+                if (!cbUsePlayback.Checked)
+                {
+                    DateTime theTime = DateTime.Now;
+                    for (int i = 0; i < numFrames; i++)
+                    {
+                        loadedFrames[playbackPos].timestamp = theTime.AddMilliseconds(10.0);
+                        parent.sideloadFrame(loadedFrames[playbackPos]);
+                    }
                 }
 
-                numFrames = loadedFrames.Count;
                 //updateFrameCounter();
             }
         }
@@ -367,6 +389,28 @@ namespace GVRET
         private void timer2_Tick(object sender, EventArgs e)
         {
             updateFrameCounter();
+        }
+
+        private void ckUseHex_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbCANSend_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbUsePlayback_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbUsePlayback.Checked)
+            {
+                groupBox3.Enabled = true;
+            }
+            else
+            {
+                groupBox3.Enabled = false;
+            }
         }
     }
 }
