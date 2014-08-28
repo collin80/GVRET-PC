@@ -299,8 +299,9 @@ namespace GVRET
                     DateTime theTime = DateTime.Now;
                     for (int i = 0; i < numFrames; i++)
                     {
-                        loadedFrames[playbackPos].timestamp = theTime.AddMilliseconds(10.0);
-                        parent.sideloadFrame(loadedFrames[playbackPos]);
+                        theTime = theTime.AddMilliseconds(10.0);
+                        loadedFrames[i].timestamp = theTime;
+                        parent.sideloadFrame(loadedFrames[i]);
                     }
                 }
 

@@ -28,7 +28,9 @@ using System.IO;
  * 
  * Create a screen where one can select an ID and a range of bits and it'll plot those bits on a line where it ranges from min to max
  * over that range so that one can see how the plot looks. This screen should allow for some interpretation changes such
- * as signed/unsigned, scaling, bias. These things can be guesses.
+ * as signed/unsigned, scaling, bias. These things can be guesses - Done except for signed/unsigned. That's not in there.
+ * 
+ * Figure out why sorting works weird... we'd want to sort my one field but then on time frame afterward.
  */
 
 
@@ -345,11 +347,11 @@ namespace GVRET
 
             if (!DisplayFrames)
             {
-                button4.Text = "Stop Auto Capture";
+                button4.Text = "Stop Frame View";
             }
             else //shut it down!
             {
-                button4.Text = "Enable Auto Capture";
+                button4.Text = "Enable Frame View";
             }
             DisplayFrames = !DisplayFrames;
 

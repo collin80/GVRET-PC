@@ -63,10 +63,10 @@
             this.multiToggleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fuzzyScopeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFramesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadFramesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbActivity = new System.Windows.Forms.PictureBox();
-            this.graphDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbActivity)).BeginInit();
@@ -96,7 +96,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(136, 23);
             this.button4.TabIndex = 4;
-            this.button4.Text = "Enable Auto Capture";
+            this.button4.Text = "Enable Frame View";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -381,6 +381,13 @@
             this.fuzzyScopeToolStripMenuItem.Text = "F&uzzy Scope";
             this.fuzzyScopeToolStripMenuItem.Click += new System.EventHandler(this.fuzzyScopeToolStripMenuItem_Click);
             // 
+            // graphDataToolStripMenuItem
+            // 
+            this.graphDataToolStripMenuItem.Name = "graphDataToolStripMenuItem";
+            this.graphDataToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.graphDataToolStripMenuItem.Text = "&Graph Data";
+            this.graphDataToolStripMenuItem.Click += new System.EventHandler(this.graphDataToolStripMenuItem_Click);
+            // 
             // saveFramesToolStripMenuItem
             // 
             this.saveFramesToolStripMenuItem.Name = "saveFramesToolStripMenuItem";
@@ -404,13 +411,6 @@
             this.pbActivity.Size = new System.Drawing.Size(857, 117);
             this.pbActivity.TabIndex = 34;
             this.pbActivity.TabStop = false;
-            // 
-            // graphDataToolStripMenuItem
-            // 
-            this.graphDataToolStripMenuItem.Name = "graphDataToolStripMenuItem";
-            this.graphDataToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.graphDataToolStripMenuItem.Text = "&Graph Data";
-            this.graphDataToolStripMenuItem.Click += new System.EventHandler(this.graphDataToolStripMenuItem_Click);
             // 
             // MainForm
             // 
