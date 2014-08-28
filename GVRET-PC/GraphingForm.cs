@@ -17,10 +17,11 @@ namespace GVRET
 
         public MainForm parent;
         private List<int> foundID = new List<int>();
+        private static int numGraphs = 6;
 
         private List<CANFrame>[] frames;
 
-        GraphData[] Graphs = new GraphData[4];
+        GraphData[] Graphs = new GraphData[numGraphs];
 
         public GraphingForm()
         {
@@ -99,7 +100,7 @@ namespace GVRET
         private int getMaxFrames()
         {
             int max = 0;
-            for (int j = 0; j < 4; j++) 
+            for (int j = 0; j < numGraphs; j++) 
             {
                 if (Graphs[j].valueCache != null)
                 {
@@ -127,6 +128,7 @@ namespace GVRET
 
         protected void fillDataSource(DataSource src, int idx)
         {
+            if (idx < 0 || idx > numGraphs - 1) return;
             for (int i = 0; i < src.Length; i++)
             {
                 src.Samples[i].x = i;
@@ -145,15 +147,16 @@ namespace GVRET
 
             int totalFrames = getMaxFrames();
 
-            display.SetDisplayRangeX(0, totalFrames);
+            display.SetDisplayRangeX(0f, (float)totalFrames);
             display.SetGridDistanceX((float)(totalFrames / 10.0));
 
-            for (int graph = 0; graph < 4; graph++)
+            for (int graph = 0; graph < numGraphs; graph++)
             {
                 if (Graphs[graph].valueCache != null)
                 {
                     display.DataSources.Add(new DataSource());
                     display.DataSources[graph].Name = "Graph " + (graph + 1);
+                    display.DataSources[graph].AutoScaleX = false;
                     display.DataSources[graph].OnRenderXAxisLabel += RenderXLabel;
 
                     display.DataSources[graph].Length = Graphs[graph].valueCache.Length;
@@ -177,21 +180,7 @@ namespace GVRET
 
         private String RenderXLabel(DataSource s, int idx)
         {
-            if (s.AutoScaleX)
-            {
-                //if (idx % 2 == 0)
-                {
-                    int Value = (int)(s.Samples[idx].x);
-                    return "" + Value;
-                }
-                return "";
-            }
-            else
-            {
-                int Value = (int)(s.Samples[idx].x / 200);
-                String Label = "" + Value + "\"";
-                return Label;
-            }
+            return String.Format("{0}", (int)s.Samples[idx].x);
         }
 
         private String RenderYLabel(DataSource s, float value)
@@ -210,6 +199,9 @@ namespace GVRET
 
         private void setupGraph(int which) 
         {
+
+            if (which < 0 || which > (numGraphs - 1)) return;
+
             float bias, scale;
             int v1, v2, numFrames, idx;
            
@@ -223,6 +215,8 @@ namespace GVRET
             v2 = Graphs[which].B2;
             idx = getIdxForID(Graphs[which].ID);
             numFrames = frames[idx].Count;
+
+            Graphs[which].valueCache = new float[numFrames];
 
             Debug.Print("SetupGraph for " + which.ToString() + " V1: " + v1.ToString() + " V2: " + v2.ToString() + " numFrames: " + numFrames.ToString());
 
@@ -355,24 +349,67 @@ namespace GVRET
                 thisColor = pbColor4.BackColor;
                 whichGraph = 3;
             }
-
-            ID = int.Parse(strID, System.Globalization.NumberStyles.HexNumber);
-            Mask = int.Parse(strMask, System.Globalization.NumberStyles.HexNumber);
-            Bias = float.Parse(strBias);
-            Scale = float.Parse(strScale);
+            else if (sender.Equals(btnRefresh5))
+            {
+                strID = txtID5.Text;
+                strMask = txtMask5.Text;
+                strBytes = txtByte5.Text;
+                strBias = txtBias5.Text;
+                strScale = txtScale5.Text;
+                thisColor = pbColor5.BackColor;
+                whichGraph = 4;
+            }
+            else if (sender.Equals(btnRefresh6))
+            {
+                strID = txtID6.Text;
+                strMask = txtMask6.Text;
+                strBytes = txtByte6.Text;
+                strBias = txtBias6.Text;
+                strScale = txtScale6.Text;
+                thisColor = pbColor6.BackColor;
+                whichGraph = 5;
+            }
+            try
+            {
+                ID = int.Parse(strID, System.Globalization.NumberStyles.HexNumber);
+                Mask = int.Parse(strMask, System.Globalization.NumberStyles.HexNumber);
+                Bias = float.Parse(strBias);
+                Scale = float.Parse(strScale);
+            }
+            catch (FormatException fe) 
+            {
+                ID = 0;
+                Mask = 0;
+                Bias = 0f;
+                Scale = 0f;
+            }
 
             B1 = -1;
             B2 = -1;
 
-            string[] values = strBytes.Split('-');
-            Debug.Print("Split values: " + values.Length.ToString());
-            if (values.Length > 0)
+            try
             {
-                B1 = int.Parse(values[0]);
-                if (values.Length > 1)
+                string[] values = strBytes.Split('-');
+                Debug.Print("Split values: " + values.Length.ToString());
+                if (values.Length > 0)
                 {
-                    B2 = int.Parse(values[1]);
+                    B1 = int.Parse(values[0]);
+                    if (values.Length > 1)
+                    {
+                        B2 = int.Parse(values[1]);
+                    }
                 }
+            }
+            catch (FormatException fee) 
+            { 
+            }
+
+            //do some basic error checking. On error null out this graph and reprocess
+            if ((B1 == -1 && B2 == -1) || B1 > 7 || B2 > 7)
+            {
+                Graphs[whichGraph].valueCache = null;
+                setupGraphs();
+                return;
             }
 
             Graphs[whichGraph].bias = Bias;
@@ -391,10 +428,14 @@ namespace GVRET
             int idx = getIdxForID(ID);
             if (idx > -1)
             {
-                Graphs[whichGraph].valueCache = new float[frames[idx].Count];
-                setupGraph(whichGraph);
-                setupGraphs();                
+                setupGraph(whichGraph);                
             }
+            else 
+            {
+                Graphs[whichGraph].valueCache = null;
+            }
+
+            setupGraphs();                
         }
     }
 

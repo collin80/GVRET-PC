@@ -89,6 +89,34 @@
             this.label16 = new System.Windows.Forms.Label();
             this.txtByte4 = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btnRefresh5 = new System.Windows.Forms.Button();
+            this.txtMask5 = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.txtID5 = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.txtScale5 = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.txtBias5 = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.pbColor5 = new System.Windows.Forms.PictureBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.txtByte5 = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btnRefresh6 = new System.Windows.Forms.Button();
+            this.txtMask6 = new System.Windows.Forms.TextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.txtID6 = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.txtScale6 = new System.Windows.Forms.TextBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.txtBias6 = new System.Windows.Forms.TextBox();
+            this.label35 = new System.Windows.Forms.Label();
+            this.pbColor6 = new System.Windows.Forms.PictureBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.txtByte6 = new System.Windows.Forms.TextBox();
+            this.label37 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbColor1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -97,6 +125,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbColor3)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbColor4)).BeginInit();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbColor5)).BeginInit();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbColor6)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -149,7 +181,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtByte1);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(166, 360);
+            this.groupBox1.Location = new System.Drawing.Point(65, 360);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(142, 184);
             this.groupBox1.TabIndex = 6;
@@ -283,7 +315,7 @@
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.txtByte2);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Location = new System.Drawing.Point(344, 361);
+            this.groupBox2.Location = new System.Drawing.Point(211, 361);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(142, 183);
             this.groupBox2.TabIndex = 8;
@@ -417,7 +449,7 @@
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.txtByte3);
             this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Location = new System.Drawing.Point(522, 361);
+            this.groupBox3.Location = new System.Drawing.Point(357, 361);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(141, 183);
             this.groupBox3.TabIndex = 9;
@@ -503,7 +535,7 @@
             // 
             // pbColor3
             // 
-            this.pbColor3.BackColor = System.Drawing.Color.Blue;
+            this.pbColor3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.pbColor3.Location = new System.Drawing.Point(36, 129);
             this.pbColor3.Name = "pbColor3";
             this.pbColor3.Size = new System.Drawing.Size(100, 20);
@@ -551,7 +583,7 @@
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Controls.Add(this.txtByte4);
             this.groupBox4.Controls.Add(this.label17);
-            this.groupBox4.Location = new System.Drawing.Point(699, 361);
+            this.groupBox4.Location = new System.Drawing.Point(502, 361);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(144, 183);
             this.groupBox4.TabIndex = 10;
@@ -670,11 +702,281 @@
             this.label17.TabIndex = 0;
             this.label17.Text = "Bytes:";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.btnRefresh5);
+            this.groupBox5.Controls.Add(this.txtMask5);
+            this.groupBox5.Controls.Add(this.label26);
+            this.groupBox5.Controls.Add(this.txtID5);
+            this.groupBox5.Controls.Add(this.label27);
+            this.groupBox5.Controls.Add(this.txtScale5);
+            this.groupBox5.Controls.Add(this.label28);
+            this.groupBox5.Controls.Add(this.txtBias5);
+            this.groupBox5.Controls.Add(this.label29);
+            this.groupBox5.Controls.Add(this.pbColor5);
+            this.groupBox5.Controls.Add(this.label30);
+            this.groupBox5.Controls.Add(this.txtByte5);
+            this.groupBox5.Controls.Add(this.label31);
+            this.groupBox5.Location = new System.Drawing.Point(650, 361);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(144, 183);
+            this.groupBox5.TabIndex = 16;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Graph 5";
+            // 
+            // btnRefresh5
+            // 
+            this.btnRefresh5.Location = new System.Drawing.Point(6, 151);
+            this.btnRefresh5.Name = "btnRefresh5";
+            this.btnRefresh5.Size = new System.Drawing.Size(131, 23);
+            this.btnRefresh5.TabIndex = 15;
+            this.btnRefresh5.Text = "Refresh";
+            this.btnRefresh5.UseVisualStyleBackColor = true;
+            this.btnRefresh5.Click += new System.EventHandler(this.btnRefresh1_Click);
+            // 
+            // txtMask5
+            // 
+            this.txtMask5.Location = new System.Drawing.Point(36, 61);
+            this.txtMask5.Name = "txtMask5";
+            this.txtMask5.Size = new System.Drawing.Size(100, 20);
+            this.txtMask5.TabIndex = 13;
+            this.txtMask5.Text = "FFFFFFFF";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(3, 61);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(36, 13);
+            this.label26.TabIndex = 12;
+            this.label26.Text = "Mask:";
+            // 
+            // txtID5
+            // 
+            this.txtID5.Location = new System.Drawing.Point(36, 15);
+            this.txtID5.Name = "txtID5";
+            this.txtID5.Size = new System.Drawing.Size(100, 20);
+            this.txtID5.TabIndex = 12;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(3, 15);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(21, 13);
+            this.label27.TabIndex = 11;
+            this.label27.Text = "ID:";
+            // 
+            // txtScale5
+            // 
+            this.txtScale5.Location = new System.Drawing.Point(36, 106);
+            this.txtScale5.Name = "txtScale5";
+            this.txtScale5.Size = new System.Drawing.Size(100, 20);
+            this.txtScale5.TabIndex = 7;
+            this.txtScale5.Text = "1";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(2, 106);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(37, 13);
+            this.label28.TabIndex = 6;
+            this.label28.Text = "Scale:";
+            // 
+            // txtBias5
+            // 
+            this.txtBias5.Location = new System.Drawing.Point(36, 84);
+            this.txtBias5.Name = "txtBias5";
+            this.txtBias5.Size = new System.Drawing.Size(100, 20);
+            this.txtBias5.TabIndex = 5;
+            this.txtBias5.Text = "0";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(3, 84);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(30, 13);
+            this.label29.TabIndex = 4;
+            this.label29.Text = "Bias:";
+            // 
+            // pbColor5
+            // 
+            this.pbColor5.BackColor = System.Drawing.Color.Yellow;
+            this.pbColor5.Location = new System.Drawing.Point(36, 129);
+            this.pbColor5.Name = "pbColor5";
+            this.pbColor5.Size = new System.Drawing.Size(100, 20);
+            this.pbColor5.TabIndex = 3;
+            this.pbColor5.TabStop = false;
+            this.pbColor5.Click += new System.EventHandler(this.pbColor_Click);
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(3, 129);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(34, 13);
+            this.label30.TabIndex = 2;
+            this.label30.Text = "Color:";
+            // 
+            // txtByte5
+            // 
+            this.txtByte5.Location = new System.Drawing.Point(36, 38);
+            this.txtByte5.Name = "txtByte5";
+            this.txtByte5.Size = new System.Drawing.Size(100, 20);
+            this.txtByte5.TabIndex = 1;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(3, 38);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(36, 13);
+            this.label31.TabIndex = 0;
+            this.label31.Text = "Bytes:";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.btnRefresh6);
+            this.groupBox6.Controls.Add(this.txtMask6);
+            this.groupBox6.Controls.Add(this.label32);
+            this.groupBox6.Controls.Add(this.txtID6);
+            this.groupBox6.Controls.Add(this.label33);
+            this.groupBox6.Controls.Add(this.txtScale6);
+            this.groupBox6.Controls.Add(this.label34);
+            this.groupBox6.Controls.Add(this.txtBias6);
+            this.groupBox6.Controls.Add(this.label35);
+            this.groupBox6.Controls.Add(this.pbColor6);
+            this.groupBox6.Controls.Add(this.label36);
+            this.groupBox6.Controls.Add(this.txtByte6);
+            this.groupBox6.Controls.Add(this.label37);
+            this.groupBox6.Location = new System.Drawing.Point(798, 361);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(144, 183);
+            this.groupBox6.TabIndex = 17;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Graph 6";
+            // 
+            // btnRefresh6
+            // 
+            this.btnRefresh6.Location = new System.Drawing.Point(6, 151);
+            this.btnRefresh6.Name = "btnRefresh6";
+            this.btnRefresh6.Size = new System.Drawing.Size(131, 23);
+            this.btnRefresh6.TabIndex = 15;
+            this.btnRefresh6.Text = "Refresh";
+            this.btnRefresh6.UseVisualStyleBackColor = true;
+            this.btnRefresh6.Click += new System.EventHandler(this.btnRefresh1_Click);
+            // 
+            // txtMask6
+            // 
+            this.txtMask6.Location = new System.Drawing.Point(36, 61);
+            this.txtMask6.Name = "txtMask6";
+            this.txtMask6.Size = new System.Drawing.Size(100, 20);
+            this.txtMask6.TabIndex = 13;
+            this.txtMask6.Text = "FFFFFFFF";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(3, 61);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(36, 13);
+            this.label32.TabIndex = 12;
+            this.label32.Text = "Mask:";
+            // 
+            // txtID6
+            // 
+            this.txtID6.Location = new System.Drawing.Point(36, 15);
+            this.txtID6.Name = "txtID6";
+            this.txtID6.Size = new System.Drawing.Size(100, 20);
+            this.txtID6.TabIndex = 12;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(3, 15);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(21, 13);
+            this.label33.TabIndex = 11;
+            this.label33.Text = "ID:";
+            // 
+            // txtScale6
+            // 
+            this.txtScale6.Location = new System.Drawing.Point(36, 106);
+            this.txtScale6.Name = "txtScale6";
+            this.txtScale6.Size = new System.Drawing.Size(100, 20);
+            this.txtScale6.TabIndex = 7;
+            this.txtScale6.Text = "1";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(2, 106);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(37, 13);
+            this.label34.TabIndex = 6;
+            this.label34.Text = "Scale:";
+            // 
+            // txtBias6
+            // 
+            this.txtBias6.Location = new System.Drawing.Point(36, 84);
+            this.txtBias6.Name = "txtBias6";
+            this.txtBias6.Size = new System.Drawing.Size(100, 20);
+            this.txtBias6.TabIndex = 5;
+            this.txtBias6.Text = "0";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(3, 84);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(30, 13);
+            this.label35.TabIndex = 4;
+            this.label35.Text = "Bias:";
+            // 
+            // pbColor6
+            // 
+            this.pbColor6.BackColor = System.Drawing.Color.White;
+            this.pbColor6.Location = new System.Drawing.Point(36, 129);
+            this.pbColor6.Name = "pbColor6";
+            this.pbColor6.Size = new System.Drawing.Size(100, 20);
+            this.pbColor6.TabIndex = 3;
+            this.pbColor6.TabStop = false;
+            this.pbColor6.Click += new System.EventHandler(this.pbColor_Click);
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(3, 129);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(34, 13);
+            this.label36.TabIndex = 2;
+            this.label36.Text = "Color:";
+            // 
+            // txtByte6
+            // 
+            this.txtByte6.Location = new System.Drawing.Point(36, 38);
+            this.txtByte6.Name = "txtByte6";
+            this.txtByte6.Size = new System.Drawing.Size(100, 20);
+            this.txtByte6.TabIndex = 1;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(3, 38);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(36, 13);
+            this.label37.TabIndex = 0;
+            this.label37.Text = "Bytes:";
+            // 
             // GraphingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1009, 548);
+            this.Controls.Add(this.groupBox6);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -697,6 +999,12 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbColor4)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbColor5)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbColor6)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -764,5 +1072,33 @@
         private System.Windows.Forms.Button btnRefresh2;
         private System.Windows.Forms.Button btnRefresh3;
         private System.Windows.Forms.Button btnRefresh4;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button btnRefresh5;
+        private System.Windows.Forms.TextBox txtMask5;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox txtID5;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox txtScale5;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox txtBias5;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.PictureBox pbColor5;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox txtByte5;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Button btnRefresh6;
+        private System.Windows.Forms.TextBox txtMask6;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox txtID6;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.TextBox txtScale6;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.TextBox txtBias6;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.PictureBox pbColor6;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.TextBox txtByte6;
+        private System.Windows.Forms.Label label37;
     }
 }
