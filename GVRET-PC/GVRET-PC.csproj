@@ -50,7 +50,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GraphLib">
-      <HintPath>..\..\..\Documents\GraphDisplay\GraphLib\bin\Release\GraphLib.dll</HintPath>
+      <HintPath>.\GraphLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
