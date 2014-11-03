@@ -632,7 +632,7 @@ namespace GVRET
                         contLogging = true; //OK, the coast is clear
                         System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
                         Byte[] bytes;
-                        bytes = encoding.GetBytes("Time Stamp,Frame Ctl,PAN ID,SRC,DEST,LEN,D1,D2,D3,D4,D5,D6,D7,D8,D9,D10,D11,D12,D13,D14,D15,D16");
+                        bytes = encoding.GetBytes("Time Stamp,ID,Extended,Bus,LEN,D1,D2,D3,D4,D5,D6,D7,D8");
                         continuousOutput.Write(bytes, 0, bytes.Length);
                         continuousOutput.WriteByte(10);
                     }
