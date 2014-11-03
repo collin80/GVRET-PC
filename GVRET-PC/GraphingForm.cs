@@ -203,13 +203,15 @@ namespace GVRET
             if (which < 0 || which > (numGraphs - 1)) return;
 
             float bias, scale;
-            int v1, v2, numFrames, idx;
-           
+            int v1, v2, numFrames, idx, tempVal;
+            Boolean signed;
+
             Graphs[which].minVal = 9999999.0F;
             Graphs[which].maxVal = -9999999.0F;
 
             bias = Graphs[which].bias;
             scale = Graphs[which].scale;
+            signed = Graphs[which].signed;
 
             v1 = Graphs[which].B1;
             v2 = Graphs[which].B2;
@@ -230,7 +232,12 @@ namespace GVRET
             {
                 for (int j = 0; j < numFrames; j++)
                 {
-                    Graphs[which].valueCache[j] = ((frames[idx].ElementAt(j).data[v1] & Graphs[which].mask) + bias) * scale;
+                    tempVal = (frames[idx].ElementAt(j).data[v1] & Graphs[which].mask);
+                    if (signed && tempVal > 127)
+                    {
+                        tempVal = tempVal - 256;
+                    }
+                    Graphs[which].valueCache[j] = (tempVal + bias) * scale;
                     if (Graphs[which].valueCache[j] > Graphs[which].maxVal) Graphs[which].maxVal = Graphs[which].valueCache[j];
                     if (Graphs[which].valueCache[j] < Graphs[which].minVal) Graphs[which].minVal = Graphs[which].valueCache[j];
                 }
@@ -240,6 +247,7 @@ namespace GVRET
                 float tempValue;
                 int tempValInt;
                 int numBytes = (v2 - v1) + 1;
+                int shiftRef = 1 << (numBytes * 8);
                 for (int j = 0; j < numFrames; j++)
                 {
                     tempValInt = 0;
@@ -249,7 +257,14 @@ namespace GVRET
                         tempValInt += (frames[idx].ElementAt(j).data[v2 - c] * expon);
                         expon *= 256;
                     }
+
                     tempValInt &= Graphs[which].mask;
+                    
+                    if (signed && tempValInt > ((shiftRef / 2) - 1) ) 
+                    {
+                        tempValInt = tempValInt - shiftRef;
+                    }
+                    
                     tempValue = (float)tempValInt;
                     Graphs[which].valueCache[j] = (tempValue + bias) * scale;
                     if (Graphs[which].valueCache[j] > Graphs[which].maxVal) Graphs[which].maxVal = Graphs[which].valueCache[j];
@@ -261,6 +276,7 @@ namespace GVRET
                 float tempValue;
                 int tempValInt;
                 int numBytes = (v1 - v2) + 1;
+                int shiftRef = 1 << (numBytes * 8);
                 for (int j = 0; j < numFrames; j++)
                 {
                     tempValInt = 0;
@@ -271,6 +287,12 @@ namespace GVRET
                         expon *= 256;
                     }
                     tempValInt &= Graphs[which].mask;
+
+                    if (signed && tempValInt > ((shiftRef / 2) - 1))
+                    {
+                        tempValInt = tempValInt - shiftRef;
+                    }
+
                     tempValue = (float)tempValInt;
                     Graphs[which].valueCache[j] = (tempValue + bias) * scale;
                     if (Graphs[which].valueCache[j] > Graphs[which].maxVal) Graphs[which].maxVal = Graphs[which].valueCache[j];
@@ -300,20 +322,24 @@ namespace GVRET
             float Bias, Scale;
             String strID, strMask, strBytes, strBias, strScale;
             Color thisColor;
+            Boolean signedVal;
 
             strID = "";
             strMask = "";
             strBytes = "";
             strBias = "";
             strScale = "";
+            signedVal = false;
             whichGraph = 0;
             thisColor = pbColor1.BackColor;
+
 
             if (sender.Equals(btnRefresh1))
             {
                 strID = txtID1.Text;
                 strMask = txtMask1.Text;
                 strBytes = txtByte1.Text;
+                signedVal = cbSigned1.Checked;
                 strBias = txtBias1.Text;
                 strScale = txtScale1.Text;
                 thisColor = pbColor1.BackColor;
@@ -324,6 +350,7 @@ namespace GVRET
                 strID = txtID2.Text;
                 strMask = txtMask2.Text;
                 strBytes = txtByte2.Text;
+                signedVal = cbSigned2.Checked;
                 strBias = txtBias2.Text;
                 strScale = txtScale2.Text;
                 thisColor = pbColor2.BackColor;
@@ -334,6 +361,7 @@ namespace GVRET
                 strID = txtID3.Text;
                 strMask = txtMask3.Text;
                 strBytes = txtByte3.Text;
+                signedVal = cbSigned3.Checked;
                 strBias = txtBias3.Text;
                 strScale = txtScale3.Text;
                 thisColor = pbColor3.BackColor;
@@ -344,6 +372,7 @@ namespace GVRET
                 strID = txtID4.Text;
                 strMask = txtMask4.Text;
                 strBytes = txtByte4.Text;
+                signedVal = cbSigned4.Checked;
                 strBias = txtBias4.Text;
                 strScale = txtScale4.Text;
                 thisColor = pbColor4.BackColor;
@@ -354,6 +383,7 @@ namespace GVRET
                 strID = txtID5.Text;
                 strMask = txtMask5.Text;
                 strBytes = txtByte5.Text;
+                signedVal = cbSigned5.Checked;
                 strBias = txtBias5.Text;
                 strScale = txtScale5.Text;
                 thisColor = pbColor5.BackColor;
@@ -364,6 +394,7 @@ namespace GVRET
                 strID = txtID6.Text;
                 strMask = txtMask6.Text;
                 strBytes = txtByte6.Text;
+                signedVal = cbSigned6.Checked;
                 strBias = txtBias6.Text;
                 strScale = txtScale6.Text;
                 thisColor = pbColor6.BackColor;
@@ -419,6 +450,7 @@ namespace GVRET
             Graphs[whichGraph].B2 = B2;
             Graphs[whichGraph].ID = ID;
             Graphs[whichGraph].color = thisColor;
+            Graphs[whichGraph].signed = signedVal;
 
             //At long last all input value parsing is done. Now recalculate the given graph.
 
@@ -449,5 +481,6 @@ namespace GVRET
         public int ID;
         public int B1, B2;
         public Color color;
+        public Boolean signed;
     }
 }
