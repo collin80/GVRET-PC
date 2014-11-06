@@ -224,80 +224,88 @@ namespace GVRET
 
             if (v1 == -1) return;
 
-            //three options here. There can be no val2 in which case this is a single byte value
-            //and we can process from there. The second value can be larger than the first in which
-            //case this is big endian. The second value can be smaller than the first in which case
-            //this is little endian.
-            if ((v2 == -1) || (v1 == v2)) //single byte value
+            if (v1 < 128) //are we operating on whole bytes?
             {
-                for (int j = 0; j < numFrames; j++)
+
+                //three options here. There can be no val2 in which case this is a single byte value
+                //and we can process from there. The second value can be larger than the first in which
+                //case this is big endian. The second value can be smaller than the first in which case
+                //this is little endian.
+                if ((v2 == -1) || (v1 == v2)) //single byte value
                 {
-                    tempVal = (frames[idx].ElementAt(j).data[v1] & Graphs[which].mask);
-                    if (signed && tempVal > 127)
+                    for (int j = 0; j < numFrames; j++)
                     {
-                        tempVal = tempVal - 256;
+                        tempVal = (frames[idx].ElementAt(j).data[v1] & Graphs[which].mask);
+                        if (signed && tempVal > 127)
+                        {
+                            tempVal = tempVal - 256;
+                        }
+                        Graphs[which].valueCache[j] = (tempVal + bias) * scale;
+                        if (Graphs[which].valueCache[j] > Graphs[which].maxVal) Graphs[which].maxVal = Graphs[which].valueCache[j];
+                        if (Graphs[which].valueCache[j] < Graphs[which].minVal) Graphs[which].minVal = Graphs[which].valueCache[j];
                     }
-                    Graphs[which].valueCache[j] = (tempVal + bias) * scale;
-                    if (Graphs[which].valueCache[j] > Graphs[which].maxVal) Graphs[which].maxVal = Graphs[which].valueCache[j];
-                    if (Graphs[which].valueCache[j] < Graphs[which].minVal) Graphs[which].minVal = Graphs[which].valueCache[j];
+                }
+                else if (v2 > v1)  //big endian
+                {
+                    float tempValue;
+                    int tempValInt;
+                    int numBytes = (v2 - v1) + 1;
+                    int shiftRef = 1 << (numBytes * 8);
+                    for (int j = 0; j < numFrames; j++)
+                    {
+                        tempValInt = 0;
+                        int expon = 1;
+                        for (int c = 0; c < numBytes; c++)
+                        {
+                            tempValInt += (frames[idx].ElementAt(j).data[v2 - c] * expon);
+                            expon *= 256;
+                        }
+
+                        tempValInt &= Graphs[which].mask;
+
+                        if (signed && tempValInt > ((shiftRef / 2) - 1))
+                        {
+                            tempValInt = tempValInt - shiftRef;
+                        }
+
+                        tempValue = (float)tempValInt;
+                        Graphs[which].valueCache[j] = (tempValue + bias) * scale;
+                        if (Graphs[which].valueCache[j] > Graphs[which].maxVal) Graphs[which].maxVal = Graphs[which].valueCache[j];
+                        if (Graphs[which].valueCache[j] < Graphs[which].minVal) Graphs[which].minVal = Graphs[which].valueCache[j];
+                    }
+                }
+                else //must be little endian then
+                {
+                    float tempValue;
+                    int tempValInt;
+                    int numBytes = (v1 - v2) + 1;
+                    int shiftRef = 1 << (numBytes * 8);
+                    for (int j = 0; j < numFrames; j++)
+                    {
+                        tempValInt = 0;
+                        int expon = 1;
+                        for (int c = 0; c < numBytes; c++)
+                        {
+                            tempValInt += frames[idx].ElementAt(j).data[v2 + c] * expon;
+                            expon *= 256;
+                        }
+                        tempValInt &= Graphs[which].mask;
+
+                        if (signed && tempValInt > ((shiftRef / 2) - 1))
+                        {
+                            tempValInt = tempValInt - shiftRef;
+                        }
+
+                        tempValue = (float)tempValInt;
+                        Graphs[which].valueCache[j] = (tempValue + bias) * scale;
+                        if (Graphs[which].valueCache[j] > Graphs[which].maxVal) Graphs[which].maxVal = Graphs[which].valueCache[j];
+                        if (Graphs[which].valueCache[j] < Graphs[which].minVal) Graphs[which].minVal = Graphs[which].valueCache[j];
+                    }
                 }
             }
-            else if (v2 > v1)  //big endian
+            else //doing bit level work
             {
-                float tempValue;
-                int tempValInt;
-                int numBytes = (v2 - v1) + 1;
-                int shiftRef = 1 << (numBytes * 8);
-                for (int j = 0; j < numFrames; j++)
-                {
-                    tempValInt = 0;
-                    int expon = 1;
-                    for (int c = 0; c < numBytes; c++)
-                    {
-                        tempValInt += (frames[idx].ElementAt(j).data[v2 - c] * expon);
-                        expon *= 256;
-                    }
-
-                    tempValInt &= Graphs[which].mask;
-                    
-                    if (signed && tempValInt > ((shiftRef / 2) - 1) ) 
-                    {
-                        tempValInt = tempValInt - shiftRef;
-                    }
-                    
-                    tempValue = (float)tempValInt;
-                    Graphs[which].valueCache[j] = (tempValue + bias) * scale;
-                    if (Graphs[which].valueCache[j] > Graphs[which].maxVal) Graphs[which].maxVal = Graphs[which].valueCache[j];
-                    if (Graphs[which].valueCache[j] < Graphs[which].minVal) Graphs[which].minVal = Graphs[which].valueCache[j];
-                }
-            }
-            else //must be little endian then
-            {
-                float tempValue;
-                int tempValInt;
-                int numBytes = (v1 - v2) + 1;
-                int shiftRef = 1 << (numBytes * 8);
-                for (int j = 0; j < numFrames; j++)
-                {
-                    tempValInt = 0;
-                    int expon=1;
-                    for (int c = 0; c < numBytes; c++)
-                    {
-                        tempValInt += frames[idx].ElementAt(j).data[v2 + c] * expon;
-                        expon *= 256;
-                    }
-                    tempValInt &= Graphs[which].mask;
-
-                    if (signed && tempValInt > ((shiftRef / 2) - 1))
-                    {
-                        tempValInt = tempValInt - shiftRef;
-                    }
-
-                    tempValue = (float)tempValInt;
-                    Graphs[which].valueCache[j] = (tempValue + bias) * scale;
-                    if (Graphs[which].valueCache[j] > Graphs[which].maxVal) Graphs[which].maxVal = Graphs[which].valueCache[j];
-                    if (Graphs[which].valueCache[j] < Graphs[which].minVal) Graphs[which].minVal = Graphs[which].valueCache[j];
-                }
+ 
             }
         }
 
@@ -308,7 +316,7 @@ namespace GVRET
             int[] minData = new int[8];
             int[] maxData = new int[8];
             int[,] dataHistogram = new int[256,8];
-            TreeNode baseNode, dataBase, histBase;
+            TreeNode baseNode, dataBase, histBase, numBase;
 
             if (listFrameIDs.SelectedIndex > -1)
             {
@@ -354,7 +362,10 @@ namespace GVRET
                     histBase = dataBase.Nodes.Add("Histogram");
                     for (int d = 0; d < 256; d++)
                     {
-                        if (dataHistogram[d,c] > 0) histBase.Nodes.Add(d.ToString() + ": " + dataHistogram[d,c]);
+                        if (dataHistogram[d, c] > 0)
+                        {
+                            numBase = histBase.Nodes.Add(d.ToString() + "/0x" + d.ToString("X2") + ": " + dataHistogram[d, c]);
+                        }
                     }
                 }
             }
@@ -467,21 +478,42 @@ namespace GVRET
             B1 = -1;
             B2 = -1;
 
-            try
+            if (strBytes.ToUpper().StartsWith("B")) //bit based
             {
-                string[] values = strBytes.Split('-');
-                Debug.Print("Split values: " + values.Length.ToString());
-                if (values.Length > 0)
+                try
                 {
-                    B1 = int.Parse(values[0]);
-                    if (values.Length > 1)
+                    string[] values = strBytes.Substring(1).Split('-');
+                    Debug.Print("Split values: " + values.Length.ToString());
+                    if (values.Length > 0)
                     {
-                        B2 = int.Parse(values[1]);
+                        B1 = int.Parse(values[0]) + 128; //the +128 lets the subsequent work know that we're going to use bits instead of bytes
+                        if (values.Length > 1)
+                        {
+                            B2 = int.Parse(values[1]);
+                        }
                     }
                 }
+                catch (FormatException fee)
+                {
+                }
             }
-            catch (FormatException fee) 
-            { 
+            else { //byte based
+                try
+                {
+                    string[] values = strBytes.Split('-');
+                    Debug.Print("Split values: " + values.Length.ToString());
+                    if (values.Length > 0)
+                    {
+                        B1 = int.Parse(values[0]);
+                        if (values.Length > 1)
+                        {
+                            B2 = int.Parse(values[1]);
+                        }
+                    }
+                }
+                catch (FormatException fee) 
+                { 
+                }
             }
 
             //do some basic error checking. On error null out this graph and reprocess

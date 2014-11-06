@@ -74,3 +74,5 @@ Once guesses are made about the value of bits for a frame it should be possible 
 on it or something to bring up a screen that shows the details worked out. This allows frames to be decoded and the
 decoding checked for potential accuracy.
 
+On graphing screen it'd be nice if you could double click an id in the left side
+list and get a report with # of bytes, range of values per data byte, most common value per byte, etc. Maybe even a little graph with all (upwards of) 8 bytes at the same time

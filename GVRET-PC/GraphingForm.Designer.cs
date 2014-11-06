@@ -317,9 +317,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 38);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 13);
+            this.label2.Size = new System.Drawing.Size(33, 13);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Bytes:";
+            this.label2.Text = "Data:";
             // 
             // groupBox2
             // 
@@ -463,9 +463,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(3, 38);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(36, 13);
+            this.label7.Size = new System.Drawing.Size(33, 13);
             this.label7.TabIndex = 0;
-            this.label7.Text = "Bytes:";
+            this.label7.Text = "Data:";
             // 
             // groupBox3
             // 
@@ -609,9 +609,9 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(3, 38);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(36, 13);
+            this.label13.Size = new System.Drawing.Size(33, 13);
             this.label13.TabIndex = 0;
-            this.label13.Text = "Bytes:";
+            this.label13.Text = "Data:";
             // 
             // groupBox4
             // 
@@ -755,9 +755,9 @@
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(3, 38);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(36, 13);
+            this.label17.Size = new System.Drawing.Size(33, 13);
             this.label17.TabIndex = 0;
-            this.label17.Text = "Bytes:";
+            this.label17.Text = "Data:";
             // 
             // groupBox5
             // 
@@ -901,9 +901,9 @@
             this.label31.AutoSize = true;
             this.label31.Location = new System.Drawing.Point(3, 38);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(36, 13);
+            this.label31.Size = new System.Drawing.Size(33, 13);
             this.label31.TabIndex = 0;
-            this.label31.Text = "Bytes:";
+            this.label31.Text = "Data:";
             // 
             // groupBox6
             // 
@@ -1047,9 +1047,9 @@
             this.label37.AutoSize = true;
             this.label37.Location = new System.Drawing.Point(3, 38);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(36, 13);
+            this.label37.Size = new System.Drawing.Size(33, 13);
             this.label37.TabIndex = 0;
-            this.label37.Text = "Bytes:";
+            this.label37.Text = "Data:";
             // 
             // label38
             // 
