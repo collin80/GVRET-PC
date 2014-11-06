@@ -307,6 +307,8 @@ namespace GVRET
             int minLen, maxLen, thisLen;
             int[] minData = new int[8];
             int[] maxData = new int[8];
+            int[,] dataHistogram = new int[256,8];
+            TreeNode baseNode, dataBase, histBase;
 
             if (listFrameIDs.SelectedIndex > -1)
             {
@@ -315,15 +317,16 @@ namespace GVRET
                 idx = getIdxForID(targettedID);
                 numFrames = frames[idx].Count;
 
-                listDetails.Items.Clear();
-                listDetails.Items.Add("ID: " + listFrameIDs.Items[listFrameIDs.SelectedIndex].ToString());
-                listDetails.Items.Add("# Of Frames: " + numFrames.ToString());
+                treeDetails.Nodes.Clear();
+                treeDetails.Nodes.Add("ID: " + listFrameIDs.Items[listFrameIDs.SelectedIndex].ToString());
+                treeDetails.Nodes.Add("# Of Frames: " + numFrames.ToString());
                 minLen = 8;
                 maxLen = 0;
                 for (int i = 0; i < 8; i++)
                 {
                     minData[i] = 256;
                     maxData[i] = -1;
+                    for (int k = 0; k < 256; k++) dataHistogram[k, i] = 0;
                 }
                 for (int j = 0; j < numFrames; j++)
                 {
@@ -335,17 +338,24 @@ namespace GVRET
                         byte dat = frames[idx].ElementAt(j).data[c];
                         if (minData[c] > dat) minData[c] = dat;
                         if (maxData[c] < dat) maxData[c] = dat;
+                        dataHistogram[dat, c]++; //add one to count for this 
                     }
                 }
                 if (minLen < maxLen)
-                    listDetails.Items.Add("Data Length: " + minLen.ToString() + " to " + maxLen.ToString());
+                    baseNode = treeDetails.Nodes.Add("Data Length: " + minLen.ToString() + " to " + maxLen.ToString());
                 else
-                    listDetails.Items.Add("Data Length: " + minLen.ToString());
+                    baseNode = treeDetails.Nodes.Add("Data Length: " + minLen.ToString());
+                
                 for (int c = 0; c < maxLen; c++)
                 {
-                    listDetails.Items.Add(" ");
-                    listDetails.Items.Add("Data Byte " + c.ToString());
-                    listDetails.Items.Add("Range: " + minData[c] + " to " + maxData[c]);
+                    
+                    dataBase = baseNode.Nodes.Add("Data Byte " + c.ToString());
+                    dataBase.Nodes.Add("Range: " + minData[c] + " to " + maxData[c]);
+                    histBase = dataBase.Nodes.Add("Histogram");
+                    for (int d = 0; d < 256; d++)
+                    {
+                        if (dataHistogram[d,c] > 0) histBase.Nodes.Add(d.ToString() + ": " + dataHistogram[d,c]);
+                    }
                 }
             }
             else
