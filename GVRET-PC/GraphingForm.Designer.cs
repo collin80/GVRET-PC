@@ -33,6 +33,7 @@
             this.listFrameIDs = new System.Windows.Forms.ListBox();
             this.display = new GraphLib.PlotterDisplayEx();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbSigned1 = new System.Windows.Forms.CheckBox();
             this.txtMask1 = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.txtID1 = new System.Windows.Forms.TextBox();
@@ -48,6 +49,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbSigned2 = new System.Windows.Forms.CheckBox();
             this.btnRefresh2 = new System.Windows.Forms.Button();
             this.txtMask2 = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
@@ -62,6 +64,7 @@
             this.txtByte2 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cbSigned3 = new System.Windows.Forms.CheckBox();
             this.btnRefresh3 = new System.Windows.Forms.Button();
             this.txtMask3 = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
@@ -76,6 +79,7 @@
             this.txtByte3 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cbSigned4 = new System.Windows.Forms.CheckBox();
             this.btnRefresh4 = new System.Windows.Forms.Button();
             this.txtMask4 = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
@@ -90,6 +94,7 @@
             this.txtByte4 = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cbSigned5 = new System.Windows.Forms.CheckBox();
             this.btnRefresh5 = new System.Windows.Forms.Button();
             this.txtMask5 = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
@@ -104,6 +109,7 @@
             this.txtByte5 = new System.Windows.Forms.TextBox();
             this.label31 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.cbSigned6 = new System.Windows.Forms.CheckBox();
             this.btnRefresh6 = new System.Windows.Forms.Button();
             this.txtMask6 = new System.Windows.Forms.TextBox();
             this.label32 = new System.Windows.Forms.Label();
@@ -117,12 +123,8 @@
             this.label36 = new System.Windows.Forms.Label();
             this.txtByte6 = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
-            this.cbSigned1 = new System.Windows.Forms.CheckBox();
-            this.cbSigned2 = new System.Windows.Forms.CheckBox();
-            this.cbSigned3 = new System.Windows.Forms.CheckBox();
-            this.cbSigned4 = new System.Windows.Forms.CheckBox();
-            this.cbSigned5 = new System.Windows.Forms.CheckBox();
-            this.cbSigned6 = new System.Windows.Forms.CheckBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.listDetails = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbColor1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -139,20 +141,20 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 11);
+            this.label1.Location = new System.Drawing.Point(4, 11);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(120, 17);
+            this.label1.Size = new System.Drawing.Size(139, 16);
             this.label1.TabIndex = 4;
             this.label1.Text = "Frame IDs Found:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // listFrameIDs
             // 
             this.listFrameIDs.FormattingEnabled = true;
             this.listFrameIDs.ItemHeight = 16;
             this.listFrameIDs.Location = new System.Drawing.Point(4, 31);
-            this.listFrameIDs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listFrameIDs.Margin = new System.Windows.Forms.Padding(4);
             this.listFrameIDs.Name = "listFrameIDs";
             this.listFrameIDs.Size = new System.Drawing.Size(139, 404);
             this.listFrameIDs.Sorted = true;
@@ -169,10 +171,10 @@
             this.display.DashedGridColor = System.Drawing.Color.Blue;
             this.display.DoubleBuffering = true;
             this.display.Location = new System.Drawing.Point(152, 6);
-            this.display.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.display.Margin = new System.Windows.Forms.Padding(5);
             this.display.Name = "display";
             this.display.PlaySpeed = 0F;
-            this.display.Size = new System.Drawing.Size(1184, 430);
+            this.display.Size = new System.Drawing.Size(1303, 430);
             this.display.SolidGridColor = System.Drawing.Color.Blue;
             this.display.TabIndex = 5;
             // 
@@ -192,19 +194,29 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtByte1);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(87, 443);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Location = new System.Drawing.Point(285, 443);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(189, 253);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Graph 1";
             // 
+            // cbSigned1
+            // 
+            this.cbSigned1.AutoSize = true;
+            this.cbSigned1.Location = new System.Drawing.Point(54, 74);
+            this.cbSigned1.Name = "cbSigned1";
+            this.cbSigned1.Size = new System.Drawing.Size(82, 21);
+            this.cbSigned1.TabIndex = 12;
+            this.cbSigned1.Text = "Signed?";
+            this.cbSigned1.UseVisualStyleBackColor = true;
+            // 
             // txtMask1
             // 
             this.txtMask1.Location = new System.Drawing.Point(48, 100);
-            this.txtMask1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMask1.Margin = new System.Windows.Forms.Padding(4);
             this.txtMask1.Name = "txtMask1";
             this.txtMask1.Size = new System.Drawing.Size(132, 22);
             this.txtMask1.TabIndex = 11;
@@ -223,7 +235,7 @@
             // txtID1
             // 
             this.txtID1.Location = new System.Drawing.Point(48, 18);
-            this.txtID1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtID1.Margin = new System.Windows.Forms.Padding(4);
             this.txtID1.Name = "txtID1";
             this.txtID1.Size = new System.Drawing.Size(132, 22);
             this.txtID1.TabIndex = 9;
@@ -231,7 +243,7 @@
             // btnRefresh1
             // 
             this.btnRefresh1.Location = new System.Drawing.Point(7, 217);
-            this.btnRefresh1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRefresh1.Margin = new System.Windows.Forms.Padding(4);
             this.btnRefresh1.Name = "btnRefresh1";
             this.btnRefresh1.Size = new System.Drawing.Size(175, 28);
             this.btnRefresh1.TabIndex = 11;
@@ -252,7 +264,7 @@
             // txtScale1
             // 
             this.txtScale1.Location = new System.Drawing.Point(48, 155);
-            this.txtScale1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtScale1.Margin = new System.Windows.Forms.Padding(4);
             this.txtScale1.Name = "txtScale1";
             this.txtScale1.Size = new System.Drawing.Size(132, 22);
             this.txtScale1.TabIndex = 7;
@@ -271,7 +283,7 @@
             // txtBias1
             // 
             this.txtBias1.Location = new System.Drawing.Point(48, 127);
-            this.txtBias1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBias1.Margin = new System.Windows.Forms.Padding(4);
             this.txtBias1.Name = "txtBias1";
             this.txtBias1.Size = new System.Drawing.Size(132, 22);
             this.txtBias1.TabIndex = 5;
@@ -291,7 +303,7 @@
             // 
             this.pbColor1.BackColor = System.Drawing.Color.Red;
             this.pbColor1.Location = new System.Drawing.Point(48, 184);
-            this.pbColor1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbColor1.Margin = new System.Windows.Forms.Padding(4);
             this.pbColor1.Name = "pbColor1";
             this.pbColor1.Size = new System.Drawing.Size(133, 25);
             this.pbColor1.TabIndex = 3;
@@ -311,7 +323,7 @@
             // txtByte1
             // 
             this.txtByte1.Location = new System.Drawing.Point(48, 47);
-            this.txtByte1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtByte1.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte1.Name = "txtByte1";
             this.txtByte1.Size = new System.Drawing.Size(132, 22);
             this.txtByte1.TabIndex = 1;
@@ -342,19 +354,29 @@
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.txtByte2);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Location = new System.Drawing.Point(281, 444);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Location = new System.Drawing.Point(479, 444);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(189, 252);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Graph 2";
             // 
+            // cbSigned2
+            // 
+            this.cbSigned2.AutoSize = true;
+            this.cbSigned2.Location = new System.Drawing.Point(65, 74);
+            this.cbSigned2.Name = "cbSigned2";
+            this.cbSigned2.Size = new System.Drawing.Size(82, 21);
+            this.cbSigned2.TabIndex = 13;
+            this.cbSigned2.Text = "Signed?";
+            this.cbSigned2.UseVisualStyleBackColor = true;
+            // 
             // btnRefresh2
             // 
             this.btnRefresh2.Location = new System.Drawing.Point(5, 216);
-            this.btnRefresh2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRefresh2.Margin = new System.Windows.Forms.Padding(4);
             this.btnRefresh2.Name = "btnRefresh2";
             this.btnRefresh2.Size = new System.Drawing.Size(175, 28);
             this.btnRefresh2.TabIndex = 12;
@@ -365,7 +387,7 @@
             // txtMask2
             // 
             this.txtMask2.Location = new System.Drawing.Point(48, 99);
-            this.txtMask2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMask2.Margin = new System.Windows.Forms.Padding(4);
             this.txtMask2.Name = "txtMask2";
             this.txtMask2.Size = new System.Drawing.Size(132, 22);
             this.txtMask2.TabIndex = 13;
@@ -384,7 +406,7 @@
             // txtID2
             // 
             this.txtID2.Location = new System.Drawing.Point(48, 18);
-            this.txtID2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtID2.Margin = new System.Windows.Forms.Padding(4);
             this.txtID2.Name = "txtID2";
             this.txtID2.Size = new System.Drawing.Size(132, 22);
             this.txtID2.TabIndex = 13;
@@ -402,7 +424,7 @@
             // txtScale2
             // 
             this.txtScale2.Location = new System.Drawing.Point(48, 155);
-            this.txtScale2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtScale2.Margin = new System.Windows.Forms.Padding(4);
             this.txtScale2.Name = "txtScale2";
             this.txtScale2.Size = new System.Drawing.Size(132, 22);
             this.txtScale2.TabIndex = 7;
@@ -421,7 +443,7 @@
             // txtBias2
             // 
             this.txtBias2.Location = new System.Drawing.Point(48, 127);
-            this.txtBias2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBias2.Margin = new System.Windows.Forms.Padding(4);
             this.txtBias2.Name = "txtBias2";
             this.txtBias2.Size = new System.Drawing.Size(132, 22);
             this.txtBias2.TabIndex = 5;
@@ -441,7 +463,7 @@
             // 
             this.pbColor2.BackColor = System.Drawing.Color.Lime;
             this.pbColor2.Location = new System.Drawing.Point(48, 184);
-            this.pbColor2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbColor2.Margin = new System.Windows.Forms.Padding(4);
             this.pbColor2.Name = "pbColor2";
             this.pbColor2.Size = new System.Drawing.Size(133, 25);
             this.pbColor2.TabIndex = 3;
@@ -461,7 +483,7 @@
             // txtByte2
             // 
             this.txtByte2.Location = new System.Drawing.Point(48, 47);
-            this.txtByte2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtByte2.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte2.Name = "txtByte2";
             this.txtByte2.Size = new System.Drawing.Size(132, 22);
             this.txtByte2.TabIndex = 1;
@@ -492,19 +514,29 @@
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.txtByte3);
             this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Location = new System.Drawing.Point(476, 444);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Location = new System.Drawing.Point(674, 444);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox3.Size = new System.Drawing.Size(188, 252);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Graph 3";
             // 
+            // cbSigned3
+            // 
+            this.cbSigned3.AutoSize = true;
+            this.cbSigned3.Location = new System.Drawing.Point(65, 74);
+            this.cbSigned3.Name = "cbSigned3";
+            this.cbSigned3.Size = new System.Drawing.Size(82, 21);
+            this.cbSigned3.TabIndex = 14;
+            this.cbSigned3.Text = "Signed?";
+            this.cbSigned3.UseVisualStyleBackColor = true;
+            // 
             // btnRefresh3
             // 
             this.btnRefresh3.Location = new System.Drawing.Point(8, 216);
-            this.btnRefresh3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRefresh3.Margin = new System.Windows.Forms.Padding(4);
             this.btnRefresh3.Name = "btnRefresh3";
             this.btnRefresh3.Size = new System.Drawing.Size(175, 28);
             this.btnRefresh3.TabIndex = 14;
@@ -515,7 +547,7 @@
             // txtMask3
             // 
             this.txtMask3.Location = new System.Drawing.Point(48, 98);
-            this.txtMask3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMask3.Margin = new System.Windows.Forms.Padding(4);
             this.txtMask3.Name = "txtMask3";
             this.txtMask3.Size = new System.Drawing.Size(132, 22);
             this.txtMask3.TabIndex = 13;
@@ -534,7 +566,7 @@
             // txtID3
             // 
             this.txtID3.Location = new System.Drawing.Point(48, 18);
-            this.txtID3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtID3.Margin = new System.Windows.Forms.Padding(4);
             this.txtID3.Name = "txtID3";
             this.txtID3.Size = new System.Drawing.Size(132, 22);
             this.txtID3.TabIndex = 12;
@@ -552,7 +584,7 @@
             // txtScale3
             // 
             this.txtScale3.Location = new System.Drawing.Point(48, 154);
-            this.txtScale3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtScale3.Margin = new System.Windows.Forms.Padding(4);
             this.txtScale3.Name = "txtScale3";
             this.txtScale3.Size = new System.Drawing.Size(132, 22);
             this.txtScale3.TabIndex = 7;
@@ -571,7 +603,7 @@
             // txtBias3
             // 
             this.txtBias3.Location = new System.Drawing.Point(48, 126);
-            this.txtBias3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBias3.Margin = new System.Windows.Forms.Padding(4);
             this.txtBias3.Name = "txtBias3";
             this.txtBias3.Size = new System.Drawing.Size(132, 22);
             this.txtBias3.TabIndex = 5;
@@ -591,7 +623,7 @@
             // 
             this.pbColor3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.pbColor3.Location = new System.Drawing.Point(48, 183);
-            this.pbColor3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbColor3.Margin = new System.Windows.Forms.Padding(4);
             this.pbColor3.Name = "pbColor3";
             this.pbColor3.Size = new System.Drawing.Size(133, 25);
             this.pbColor3.TabIndex = 3;
@@ -611,7 +643,7 @@
             // txtByte3
             // 
             this.txtByte3.Location = new System.Drawing.Point(48, 47);
-            this.txtByte3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtByte3.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte3.Name = "txtByte3";
             this.txtByte3.Size = new System.Drawing.Size(132, 22);
             this.txtByte3.TabIndex = 1;
@@ -642,19 +674,29 @@
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Controls.Add(this.txtByte4);
             this.groupBox4.Controls.Add(this.label17);
-            this.groupBox4.Location = new System.Drawing.Point(669, 444);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Location = new System.Drawing.Point(867, 444);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox4.Size = new System.Drawing.Size(192, 252);
             this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Graph 4";
             // 
+            // cbSigned4
+            // 
+            this.cbSigned4.AutoSize = true;
+            this.cbSigned4.Location = new System.Drawing.Point(60, 74);
+            this.cbSigned4.Name = "cbSigned4";
+            this.cbSigned4.Size = new System.Drawing.Size(82, 21);
+            this.cbSigned4.TabIndex = 15;
+            this.cbSigned4.Text = "Signed?";
+            this.cbSigned4.UseVisualStyleBackColor = true;
+            // 
             // btnRefresh4
             // 
             this.btnRefresh4.Location = new System.Drawing.Point(3, 216);
-            this.btnRefresh4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRefresh4.Margin = new System.Windows.Forms.Padding(4);
             this.btnRefresh4.Name = "btnRefresh4";
             this.btnRefresh4.Size = new System.Drawing.Size(175, 28);
             this.btnRefresh4.TabIndex = 15;
@@ -665,7 +707,7 @@
             // txtMask4
             // 
             this.txtMask4.Location = new System.Drawing.Point(52, 99);
-            this.txtMask4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMask4.Margin = new System.Windows.Forms.Padding(4);
             this.txtMask4.Name = "txtMask4";
             this.txtMask4.Size = new System.Drawing.Size(132, 22);
             this.txtMask4.TabIndex = 13;
@@ -684,7 +726,7 @@
             // txtID4
             // 
             this.txtID4.Location = new System.Drawing.Point(48, 18);
-            this.txtID4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtID4.Margin = new System.Windows.Forms.Padding(4);
             this.txtID4.Name = "txtID4";
             this.txtID4.Size = new System.Drawing.Size(132, 22);
             this.txtID4.TabIndex = 12;
@@ -702,7 +744,7 @@
             // txtScale4
             // 
             this.txtScale4.Location = new System.Drawing.Point(52, 154);
-            this.txtScale4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtScale4.Margin = new System.Windows.Forms.Padding(4);
             this.txtScale4.Name = "txtScale4";
             this.txtScale4.Size = new System.Drawing.Size(132, 22);
             this.txtScale4.TabIndex = 7;
@@ -721,7 +763,7 @@
             // txtBias4
             // 
             this.txtBias4.Location = new System.Drawing.Point(52, 127);
-            this.txtBias4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBias4.Margin = new System.Windows.Forms.Padding(4);
             this.txtBias4.Name = "txtBias4";
             this.txtBias4.Size = new System.Drawing.Size(132, 22);
             this.txtBias4.TabIndex = 5;
@@ -741,7 +783,7 @@
             // 
             this.pbColor4.BackColor = System.Drawing.Color.Fuchsia;
             this.pbColor4.Location = new System.Drawing.Point(52, 183);
-            this.pbColor4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbColor4.Margin = new System.Windows.Forms.Padding(4);
             this.pbColor4.Name = "pbColor4";
             this.pbColor4.Size = new System.Drawing.Size(133, 25);
             this.pbColor4.TabIndex = 3;
@@ -761,7 +803,7 @@
             // txtByte4
             // 
             this.txtByte4.Location = new System.Drawing.Point(48, 47);
-            this.txtByte4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtByte4.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte4.Name = "txtByte4";
             this.txtByte4.Size = new System.Drawing.Size(132, 22);
             this.txtByte4.TabIndex = 1;
@@ -792,19 +834,29 @@
             this.groupBox5.Controls.Add(this.label30);
             this.groupBox5.Controls.Add(this.txtByte5);
             this.groupBox5.Controls.Add(this.label31);
-            this.groupBox5.Location = new System.Drawing.Point(867, 444);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Location = new System.Drawing.Point(1065, 444);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox5.Size = new System.Drawing.Size(192, 252);
             this.groupBox5.TabIndex = 16;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Graph 5";
             // 
+            // cbSigned5
+            // 
+            this.cbSigned5.AutoSize = true;
+            this.cbSigned5.Location = new System.Drawing.Point(67, 74);
+            this.cbSigned5.Name = "cbSigned5";
+            this.cbSigned5.Size = new System.Drawing.Size(82, 21);
+            this.cbSigned5.TabIndex = 16;
+            this.cbSigned5.Text = "Signed?";
+            this.cbSigned5.UseVisualStyleBackColor = true;
+            // 
             // btnRefresh5
             // 
             this.btnRefresh5.Location = new System.Drawing.Point(9, 216);
-            this.btnRefresh5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRefresh5.Margin = new System.Windows.Forms.Padding(4);
             this.btnRefresh5.Name = "btnRefresh5";
             this.btnRefresh5.Size = new System.Drawing.Size(175, 28);
             this.btnRefresh5.TabIndex = 15;
@@ -815,7 +867,7 @@
             // txtMask5
             // 
             this.txtMask5.Location = new System.Drawing.Point(52, 99);
-            this.txtMask5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMask5.Margin = new System.Windows.Forms.Padding(4);
             this.txtMask5.Name = "txtMask5";
             this.txtMask5.Size = new System.Drawing.Size(132, 22);
             this.txtMask5.TabIndex = 13;
@@ -834,7 +886,7 @@
             // txtID5
             // 
             this.txtID5.Location = new System.Drawing.Point(48, 18);
-            this.txtID5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtID5.Margin = new System.Windows.Forms.Padding(4);
             this.txtID5.Name = "txtID5";
             this.txtID5.Size = new System.Drawing.Size(132, 22);
             this.txtID5.TabIndex = 12;
@@ -852,7 +904,7 @@
             // txtScale5
             // 
             this.txtScale5.Location = new System.Drawing.Point(52, 154);
-            this.txtScale5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtScale5.Margin = new System.Windows.Forms.Padding(4);
             this.txtScale5.Name = "txtScale5";
             this.txtScale5.Size = new System.Drawing.Size(132, 22);
             this.txtScale5.TabIndex = 7;
@@ -871,7 +923,7 @@
             // txtBias5
             // 
             this.txtBias5.Location = new System.Drawing.Point(52, 127);
-            this.txtBias5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBias5.Margin = new System.Windows.Forms.Padding(4);
             this.txtBias5.Name = "txtBias5";
             this.txtBias5.Size = new System.Drawing.Size(132, 22);
             this.txtBias5.TabIndex = 5;
@@ -891,7 +943,7 @@
             // 
             this.pbColor5.BackColor = System.Drawing.Color.Yellow;
             this.pbColor5.Location = new System.Drawing.Point(52, 183);
-            this.pbColor5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbColor5.Margin = new System.Windows.Forms.Padding(4);
             this.pbColor5.Name = "pbColor5";
             this.pbColor5.Size = new System.Drawing.Size(133, 25);
             this.pbColor5.TabIndex = 3;
@@ -911,7 +963,7 @@
             // txtByte5
             // 
             this.txtByte5.Location = new System.Drawing.Point(48, 47);
-            this.txtByte5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtByte5.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte5.Name = "txtByte5";
             this.txtByte5.Size = new System.Drawing.Size(132, 22);
             this.txtByte5.TabIndex = 1;
@@ -942,19 +994,29 @@
             this.groupBox6.Controls.Add(this.label36);
             this.groupBox6.Controls.Add(this.txtByte6);
             this.groupBox6.Controls.Add(this.label37);
-            this.groupBox6.Location = new System.Drawing.Point(1064, 444);
-            this.groupBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox6.Location = new System.Drawing.Point(1262, 444);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox6.Size = new System.Drawing.Size(192, 252);
             this.groupBox6.TabIndex = 17;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Graph 6";
             // 
+            // cbSigned6
+            // 
+            this.cbSigned6.AutoSize = true;
+            this.cbSigned6.Location = new System.Drawing.Point(65, 74);
+            this.cbSigned6.Name = "cbSigned6";
+            this.cbSigned6.Size = new System.Drawing.Size(82, 21);
+            this.cbSigned6.TabIndex = 18;
+            this.cbSigned6.Text = "Signed?";
+            this.cbSigned6.UseVisualStyleBackColor = true;
+            // 
             // btnRefresh6
             // 
             this.btnRefresh6.Location = new System.Drawing.Point(9, 216);
-            this.btnRefresh6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRefresh6.Margin = new System.Windows.Forms.Padding(4);
             this.btnRefresh6.Name = "btnRefresh6";
             this.btnRefresh6.Size = new System.Drawing.Size(175, 28);
             this.btnRefresh6.TabIndex = 15;
@@ -965,7 +1027,7 @@
             // txtMask6
             // 
             this.txtMask6.Location = new System.Drawing.Point(51, 99);
-            this.txtMask6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMask6.Margin = new System.Windows.Forms.Padding(4);
             this.txtMask6.Name = "txtMask6";
             this.txtMask6.Size = new System.Drawing.Size(132, 22);
             this.txtMask6.TabIndex = 13;
@@ -984,7 +1046,7 @@
             // txtID6
             // 
             this.txtID6.Location = new System.Drawing.Point(48, 18);
-            this.txtID6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtID6.Margin = new System.Windows.Forms.Padding(4);
             this.txtID6.Name = "txtID6";
             this.txtID6.Size = new System.Drawing.Size(132, 22);
             this.txtID6.TabIndex = 12;
@@ -1002,7 +1064,7 @@
             // txtScale6
             // 
             this.txtScale6.Location = new System.Drawing.Point(51, 154);
-            this.txtScale6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtScale6.Margin = new System.Windows.Forms.Padding(4);
             this.txtScale6.Name = "txtScale6";
             this.txtScale6.Size = new System.Drawing.Size(132, 22);
             this.txtScale6.TabIndex = 7;
@@ -1021,7 +1083,7 @@
             // txtBias6
             // 
             this.txtBias6.Location = new System.Drawing.Point(51, 127);
-            this.txtBias6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBias6.Margin = new System.Windows.Forms.Padding(4);
             this.txtBias6.Name = "txtBias6";
             this.txtBias6.Size = new System.Drawing.Size(132, 22);
             this.txtBias6.TabIndex = 5;
@@ -1041,7 +1103,7 @@
             // 
             this.pbColor6.BackColor = System.Drawing.Color.White;
             this.pbColor6.Location = new System.Drawing.Point(51, 183);
-            this.pbColor6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbColor6.Margin = new System.Windows.Forms.Padding(4);
             this.pbColor6.Name = "pbColor6";
             this.pbColor6.Size = new System.Drawing.Size(133, 25);
             this.pbColor6.TabIndex = 3;
@@ -1061,7 +1123,7 @@
             // txtByte6
             // 
             this.txtByte6.Location = new System.Drawing.Point(48, 47);
-            this.txtByte6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtByte6.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte6.Name = "txtByte6";
             this.txtByte6.Size = new System.Drawing.Size(132, 22);
             this.txtByte6.TabIndex = 1;
@@ -1076,71 +1138,33 @@
             this.label37.TabIndex = 0;
             this.label37.Text = "Bytes:";
             // 
-            // cbSigned1
+            // label38
             // 
-            this.cbSigned1.AutoSize = true;
-            this.cbSigned1.Location = new System.Drawing.Point(54, 74);
-            this.cbSigned1.Name = "cbSigned1";
-            this.cbSigned1.Size = new System.Drawing.Size(82, 21);
-            this.cbSigned1.TabIndex = 12;
-            this.cbSigned1.Text = "Signed?";
-            this.cbSigned1.UseVisualStyleBackColor = true;
+            this.label38.Location = new System.Drawing.Point(7, 446);
+            this.label38.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(270, 16);
+            this.label38.TabIndex = 19;
+            this.label38.Text = "Details For Frame By ID:";
+            this.label38.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // cbSigned2
+            // listDetails
             // 
-            this.cbSigned2.AutoSize = true;
-            this.cbSigned2.Location = new System.Drawing.Point(65, 74);
-            this.cbSigned2.Name = "cbSigned2";
-            this.cbSigned2.Size = new System.Drawing.Size(82, 21);
-            this.cbSigned2.TabIndex = 13;
-            this.cbSigned2.Text = "Signed?";
-            this.cbSigned2.UseVisualStyleBackColor = true;
-            // 
-            // cbSigned3
-            // 
-            this.cbSigned3.AutoSize = true;
-            this.cbSigned3.Location = new System.Drawing.Point(65, 74);
-            this.cbSigned3.Name = "cbSigned3";
-            this.cbSigned3.Size = new System.Drawing.Size(82, 21);
-            this.cbSigned3.TabIndex = 14;
-            this.cbSigned3.Text = "Signed?";
-            this.cbSigned3.UseVisualStyleBackColor = true;
-            // 
-            // cbSigned4
-            // 
-            this.cbSigned4.AutoSize = true;
-            this.cbSigned4.Location = new System.Drawing.Point(60, 74);
-            this.cbSigned4.Name = "cbSigned4";
-            this.cbSigned4.Size = new System.Drawing.Size(82, 21);
-            this.cbSigned4.TabIndex = 15;
-            this.cbSigned4.Text = "Signed?";
-            this.cbSigned4.UseVisualStyleBackColor = true;
-            // 
-            // cbSigned5
-            // 
-            this.cbSigned5.AutoSize = true;
-            this.cbSigned5.Location = new System.Drawing.Point(67, 74);
-            this.cbSigned5.Name = "cbSigned5";
-            this.cbSigned5.Size = new System.Drawing.Size(82, 21);
-            this.cbSigned5.TabIndex = 16;
-            this.cbSigned5.Text = "Signed?";
-            this.cbSigned5.UseVisualStyleBackColor = true;
-            // 
-            // cbSigned6
-            // 
-            this.cbSigned6.AutoSize = true;
-            this.cbSigned6.Location = new System.Drawing.Point(65, 74);
-            this.cbSigned6.Name = "cbSigned6";
-            this.cbSigned6.Size = new System.Drawing.Size(82, 21);
-            this.cbSigned6.TabIndex = 18;
-            this.cbSigned6.Text = "Signed?";
-            this.cbSigned6.UseVisualStyleBackColor = true;
+            this.listDetails.FormattingEnabled = true;
+            this.listDetails.ItemHeight = 16;
+            this.listDetails.Location = new System.Drawing.Point(7, 466);
+            this.listDetails.Margin = new System.Windows.Forms.Padding(4);
+            this.listDetails.Name = "listDetails";
+            this.listDetails.Size = new System.Drawing.Size(270, 228);
+            this.listDetails.TabIndex = 18;
             // 
             // GraphingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1345, 709);
+            this.ClientSize = new System.Drawing.Size(1464, 709);
+            this.Controls.Add(this.label38);
+            this.Controls.Add(this.listDetails);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
@@ -1150,7 +1174,7 @@
             this.Controls.Add(this.display);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listFrameIDs);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GraphingForm";
             this.Text = "GraphingForm";
             this.Load += new System.EventHandler(this.GraphingForm_Load);
@@ -1173,7 +1197,6 @@
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbColor6)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -1273,5 +1296,7 @@
         private System.Windows.Forms.CheckBox cbSigned4;
         private System.Windows.Forms.CheckBox cbSigned5;
         private System.Windows.Forms.CheckBox cbSigned6;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.ListBox listDetails;
     }
 }

@@ -303,11 +303,50 @@ namespace GVRET
 
         private void listFrameIDs_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int idx, numFrames, targettedID;
+            int minLen, maxLen, thisLen;
+            int[] minData = new int[8];
+            int[] maxData = new int[8];
+
             if (listFrameIDs.SelectedIndex > -1)
             {
-                //targettedID = int.Parse(listFrameIDs.Items[listFrameIDs.SelectedIndex].ToString(), System.Globalization.NumberStyles.HexNumber);
-                //loadFromMainScreen();
-                //setupGraphs();
+                parseFrameCache();
+                targettedID = int.Parse(listFrameIDs.Items[listFrameIDs.SelectedIndex].ToString(), System.Globalization.NumberStyles.HexNumber);
+                idx = getIdxForID(targettedID);
+                numFrames = frames[idx].Count;
+
+                listDetails.Items.Clear();
+                listDetails.Items.Add("ID: " + listFrameIDs.Items[listFrameIDs.SelectedIndex].ToString());
+                listDetails.Items.Add("# Of Frames: " + numFrames.ToString());
+                minLen = 8;
+                maxLen = 0;
+                for (int i = 0; i < 8; i++)
+                {
+                    minData[i] = 256;
+                    maxData[i] = -1;
+                }
+                for (int j = 0; j < numFrames; j++)
+                {
+                    thisLen = frames[idx].ElementAt(j).len;
+                    if (thisLen > maxLen) maxLen = thisLen;
+                    if (thisLen < minLen) minLen = thisLen;
+                    for (int c = 0; c < thisLen; c++)
+                    {
+                        byte dat = frames[idx].ElementAt(j).data[c];
+                        if (minData[c] > dat) minData[c] = dat;
+                        if (maxData[c] < dat) maxData[c] = dat;
+                    }
+                }
+                if (minLen < maxLen)
+                    listDetails.Items.Add("Data Length: " + minLen.ToString() + " to " + maxLen.ToString());
+                else
+                    listDetails.Items.Add("Data Length: " + minLen.ToString());
+                for (int c = 0; c < maxLen; c++)
+                {
+                    listDetails.Items.Add(" ");
+                    listDetails.Items.Add("Data Byte " + c.ToString());
+                    listDetails.Items.Add("Range: " + minData[c] + " to " + maxData[c]);
+                }
             }
             else
             {
