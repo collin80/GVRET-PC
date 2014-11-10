@@ -89,6 +89,12 @@
     <Compile Include="FlowViewForm.Designer.cs">
       <DependentUpon>FlowViewForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrameSender.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrameSender.Designer.cs">
+      <DependentUpon>FrameSender.cs</DependentUpon>
+    </Compile>
     <Compile Include="FuzzyScopeForm.Designer.cs">
       <DependentUpon>FuzzyScopeForm.cs</DependentUpon>
     </Compile>
@@ -127,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FlowViewForm.resx">
       <DependentUpon>FlowViewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrameSender.resx">
+      <DependentUpon>FrameSender.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FuzzyScopeForm.resx">
       <DependentUpon>FuzzyScopeForm.cs</DependentUpon>

@@ -848,6 +848,13 @@ namespace GVRET
             theForm.setParent(this);
             theForm.Show();
         }
+
+        private void sendFramesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrameSender theForm = new FrameSender();
+            theForm.setParent(this);
+            theForm.Show();
+        }
     }
 
     //not much of a class... more of a struct. Just stores a bunch of data in a compact format.
