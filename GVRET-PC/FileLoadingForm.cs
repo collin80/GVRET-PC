@@ -61,7 +61,7 @@ namespace GVRET
                 else if (ckLoop.Checked) playbackPos = numFrames - 1;
             }
             //Debug.Print(playbackPos.ToString());
-            loadedFrames[playbackPos].timestamp = DateTime.Now;
+            loadedFrames[playbackPos].timestamp = Utility.GetTimeMS();
             parent.sideloadFrame(loadedFrames[playbackPos]);
             //updateFrameCounter();
         }
@@ -91,11 +91,12 @@ namespace GVRET
                     if (theseTokens[0].Length > 10)
                     {
                         temp = Int64.Parse(theseTokens[0]);
-                        thisFrame.timestamp = DateTime.MinValue.AddTicks(temp);
+                        DateTime stamp = DateTime.MinValue.AddTicks(temp);
+                        thisFrame.timestamp = (UInt32)(((stamp.Hour * 3600) + (stamp.Minute * 60) + (stamp.Second) * 1000) + stamp.Millisecond);
                     }
                     else
                     {
-                        thisFrame.timestamp = DateTime.Now;
+                        thisFrame.timestamp = Utility.GetTimeMS();
                     }
                     thisFrame.ID = int.Parse(theseTokens[1], style);
                     thisFrame.extended = bool.Parse(theseTokens[2]);
@@ -131,7 +132,7 @@ namespace GVRET
                     thisFrame = new CANFrame();
                     if (theseTokens.Length > 1)
                     {
-                        thisFrame.timestamp = DateTime.Now;
+                        thisFrame.timestamp = Utility.GetTimeMS();
                         thisFrame.ID = int.Parse(theseTokens[0], style);
                         if (thisFrame.ID > 0x7FF) thisFrame.extended = true;
                         else thisFrame.extended = false;
@@ -183,32 +184,19 @@ namespace GVRET
                     {
                         string[] theseTokens = thisLine.Split(';');
                         thisFrame = new CANFrame();
-                        thisFrame.timestamp = DateTime.Now;
-                        thisFrame.ID = parseNumberString(theseTokens[2]);
+                        thisFrame.timestamp = Utility.GetTimeMS();
+                        thisFrame.ID = Utility.ParseStringToNum(theseTokens[2]);
                         if (thisFrame.ID <= 0x7FF) thisFrame.extended = false;
                         else thisFrame.extended = true;
                         thisFrame.bus = 0;
                         thisFrame.len = int.Parse(theseTokens[3]);
                         for (int c = 0; c < 8; c++) thisFrame.data[c] = 0;
-                        for (int d = 0; d < thisFrame.len; d++) thisFrame.data[d] = (byte)parseNumberString(theseTokens[4 + d]);
+                        for (int d = 0; d < thisFrame.len; d++) thisFrame.data[d] = (byte)Utility.ParseStringToNum(theseTokens[4 + d]);
                         loadedFrames.Add(thisFrame);
                     }
                 }
             }
             logStream.Close();
-        }
-
-        //Used to parse a number that may or may not be in hex format. Checks for 0x before a number
-        //to specify that it is hex, otherwise assumes decimal.
-        public static int parseNumberString(string valu)
-        {
-            int result = 0;
-            if (valu.ToLower().StartsWith("0x"))
-            {
-                result = int.Parse(valu.Substring(2), System.Globalization.NumberStyles.HexNumber);
-            }
-            else result = int.Parse(valu);
-            return result;
         }
 
         private void loadLogFile(string filename)
@@ -243,7 +231,7 @@ namespace GVRET
                 {
                     string[] theseTokens = thisLine.Split(' ');
                     thisFrame = new CANFrame();
-                    thisFrame.timestamp = DateTime.Now;
+                    thisFrame.timestamp = Utility.GetTimeMS();
                     thisFrame.ID = int.Parse(theseTokens[3].Substring(2), style);
                     if (theseTokens[4] == "s") thisFrame.extended = false;
                     else thisFrame.extended = true;                    
@@ -296,10 +284,10 @@ namespace GVRET
                 //main form instantly but make it seem like they came in 10ms apart to give them all a unique time stamp
                 if (!cbUsePlayback.Checked)
                 {
-                    DateTime theTime = DateTime.Now;
+                    UInt32 theTime = 0;
                     for (int i = 0; i < numFrames; i++)
                     {
-                        theTime = theTime.AddMilliseconds(10.0);
+                        theTime += 10;
                         loadedFrames[i].timestamp = theTime;
                         parent.sideloadFrame(loadedFrames[i]);
                     }

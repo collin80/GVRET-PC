@@ -20,7 +20,7 @@ using System.Windows.Forms;
  * 2. It can specify also a number of times to send (10x, 20x, etc) So combined it might look like (5ms 10x)
  * 3. It can also specify to send when a given ID comes in (id=0x200).
  * All of the above can be specified at once: (id=0x200 5ms 10x) means to trigger on reception of 0x200 and
- * to send 10 frames 5ms apart. 
+ * to send 10 frames 5ms apart. Note that this will retrigger if another 0x200 frame comes in - keep that in mind
  * Additionally, multiple triggers can be specified by separating with a comma:
  * (id=0x200,1000ms) means to send once every time frame 0x200 comes in and also send every 1000ms anyway
  * Lastly, the bus to match against can be constrained with bus0 or bus1:
@@ -30,17 +30,17 @@ using System.Windows.Forms;
  * to implement a counter for multiple frames being sent out. The syntax is to specify the data byte and
  * how to modify it:
  * d0 = d0 + 1 will increment d0 by one each time a new frame is sent
- * d0 = d0 + 2 AND 0F will increment by two but also AND with 0x0F to mask out in case the counter is not a full byte
+ * d0 = d0 + 2 AND 0xF will increment by two but also AND with 0x0F to mask out in case the counter is not a full byte
  * d0 = d2 will take the value from d2 and copy it to d0.
  * 
  * But, it also can take values from incoming frames. specify the id and byte if thus needed:
- * d0 = id:200:d4 will set d0 to the d4 byte from the most recent 0x200 frame.
- * d0 = bus:0:id:200:d4 ensures that we only use data from bus 0 (in case a frame of same ID as found on bus 1 as well)
+ * d0 = id:0x200:d4 will set d0 to the d4 byte from the most recent 0x200 frame.
+ * d0 = bus:0:id:0x200:d4 ensures that we only use data from bus 0 (in case a frame of same ID as found on bus 1 as well)
  * 
  * All modifiers accept frames, data bytes, addition, subtraction, AND, OR, XOR
  * 
  * Once again, multiple conditions are separated with commas:
- * d0 = d0 + 1,d1 = id:0x200:d3 + id:0x200:d4 AND F0
+ * d0 = d0 + 1,d1 = id:0x200:d3 + id:0x200:d4 AND 0xF0
  * 
  * Order of operations is strictly from left to right. If this messes up a statement then break it up.
  * Values calculated can be reused later in the modifier:
@@ -141,7 +141,7 @@ namespace GVRET
             tempData.line = line;
 
             //Example line:
-            //id=200 5ms 10x bus0,1000ms
+            //id=0x200 5ms 10x bus0,1000ms
             //trigger has two levels of syntactic parsing. First you split by comma to get each
             //actual trigger. Then you split by spaces to get the tokens within each trigger
             if (dataGridView1.Rows[line].Cells[5].Value != null)
@@ -153,7 +153,7 @@ namespace GVRET
                 {
                     tempData.triggers[k] = new Trigger();
                     //start out by setting defaults - should be moved to constructor for class Trigger.
-                    tempData.triggers[k].bus = 0;
+                    tempData.triggers[k].bus = -1; //-1 means we don't care which
                     tempData.triggers[k].ID = 0;
                     tempData.triggers[k].maxCount = 1000000000;
                     tempData.triggers[k].milliseconds = 1000;
@@ -184,14 +184,14 @@ namespace GVRET
             {
                 tempData.triggers = new Trigger[1];
                 tempData.triggers[0] = new Trigger();
-                tempData.triggers[0].bus = 0;
+                tempData.triggers[0].bus = -1;
                 tempData.triggers[0].ID = 0;
                 tempData.triggers[0].maxCount = 1;
                 tempData.triggers[0].milliseconds = 10;
             }
 
             //Example line:
-            //d0 = D0 + 1,d1 = id:200:d3 + id:200:d4 AND 0xF0
+            //d0 = D0 + 1,d1 = id:0x200:d3 + id:0x200:d4 AND 0xF0
             //This is certainly much harder to parse than the trigger definitions.
             //the left side of the = has to be D0 to D7. After that there is a string of
             //data that for ease of parsing will require spaces between tokens
@@ -320,11 +320,6 @@ namespace GVRET
         private void dataGridView1_RowLeave(object sender, DataGridViewCellEventArgs e)
         {
             processGrid(e.RowIndex);
-        }
-
-        private void dataGridView1_UserAddedRow(object sender, DataGridViewRowEventArgs e)
-        {
-            //processGrid(e.Row.Index);
         }
     }
 

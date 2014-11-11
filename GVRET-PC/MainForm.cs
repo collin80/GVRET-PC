@@ -175,16 +175,28 @@ namespace GVRET
                         case STATE.BUILD_CAN_FRAME:
                 		    buffer[1 + rx_step] = c;
 		                    switch (rx_step) {
-		                    case 0:
+                            case 0:
+                                buildFrame.timestamp = c;
+                                break;
+                            case 1:
+                                buildFrame.timestamp |= (uint)(c << 8);
+                                break;
+                            case 2:
+                                buildFrame.timestamp |= (uint)c << 16;
+                                break;
+                            case 3:
+                                buildFrame.timestamp |= (uint)c << 24;
+                                break;
+		                    case 4:
 			                    buildFrame.ID = c;
 			                    break;
-		                    case 1:
+		                    case 5:
 			                    buildFrame.ID |= c << 8;
 			                    break;
-		                    case 2:
+		                    case 6:
 			                    buildFrame.ID |= c << 16;
 			                    break;
-		                    case 3:
+		                    case 7:
 			                    buildFrame.ID |= c << 24;
 			                    if ((buildFrame.ID & 1 << 31) == 1 << 31) 
 			                    {
@@ -193,14 +205,14 @@ namespace GVRET
 			                    }
 			                    else buildFrame.extended = false;
 			                    break;
-		                    case 4:
+		                    case 8:
 			                    buildFrame.len = c & 0xF;
 			                    if (buildFrame.len > 8) buildFrame.len = 8;
 			                    break;
 		                    default:
-			                    if (rx_step < buildFrame.len + 5)
+			                    if (rx_step < buildFrame.len + 9)
 			                    {
-			                        buildFrame.data[rx_step - 5] = c;
+			                        buildFrame.data[rx_step - 9] = c;
 			                    }
 			                    else 
 			                    {
@@ -209,7 +221,6 @@ namespace GVRET
 				                    //byte temp8 = c;//checksumCalc(buff, step);
 				                    //if (temp8 == c) 
 				                    //{
-                                        buildFrame.timestamp = DateTime.Now;
                                         onGotCANFrame(buildFrame); //call the listeners
                                         frameCount++;
                                         buildFrame = new CANFrame(); //easy way to clear it out				                
@@ -281,7 +292,7 @@ namespace GVRET
 
                 int n = dataGridView1.Rows.Add();
                 //time, id, ext, bus, len, data
-                dataGridView1.Rows[n].Cells[0].Value = frame.timestamp.Ticks.ToString();
+                dataGridView1.Rows[n].Cells[0].Value = frame.timestamp.ToString();
                 dataGridView1.Rows[n].Cells[1].Value = "0x" + frame.ID.ToString("X8");
                 dataGridView1.Rows[n].Cells[2].Value = frame.extended.ToString();
                 dataGridView1.Rows[n].Cells[3].Value = frame.bus.ToString();
@@ -525,14 +536,14 @@ namespace GVRET
          
         }
 
-        public void SendCANFrame(CANFrame frame)
+        public void SendCANFrame(CANFrame frame, int bus)
         {
             byte[] buffer = new byte[20];
             int c, d;
             int ID;
             StringBuilder dbug = new StringBuilder();
             CANFrame myFrame = new CANFrame();
-            myFrame.timestamp = DateTime.Now;
+            myFrame.timestamp = Utility.GetTimeMS();
 
             ID = frame.ID;
             if (frame.extended) ID |= 1 << 31;
@@ -543,17 +554,18 @@ namespace GVRET
             buffer[3] = (byte)(ID >> 8);
             buffer[4] = (byte)(ID >> 16);
             buffer[5] = (byte)(ID >> 24);
-            buffer[6] = (byte)frame.len;
+            buffer[6] = (byte)(bus & 1);
+            buffer[7] = (byte)frame.len;
             for (c = 0; c < len; c++)
             {
-                buffer[7 + c] = frame.data[c];
+                buffer[8 + c] = frame.data[c];
             }
-            buffer[7 + frame.len] = 0;
+            buffer[8 + frame.len] = 0;
 
             GotCANFrame(frame); //pretend we got this frame on the line so that even frames we send show up in the table
             //FrameCtl = 0
 
-            serialPort1.Write(buffer, 0, buffer[6] + 8);
+            serialPort1.Write(buffer, 0, frame.len + 9);
         }
 
 
@@ -657,7 +669,7 @@ namespace GVRET
             try
             {
 
-                bytes = encoding.GetBytes(thisFrame.timestamp.Ticks.ToString());
+                bytes = encoding.GetBytes(thisFrame.timestamp.ToString());
                 continuousOutput.Write(bytes, 0, bytes.Length);
                 continuousOutput.WriteByte(44);
 
@@ -801,7 +813,7 @@ namespace GVRET
 
                     for (int c = 0; c < frameCache.Count; c++)
                     {
-                        bytes = encoding.GetBytes(frameCache[c].timestamp.Ticks.ToString());
+                        bytes = encoding.GetBytes(frameCache[c].timestamp.ToString());
                         outStream.Write(bytes, 0, bytes.Length);
                         outStream.WriteByte(44);
 
@@ -866,7 +878,7 @@ namespace GVRET
         public bool extended;
         public int len;
         public byte[] data = new byte[8];
-        public DateTime timestamp;
+        public UInt32 timestamp;
     }
 
 }

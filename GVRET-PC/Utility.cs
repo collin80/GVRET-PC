@@ -39,5 +39,13 @@ namespace GVRET
             }
             return temp;
         }
+
+        //Returns # of milliseconds since the start of today. This gives something to fill in
+        //time stamps with if we don't have anything better to use.
+        static public UInt32 GetTimeMS() 
+        {
+            DateTime stamp = DateTime.Now;
+            return (UInt32)(((stamp.Hour * 3600) + (stamp.Minute * 60) + (stamp.Second) * 1000) + stamp.Millisecond);
+        } 
     }
 }
