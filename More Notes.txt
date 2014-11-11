@@ -1,0 +1,28 @@
+Layout and design of program flow:
+
+
+For each graph one can set ID, bytes to use,
+mask for bytes, bias, scale, and color.
+
+All of this does nothing until the refresh button
+is pressed. Then all data for that graph
+is recalculated based on the criteria.
+
+Unfortunately the graph has to be totally
+refreshed when any one sub graph is changed
+because the underlaying frame cache could have
+changed. It would be possible to only do the full
+refresh upon cache change.
+
+Otherwise they all need to be correlated in the
+X dimension. The two choices are to make the X
+scale be the # of frames thus found but then
+most any value will only change sometimes.
+I think a better idea is to parse the frame
+cache into unique buckets for each ID found
+thus far and thus have a list of lists. Then
+make the X scale the # of frames in the largest
+ID used in the graph.
+
+
+Add screen to send frames both one shot and periodically.
