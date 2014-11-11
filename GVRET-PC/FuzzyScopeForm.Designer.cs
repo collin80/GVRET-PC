@@ -54,9 +54,10 @@
             // 
             this.ckCapture.AutoSize = true;
             this.ckCapture.Enabled = false;
-            this.ckCapture.Location = new System.Drawing.Point(186, 258);
+            this.ckCapture.Location = new System.Drawing.Point(248, 318);
+            this.ckCapture.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ckCapture.Name = "ckCapture";
-            this.ckCapture.Size = new System.Drawing.Size(96, 17);
+            this.ckCapture.Size = new System.Drawing.Size(124, 21);
             this.ckCapture.TabIndex = 19;
             this.ckCapture.Text = "Capture Traffic";
             this.ckCapture.UseVisualStyleBackColor = true;
@@ -65,25 +66,29 @@
             // listSearchItems
             // 
             this.listSearchItems.FormattingEnabled = true;
-            this.listSearchItems.Location = new System.Drawing.Point(12, 25);
+            this.listSearchItems.ItemHeight = 16;
+            this.listSearchItems.Location = new System.Drawing.Point(16, 31);
+            this.listSearchItems.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listSearchItems.Name = "listSearchItems";
-            this.listSearchItems.Size = new System.Drawing.Size(120, 134);
+            this.listSearchItems.Size = new System.Drawing.Size(159, 164);
             this.listSearchItems.TabIndex = 20;
             // 
             // treeMatches
             // 
-            this.treeMatches.Location = new System.Drawing.Point(166, 25);
+            this.treeMatches.Location = new System.Drawing.Point(221, 31);
+            this.treeMatches.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.treeMatches.Name = "treeMatches";
-            this.treeMatches.Size = new System.Drawing.Size(276, 161);
+            this.treeMatches.Size = new System.Drawing.Size(367, 197);
             this.treeMatches.TabIndex = 21;
             // 
             // trackFuzzy
             // 
             this.trackFuzzy.LargeChange = 25;
-            this.trackFuzzy.Location = new System.Drawing.Point(183, 212);
+            this.trackFuzzy.Location = new System.Drawing.Point(244, 261);
+            this.trackFuzzy.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.trackFuzzy.Maximum = 100;
             this.trackFuzzy.Name = "trackFuzzy";
-            this.trackFuzzy.Size = new System.Drawing.Size(221, 45);
+            this.trackFuzzy.Size = new System.Drawing.Size(295, 56);
             this.trackFuzzy.SmallChange = 5;
             this.trackFuzzy.TabIndex = 22;
             this.trackFuzzy.TickFrequency = 10;
@@ -91,43 +96,49 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(183, 196);
+            this.label1.Location = new System.Drawing.Point(244, 241);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(259, 13);
+            this.label1.Size = new System.Drawing.Size(345, 16);
             this.label1.TabIndex = 23;
             this.label1.Text = "Fuzziness Percentage";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(12, 9);
+            this.label2.Location = new System.Drawing.Point(16, 11);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(120, 13);
+            this.label2.Size = new System.Drawing.Size(160, 16);
             this.label2.TabIndex = 24;
             this.label2.Text = "Values to search:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(163, 9);
+            this.label3.Location = new System.Drawing.Point(217, 11);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(276, 13);
+            this.label3.Size = new System.Drawing.Size(368, 16);
             this.label3.TabIndex = 25;
             this.label3.Text = "Potential Matches:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // txtNewItem
             // 
-            this.txtNewItem.Location = new System.Drawing.Point(15, 166);
+            this.txtNewItem.Location = new System.Drawing.Point(20, 204);
+            this.txtNewItem.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtNewItem.Name = "txtNewItem";
-            this.txtNewItem.Size = new System.Drawing.Size(87, 20);
+            this.txtNewItem.Size = new System.Drawing.Size(115, 22);
             this.txtNewItem.TabIndex = 26;
+            this.txtNewItem.TextChanged += new System.EventHandler(this.txtNewItem_TextChanged);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(108, 166);
+            this.btnAdd.Location = new System.Drawing.Point(144, 204);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(24, 23);
+            this.btnAdd.Size = new System.Drawing.Size(32, 28);
             this.btnAdd.TabIndex = 27;
             this.btnAdd.Text = "+";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -135,9 +146,10 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(286, 254);
+            this.btnReset.Location = new System.Drawing.Point(381, 313);
+            this.btnReset.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(143, 23);
+            this.btnReset.Size = new System.Drawing.Size(191, 28);
             this.btnReset.TabIndex = 28;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
@@ -146,9 +158,10 @@
             // 
             this.lblFuzzy.AutoSize = true;
             this.lblFuzzy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFuzzy.Location = new System.Drawing.Point(410, 212);
+            this.lblFuzzy.Location = new System.Drawing.Point(547, 261);
+            this.lblFuzzy.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFuzzy.Name = "lblFuzzy";
-            this.lblFuzzy.Size = new System.Drawing.Size(19, 20);
+            this.lblFuzzy.Size = new System.Drawing.Size(24, 25);
             this.lblFuzzy.TabIndex = 29;
             this.lblFuzzy.Text = "0";
             // 
@@ -158,9 +171,11 @@
             this.groupBox1.Controls.Add(this.checkBox3);
             this.groupBox1.Controls.Add(this.checkBox2);
             this.groupBox1.Controls.Add(this.checkBox1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 196);
+            this.groupBox1.Location = new System.Drawing.Point(16, 241);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(165, 107);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(220, 132);
             this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Permutations";
@@ -168,9 +183,10 @@
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(6, 83);
+            this.checkBox4.Location = new System.Drawing.Point(8, 102);
+            this.checkBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(133, 17);
+            this.checkBox4.Size = new System.Drawing.Size(177, 21);
             this.checkBox4.TabIndex = 3;
             this.checkBox4.Text = "Gonzo (Try everything)";
             this.checkBox4.UseVisualStyleBackColor = true;
@@ -180,9 +196,10 @@
             this.checkBox3.AutoSize = true;
             this.checkBox3.Checked = true;
             this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox3.Location = new System.Drawing.Point(7, 62);
+            this.checkBox3.Location = new System.Drawing.Point(9, 76);
+            this.checkBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(104, 17);
+            this.checkBox3.Size = new System.Drawing.Size(136, 21);
             this.checkBox3.TabIndex = 2;
             this.checkBox3.Text = "Quarters (4, 1/4)";
             this.checkBox3.UseVisualStyleBackColor = true;
@@ -193,9 +210,10 @@
             this.checkBox2.AutoSize = true;
             this.checkBox2.Checked = true;
             this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(7, 39);
+            this.checkBox2.Location = new System.Drawing.Point(9, 48);
+            this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(124, 17);
+            this.checkBox2.Size = new System.Drawing.Size(161, 21);
             this.checkBox2.TabIndex = 1;
             this.checkBox2.Text = "Century (100, 1/100)";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -205,28 +223,30 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(7, 16);
+            this.checkBox1.Location = new System.Drawing.Point(9, 20);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(114, 17);
+            this.checkBox1.Size = new System.Drawing.Size(145, 21);
             this.checkBox1.TabIndex = 0;
             this.checkBox1.Text = "Decade (10, 1/10)";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(449, 13);
+            this.textBox1.Location = new System.Drawing.Point(599, 16);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(201, 290);
+            this.textBox1.Size = new System.Drawing.Size(267, 356);
             this.textBox1.TabIndex = 31;
             this.textBox1.Text = resources.GetString("textBox1.Text");
             // 
             // FuzzyScopeForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(662, 312);
+            this.ClientSize = new System.Drawing.Size(883, 384);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblFuzzy);
@@ -240,6 +260,7 @@
             this.Controls.Add(this.treeMatches);
             this.Controls.Add(this.listSearchItems);
             this.Controls.Add(this.ckCapture);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FuzzyScopeForm";
             this.Text = "Fuzzy Scope";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FuzzyScopeForm_FormClosing);

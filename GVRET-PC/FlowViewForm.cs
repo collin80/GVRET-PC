@@ -78,23 +78,23 @@ namespace GVRET
         //Update the view for the data grid, potentially the reference bytes, and the current bytes
         private void updateDataView() 
         {
-            txtRef0.Text = refBytes[0].ToString("X2");
-            txtRef1.Text = refBytes[1].ToString("X2");
-            txtRef2.Text = refBytes[2].ToString("X2");
-            txtRef3.Text = refBytes[3].ToString("X2");
-            txtRef4.Text = refBytes[4].ToString("X2");
-            txtRef5.Text = refBytes[5].ToString("X2");
-            txtRef6.Text = refBytes[6].ToString("X2");
-            txtRef7.Text = refBytes[7].ToString("X2");
+            txtRef0.Text = "0x" + refBytes[0].ToString("X2");
+            txtRef1.Text = "0x" + refBytes[1].ToString("X2");
+            txtRef2.Text = "0x" + refBytes[2].ToString("X2");
+            txtRef3.Text = "0x" + refBytes[3].ToString("X2");
+            txtRef4.Text = "0x" + refBytes[4].ToString("X2");
+            txtRef5.Text = "0x" + refBytes[5].ToString("X2");
+            txtRef6.Text = "0x" + refBytes[6].ToString("X2");
+            txtRef7.Text = "0x" + refBytes[7].ToString("X2");
 
-            txtVal0.Text = currBytes[0].ToString("X2");
-            txtVal1.Text = currBytes[1].ToString("X2");
-            txtVal2.Text = currBytes[2].ToString("X2");
-            txtVal3.Text = currBytes[3].ToString("X2");
-            txtVal4.Text = currBytes[4].ToString("X2");
-            txtVal5.Text = currBytes[5].ToString("X2");
-            txtVal6.Text = currBytes[6].ToString("X2");
-            txtVal7.Text = currBytes[7].ToString("X2");
+            txtVal0.Text = "0x" + currBytes[0].ToString("X2");
+            txtVal1.Text = "0x" + currBytes[1].ToString("X2");
+            txtVal2.Text = "0x" + currBytes[2].ToString("X2");
+            txtVal3.Text = "0x" + currBytes[3].ToString("X2");
+            txtVal4.Text = "0x" + currBytes[4].ToString("X2");
+            txtVal5.Text = "0x" + currBytes[5].ToString("X2");
+            txtVal6.Text = "0x" + currBytes[6].ToString("X2");
+            txtVal7.Text = "0x" + currBytes[7].ToString("X2");
 
             canDataGrid1.updateData(currBytes, false); //don't cause display update yet
             canDataGrid1.setReference(refBytes); //allow auto display update
@@ -121,7 +121,7 @@ namespace GVRET
                 if (!foundID.Contains(frame.ID))
                 {
                     foundID.Add(frame.ID);
-                    listFrameIDs.Items.Add(frame.ID.ToString("X4"));
+                    listFrameIDs.Items.Add("0x" + frame.ID.ToString("X4"));
                 }
 
                 //if we are currently capturing and this frame matches the ID we'd like
@@ -184,7 +184,7 @@ namespace GVRET
                 if (!foundID.Contains(frames[i].ID))
                 {
                     foundID.Add(frames[i].ID);
-                    listFrameIDs.Items.Add(frames[i].ID.ToString("X4"));
+                    listFrameIDs.Items.Add("0x" + frames[i].ID.ToString("X4"));
                 }
             }
 
@@ -205,7 +205,7 @@ namespace GVRET
         {
             if (listFrameIDs.SelectedIndex > -1)
             {
-                targettedID = int.Parse(listFrameIDs.Items[listFrameIDs.SelectedIndex].ToString(), System.Globalization.NumberStyles.HexNumber);
+                targettedID = Utility.ParseStringToNum(listFrameIDs.Items[listFrameIDs.SelectedIndex].ToString());
                 ckCapture.Enabled = true;
                 if (ckCapture.Checked)
                     loadFromMainScreen();
@@ -294,6 +294,11 @@ namespace GVRET
                 //get all historic data from main screen
                 loadFromMainScreen();
             }
+        }
+
+        private void txtRef0_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

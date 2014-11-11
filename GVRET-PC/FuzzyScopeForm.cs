@@ -45,21 +45,8 @@ namespace GVRET
         private void btnAdd_Click(object sender, EventArgs e)
         {
             int val;
-            try
-            {
-                if (txtNewItem.Text.StartsWith("0x"))
-                {
-                    val = int.Parse(txtNewItem.Text.Substring(2), System.Globalization.NumberStyles.HexNumber);
-                }
-                else
-                {
-                    val = int.Parse(txtNewItem.Text);
-                }
-            }
-            catch
-            {
-                return;
-            }
+            val = Utility.ParseStringToNum(txtNewItem.Text);
+            if (val == 0) return;
             listSearchItems.Items.Add(txtNewItem.Text);
             SearchItem newItem = new SearchItem();
             newItem.value = val;
@@ -118,6 +105,11 @@ namespace GVRET
         private void FuzzyScopeForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             parent.onGotCANFrame -= GotCANFrame;
+        }
+
+        private void txtNewItem_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

@@ -22,9 +22,10 @@ using System.IO;
  * 
  * Have a screen that shows every ID seen so far along with whether that ID seems to be periodic (and the period if so) or
  * sporatic. Also how many bytes it tends to have and what the bytes seem to do (stay the same, increment, ramp, etc)
+ * Most all of this is now on the graphing screen.
  * 
  * All screens should be synchronized to the master frame cache. Any of them should be able to peek into the cache.
- * This allows all screens to get the same data
+ * This allows all screens to get the same data - This pretty much been done.
  * 
  * Create a screen where one can select an ID and a range of bits and it'll plot those bits on a line where it ranges from min to max
  * over that range so that one can see how the plot looks. This screen should allow for some interpretation changes such
@@ -280,15 +281,15 @@ namespace GVRET
 
                 int n = dataGridView1.Rows.Add();
                 //time, id, ext, bus, len, data
-                dataGridView1.Rows[n].Cells[0].Value = frame.timestamp.ToString("dd/MM/yy HH:mm:ss.fffff");
-                dataGridView1.Rows[n].Cells[1].Value = frame.ID.ToString("X8");
+                dataGridView1.Rows[n].Cells[0].Value = frame.timestamp.Ticks.ToString();
+                dataGridView1.Rows[n].Cells[1].Value = "0x" + frame.ID.ToString("X8");
                 dataGridView1.Rows[n].Cells[2].Value = frame.extended.ToString();
                 dataGridView1.Rows[n].Cells[3].Value = frame.bus.ToString();
                 dataGridView1.Rows[n].Cells[4].Value = frame.len.ToString();
                 data.Clear();
                 for (int c = 0; c < frame.len; c++)
                 {
-                    data.Append(frame.data[c].ToString("X2"));
+                    data.Append("0x" + frame.data[c].ToString("X2"));
                     data.Append(" ");
                 }
                 dataGridView1.Rows[n].Cells[5].Value = data.ToString(); //Payload

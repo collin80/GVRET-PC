@@ -122,6 +122,7 @@
     <Compile Include="RangeStateForm.Designer.cs">
       <DependentUpon>RangeStateForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utility.cs" />
     <EmbeddedResource Include="CANDataGrid.resx">
       <DependentUpon>CANDataGrid.cs</DependentUpon>
     </EmbeddedResource>

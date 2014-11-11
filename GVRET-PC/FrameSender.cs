@@ -122,9 +122,9 @@ namespace GVRET
 
             for (int i = 0; i < 8; i++) tempData.data[i] = 0;
 
-            tempData.ID = int.Parse((string)dataGridView1.Rows[line].Cells[2].Value, System.Globalization.NumberStyles.HexNumber);
-            tempData.bus = int.Parse((string)dataGridView1.Rows[line].Cells[1].Value);
-            tempData.len = int.Parse((string)dataGridView1.Rows[line].Cells[3].Value);
+            tempData.ID = Utility.ParseStringToNum((string)dataGridView1.Rows[line].Cells[2].Value);
+            tempData.bus = Utility.ParseStringToNum((string)dataGridView1.Rows[line].Cells[1].Value);
+            tempData.len = Utility.ParseStringToNum((string)dataGridView1.Rows[line].Cells[3].Value);
             if (dataGridView1.Rows[line].Cells[0].Value != null)
             {
                 tempData.enabled = (bool)dataGridView1.Rows[line].Cells[0].Value;
@@ -133,7 +133,7 @@ namespace GVRET
             string[] tokens = ((string)dataGridView1.Rows[line].Cells[4].Value).Split(' ');
             for (int j = 0; j < tokens.Length; j++)
             {
-                tempData.data[j] = byte.Parse(tokens[j], System.Globalization.NumberStyles.HexNumber);
+                tempData.data[j] = (byte)Utility.ParseStringToNum(tokens[j]);
             }
             tempData.count = 0;
             if (tempData.ID <= 0x7FF) tempData.extended = false;
@@ -163,19 +163,19 @@ namespace GVRET
                     {
                         if (tok.Substring(0, 3) == "ID=")
                         {
-                            tempData.triggers[k].ID = int.Parse(tok.Substring(3), System.Globalization.NumberStyles.HexNumber);
+                            tempData.triggers[k].ID = Utility.ParseStringToNum(tok.Substring(3));
                         }
                         else if (tok.EndsWith("MS"))
                         {
-                            tempData.triggers[k].milliseconds = int.Parse(tok.Substring(0, tok.Length - 2));
+                            tempData.triggers[k].milliseconds = Utility.ParseStringToNum(tok.Substring(0, tok.Length - 2));
                         }
                         else if (tok.EndsWith("X"))
                         {
-                            tempData.triggers[k].maxCount = int.Parse(tok.Substring(0, tok.Length - 1));
+                            tempData.triggers[k].maxCount = Utility.ParseStringToNum(tok.Substring(0, tok.Length - 1));
                         }
                         else if (tok.StartsWith("BUS"))
                         {
-                            tempData.triggers[k].bus = int.Parse(tok.Substring(3));
+                            tempData.triggers[k].bus = Utility.ParseStringToNum(tok.Substring(3));
                         }
                     }
                 }
@@ -261,19 +261,19 @@ namespace GVRET
             {
                 if (tokens[i] == "BUS")
                 {
-                    operand.bus = int.Parse(tokens[++i]);
+                    operand.bus = Utility.ParseStringToNum(tokens[++i]);
                 }
                 else if (tokens[i] == "ID")
                 {
-                    operand.ID = int.Parse(tokens[++i], System.Globalization.NumberStyles.HexNumber);
+                    operand.ID = Utility.ParseStringToNum(tokens[++i]);
                 }
                 else if (tokens[i].Length == 2 && tokens[i].StartsWith("D"))
                 {
-                    operand.databyte = int.Parse(tokens[i].Substring(1));
+                    operand.databyte = Utility.ParseStringToNum(tokens[i].Substring(1));
                 }
                 else
                 {
-                    operand.databyte = int.Parse(tokens[i], System.Globalization.NumberStyles.HexNumber);
+                    operand.databyte = Utility.ParseStringToNum(tokens[i]);
                     operand.ID = 0; //special ID to show this is a number not a look up.
                 }
             }

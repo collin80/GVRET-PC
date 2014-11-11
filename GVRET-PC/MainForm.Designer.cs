@@ -38,12 +38,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Timestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.frameID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.frameExt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.frameBus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Length = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -68,6 +62,12 @@
             this.loadFramesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendFramesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbActivity = new System.Windows.Forms.PictureBox();
+            this.Timestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frameID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frameExt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frameBus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Length = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbActivity)).BeginInit();
@@ -83,8 +83,8 @@
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(1005, 53);
-            this.btnConnect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnConnect.Location = new System.Drawing.Point(1071, 53);
+            this.btnConnect.Margin = new System.Windows.Forms.Padding(4);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(153, 28);
             this.btnConnect.TabIndex = 1;
@@ -94,8 +94,8 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(793, 215);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button4.Location = new System.Drawing.Point(859, 215);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(181, 28);
             this.button4.TabIndex = 4;
@@ -105,8 +105,8 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(976, 215);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Location = new System.Drawing.Point(1042, 215);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(183, 28);
             this.button1.TabIndex = 7;
@@ -117,8 +117,8 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(793, 251);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBox1.Location = new System.Drawing.Point(859, 251);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(201, 21);
             this.checkBox1.TabIndex = 8;
@@ -129,7 +129,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(789, 288);
+            this.label2.Location = new System.Drawing.Point(855, 288);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(143, 17);
@@ -139,7 +139,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(941, 288);
+            this.label3.Location = new System.Drawing.Point(1007, 288);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(46, 17);
@@ -164,55 +164,17 @@
             this.Length,
             this.data});
             this.dataGridView1.Location = new System.Drawing.Point(16, 57);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(745, 442);
+            this.dataGridView1.Size = new System.Drawing.Size(811, 442);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             // 
-            // Timestamp
-            // 
-            this.Timestamp.FillWeight = 150F;
-            this.Timestamp.HeaderText = "Timestamp";
-            this.Timestamp.Name = "Timestamp";
-            this.Timestamp.Width = 150;
-            // 
-            // frameID
-            // 
-            this.frameID.FillWeight = 70F;
-            this.frameID.HeaderText = "ID";
-            this.frameID.Name = "frameID";
-            this.frameID.Width = 70;
-            // 
-            // frameExt
-            // 
-            this.frameExt.HeaderText = "Ext";
-            this.frameExt.Name = "frameExt";
-            this.frameExt.Width = 40;
-            // 
-            // frameBus
-            // 
-            this.frameBus.HeaderText = "Bus";
-            this.frameBus.Name = "frameBus";
-            this.frameBus.Width = 40;
-            // 
-            // Length
-            // 
-            this.Length.HeaderText = "Len";
-            this.Length.Name = "Length";
-            this.Length.Width = 50;
-            // 
-            // data
-            // 
-            this.data.HeaderText = "Data";
-            this.data.Name = "data";
-            this.data.Width = 165;
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(941, 321);
+            this.label11.Location = new System.Drawing.Point(1007, 321);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(46, 17);
@@ -222,7 +184,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(791, 321);
+            this.label12.Location = new System.Drawing.Point(857, 321);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(150, 17);
@@ -243,7 +205,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(787, 57);
+            this.label1.Location = new System.Drawing.Point(853, 57);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 17);
@@ -253,16 +215,16 @@
             // cbPortNum
             // 
             this.cbPortNum.FormattingEnabled = true;
-            this.cbPortNum.Location = new System.Drawing.Point(877, 53);
-            this.cbPortNum.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbPortNum.Location = new System.Drawing.Point(943, 53);
+            this.cbPortNum.Margin = new System.Windows.Forms.Padding(4);
             this.cbPortNum.Name = "cbPortNum";
             this.cbPortNum.Size = new System.Drawing.Size(119, 24);
             this.cbPortNum.TabIndex = 6;
             // 
             // btnContLog
             // 
-            this.btnContLog.Location = new System.Drawing.Point(769, 394);
-            this.btnContLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnContLog.Location = new System.Drawing.Point(835, 394);
+            this.btnContLog.Margin = new System.Windows.Forms.Padding(4);
             this.btnContLog.Name = "btnContLog";
             this.btnContLog.Size = new System.Drawing.Size(360, 30);
             this.btnContLog.TabIndex = 40;
@@ -279,8 +241,8 @@
             "250K",
             "500K",
             "1M"});
-            this.cbCAN1Speed.Location = new System.Drawing.Point(844, 118);
-            this.cbCAN1Speed.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbCAN1Speed.Location = new System.Drawing.Point(910, 118);
+            this.cbCAN1Speed.Margin = new System.Windows.Forms.Padding(4);
             this.cbCAN1Speed.Name = "cbCAN1Speed";
             this.cbCAN1Speed.Size = new System.Drawing.Size(119, 24);
             this.cbCAN1Speed.TabIndex = 42;
@@ -289,7 +251,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(789, 122);
+            this.label4.Location = new System.Drawing.Point(855, 122);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(44, 17);
@@ -305,8 +267,8 @@
             "250K",
             "500K",
             "1M"});
-            this.cbCAN2Speed.Location = new System.Drawing.Point(1023, 118);
-            this.cbCAN2Speed.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbCAN2Speed.Location = new System.Drawing.Point(1089, 118);
+            this.cbCAN2Speed.Margin = new System.Windows.Forms.Padding(4);
             this.cbCAN2Speed.Name = "cbCAN2Speed";
             this.cbCAN2Speed.Size = new System.Drawing.Size(119, 24);
             this.cbCAN2Speed.TabIndex = 44;
@@ -315,7 +277,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(972, 122);
+            this.label5.Location = new System.Drawing.Point(1038, 122);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(44, 17);
@@ -325,7 +287,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(933, 98);
+            this.label6.Location = new System.Drawing.Point(999, 98);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(90, 17);
@@ -334,8 +296,8 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(793, 151);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Location = new System.Drawing.Point(859, 151);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(365, 28);
             this.button2.TabIndex = 46;
@@ -354,7 +316,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1167, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1232, 28);
             this.menuStrip1.TabIndex = 47;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -438,15 +400,53 @@
             this.pbActivity.Location = new System.Drawing.Point(16, 522);
             this.pbActivity.Margin = new System.Windows.Forms.Padding(4);
             this.pbActivity.Name = "pbActivity";
-            this.pbActivity.Size = new System.Drawing.Size(1142, 144);
+            this.pbActivity.Size = new System.Drawing.Size(1208, 144);
             this.pbActivity.TabIndex = 34;
             this.pbActivity.TabStop = false;
+            // 
+            // Timestamp
+            // 
+            this.Timestamp.FillWeight = 150F;
+            this.Timestamp.HeaderText = "Timestamp";
+            this.Timestamp.Name = "Timestamp";
+            this.Timestamp.Width = 125;
+            // 
+            // frameID
+            // 
+            this.frameID.FillWeight = 70F;
+            this.frameID.HeaderText = "ID";
+            this.frameID.Name = "frameID";
+            this.frameID.Width = 70;
+            // 
+            // frameExt
+            // 
+            this.frameExt.HeaderText = "Ext";
+            this.frameExt.Name = "frameExt";
+            this.frameExt.Width = 40;
+            // 
+            // frameBus
+            // 
+            this.frameBus.HeaderText = "Bus";
+            this.frameBus.Name = "frameBus";
+            this.frameBus.Width = 40;
+            // 
+            // Length
+            // 
+            this.Length.HeaderText = "Len";
+            this.Length.Name = "Length";
+            this.Length.Width = 40;
+            // 
+            // data
+            // 
+            this.data.HeaderText = "Data";
+            this.data.Name = "data";
+            this.data.Width = 225;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1167, 674);
+            this.ClientSize = new System.Drawing.Size(1232, 674);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cbCAN2Speed);
@@ -469,7 +469,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "Generalized Vehicle Reverse Engineering Tool";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -516,14 +516,14 @@
         private System.Windows.Forms.ToolStripMenuItem fuzzyScopeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveFramesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadFramesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphDataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sendFramesToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Timestamp;
         private System.Windows.Forms.DataGridViewTextBoxColumn frameID;
         private System.Windows.Forms.DataGridViewTextBoxColumn frameExt;
         private System.Windows.Forms.DataGridViewTextBoxColumn frameBus;
         private System.Windows.Forms.DataGridViewTextBoxColumn Length;
         private System.Windows.Forms.DataGridViewTextBoxColumn data;
-        private System.Windows.Forms.ToolStripMenuItem graphDataToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sendFramesToolStripMenuItem;
     }
 }
 

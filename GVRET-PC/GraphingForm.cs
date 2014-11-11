@@ -51,7 +51,7 @@ namespace GVRET
                 if (!foundID.Contains(frame.ID))
                 {
                     foundID.Add(frame.ID);
-                    listFrameIDs.Items.Add(frame.ID.ToString("X4"));
+                    listFrameIDs.Items.Add("0x" + frame.ID.ToString("X4"));
                 }
                 /*
                 if (frame.ID == targettedID)
@@ -119,7 +119,7 @@ namespace GVRET
                 if (!foundID.Contains(frames[i].ID))
                 {
                     foundID.Add(frames[i].ID);
-                    listFrameIDs.Items.Add(frames[i].ID.ToString("X4"));
+                    listFrameIDs.Items.Add("0x" + frames[i].ID.ToString("X4"));
                 }
             }
 
@@ -321,7 +321,7 @@ namespace GVRET
             if (listFrameIDs.SelectedIndex > -1)
             {
                 parseFrameCache();
-                targettedID = int.Parse(listFrameIDs.Items[listFrameIDs.SelectedIndex].ToString(), System.Globalization.NumberStyles.HexNumber);
+                targettedID = Utility.ParseStringToNum(listFrameIDs.Items[listFrameIDs.SelectedIndex].ToString());
                 idx = getIdxForID(targettedID);
                 numFrames = frames[idx].Count;
 
@@ -462,8 +462,8 @@ namespace GVRET
             }
             try
             {
-                ID = int.Parse(strID, System.Globalization.NumberStyles.HexNumber);
-                Mask = int.Parse(strMask, System.Globalization.NumberStyles.HexNumber);
+                ID = Utility.ParseStringToNum(strID);
+                Mask = Utility.ParseStringToNum(strMask);
                 Bias = float.Parse(strBias);
                 Scale = float.Parse(strScale);
             }
@@ -552,6 +552,11 @@ namespace GVRET
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtMask4_TextChanged(object sender, EventArgs e)
         {
 
         }

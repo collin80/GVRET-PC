@@ -25,4 +25,5 @@ make the X scale the # of frames in the largest
 ID used in the graph.
 
 
-Add screen to send frames both one shot and periodically.
+The frame sending screen has been added but it is very finicky and hard to use. All values in the whole program should default to decimal unless prefixed with 0x or 0X so a routine should be written to parse string input based on the prefix. It wouldn't hurt to allow for binary at some point too. I think octal is pushing it.
+

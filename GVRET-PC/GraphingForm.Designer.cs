@@ -43,6 +43,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.txtBias1 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.pbColor1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtByte1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -58,6 +59,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtBias2 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.pbColor2 = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtByte2 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -72,6 +74,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtBias3 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.pbColor3 = new System.Windows.Forms.PictureBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txtByte3 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -86,6 +89,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.txtBias4 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.pbColor4 = new System.Windows.Forms.PictureBox();
             this.label16 = new System.Windows.Forms.Label();
             this.txtByte4 = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -100,6 +104,7 @@
             this.label28 = new System.Windows.Forms.Label();
             this.txtBias5 = new System.Windows.Forms.TextBox();
             this.label29 = new System.Windows.Forms.Label();
+            this.pbColor5 = new System.Windows.Forms.PictureBox();
             this.label30 = new System.Windows.Forms.Label();
             this.txtByte5 = new System.Windows.Forms.TextBox();
             this.label31 = new System.Windows.Forms.Label();
@@ -114,29 +119,24 @@
             this.label34 = new System.Windows.Forms.Label();
             this.txtBias6 = new System.Windows.Forms.TextBox();
             this.label35 = new System.Windows.Forms.Label();
+            this.pbColor6 = new System.Windows.Forms.PictureBox();
             this.label36 = new System.Windows.Forms.Label();
             this.txtByte6 = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
             this.treeDetails = new System.Windows.Forms.TreeView();
-            this.pbColor6 = new System.Windows.Forms.PictureBox();
-            this.pbColor5 = new System.Windows.Forms.PictureBox();
-            this.pbColor4 = new System.Windows.Forms.PictureBox();
-            this.pbColor3 = new System.Windows.Forms.PictureBox();
-            this.pbColor2 = new System.Windows.Forms.PictureBox();
-            this.pbColor1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbColor1)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbColor2)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbColor3)).BeginInit();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbColor4)).BeginInit();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbColor5)).BeginInit();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbColor6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbColor5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbColor4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbColor3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbColor2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbColor1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -154,7 +154,7 @@
             this.listFrameIDs.FormattingEnabled = true;
             this.listFrameIDs.ItemHeight = 16;
             this.listFrameIDs.Location = new System.Drawing.Point(4, 31);
-            this.listFrameIDs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listFrameIDs.Margin = new System.Windows.Forms.Padding(4);
             this.listFrameIDs.Name = "listFrameIDs";
             this.listFrameIDs.Size = new System.Drawing.Size(139, 404);
             this.listFrameIDs.Sorted = true;
@@ -171,7 +171,7 @@
             this.display.DashedGridColor = System.Drawing.Color.Blue;
             this.display.DoubleBuffering = true;
             this.display.Location = new System.Drawing.Point(152, 6);
-            this.display.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.display.Margin = new System.Windows.Forms.Padding(5);
             this.display.Name = "display";
             this.display.PlaySpeed = 0F;
             this.display.Size = new System.Drawing.Size(1303, 430);
@@ -195,9 +195,9 @@
             this.groupBox1.Controls.Add(this.txtByte1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(285, 443);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(189, 254);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
@@ -218,11 +218,11 @@
             // txtMask1
             // 
             this.txtMask1.Location = new System.Drawing.Point(48, 100);
-            this.txtMask1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMask1.Margin = new System.Windows.Forms.Padding(4);
             this.txtMask1.Name = "txtMask1";
             this.txtMask1.Size = new System.Drawing.Size(132, 22);
             this.txtMask1.TabIndex = 11;
-            this.txtMask1.Text = "FFFFFFFF";
+            this.txtMask1.Text = "0xFFFFFFFF";
             // 
             // label19
             // 
@@ -237,7 +237,7 @@
             // txtID1
             // 
             this.txtID1.Location = new System.Drawing.Point(48, 18);
-            this.txtID1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtID1.Margin = new System.Windows.Forms.Padding(4);
             this.txtID1.Name = "txtID1";
             this.txtID1.Size = new System.Drawing.Size(132, 22);
             this.txtID1.TabIndex = 9;
@@ -245,7 +245,7 @@
             // btnRefresh1
             // 
             this.btnRefresh1.Location = new System.Drawing.Point(7, 217);
-            this.btnRefresh1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRefresh1.Margin = new System.Windows.Forms.Padding(4);
             this.btnRefresh1.Name = "btnRefresh1";
             this.btnRefresh1.Size = new System.Drawing.Size(175, 28);
             this.btnRefresh1.TabIndex = 11;
@@ -266,7 +266,7 @@
             // txtScale1
             // 
             this.txtScale1.Location = new System.Drawing.Point(48, 155);
-            this.txtScale1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtScale1.Margin = new System.Windows.Forms.Padding(4);
             this.txtScale1.Name = "txtScale1";
             this.txtScale1.Size = new System.Drawing.Size(132, 22);
             this.txtScale1.TabIndex = 7;
@@ -285,7 +285,7 @@
             // txtBias1
             // 
             this.txtBias1.Location = new System.Drawing.Point(48, 127);
-            this.txtBias1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBias1.Margin = new System.Windows.Forms.Padding(4);
             this.txtBias1.Name = "txtBias1";
             this.txtBias1.Size = new System.Drawing.Size(132, 22);
             this.txtBias1.TabIndex = 5;
@@ -301,6 +301,17 @@
             this.label10.TabIndex = 4;
             this.label10.Text = "Bias:";
             // 
+            // pbColor1
+            // 
+            this.pbColor1.BackColor = System.Drawing.Color.Red;
+            this.pbColor1.Location = new System.Drawing.Point(48, 185);
+            this.pbColor1.Margin = new System.Windows.Forms.Padding(4);
+            this.pbColor1.Name = "pbColor1";
+            this.pbColor1.Size = new System.Drawing.Size(133, 25);
+            this.pbColor1.TabIndex = 3;
+            this.pbColor1.TabStop = false;
+            this.pbColor1.Click += new System.EventHandler(this.pbColor_Click);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -314,7 +325,7 @@
             // txtByte1
             // 
             this.txtByte1.Location = new System.Drawing.Point(48, 47);
-            this.txtByte1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtByte1.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte1.Name = "txtByte1";
             this.txtByte1.Size = new System.Drawing.Size(132, 22);
             this.txtByte1.TabIndex = 1;
@@ -346,9 +357,9 @@
             this.groupBox2.Controls.Add(this.txtByte2);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Location = new System.Drawing.Point(479, 444);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(189, 252);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
@@ -368,7 +379,7 @@
             // btnRefresh2
             // 
             this.btnRefresh2.Location = new System.Drawing.Point(5, 217);
-            this.btnRefresh2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRefresh2.Margin = new System.Windows.Forms.Padding(4);
             this.btnRefresh2.Name = "btnRefresh2";
             this.btnRefresh2.Size = new System.Drawing.Size(175, 28);
             this.btnRefresh2.TabIndex = 12;
@@ -379,11 +390,11 @@
             // txtMask2
             // 
             this.txtMask2.Location = new System.Drawing.Point(48, 98);
-            this.txtMask2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMask2.Margin = new System.Windows.Forms.Padding(4);
             this.txtMask2.Name = "txtMask2";
             this.txtMask2.Size = new System.Drawing.Size(132, 22);
             this.txtMask2.TabIndex = 13;
-            this.txtMask2.Text = "FFFFFFFF";
+            this.txtMask2.Text = "0xFFFFFFFF";
             // 
             // label23
             // 
@@ -398,7 +409,7 @@
             // txtID2
             // 
             this.txtID2.Location = new System.Drawing.Point(48, 18);
-            this.txtID2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtID2.Margin = new System.Windows.Forms.Padding(4);
             this.txtID2.Name = "txtID2";
             this.txtID2.Size = new System.Drawing.Size(132, 22);
             this.txtID2.TabIndex = 13;
@@ -416,7 +427,7 @@
             // txtScale2
             // 
             this.txtScale2.Location = new System.Drawing.Point(48, 155);
-            this.txtScale2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtScale2.Margin = new System.Windows.Forms.Padding(4);
             this.txtScale2.Name = "txtScale2";
             this.txtScale2.Size = new System.Drawing.Size(132, 22);
             this.txtScale2.TabIndex = 7;
@@ -435,7 +446,7 @@
             // txtBias2
             // 
             this.txtBias2.Location = new System.Drawing.Point(48, 127);
-            this.txtBias2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBias2.Margin = new System.Windows.Forms.Padding(4);
             this.txtBias2.Name = "txtBias2";
             this.txtBias2.Size = new System.Drawing.Size(132, 22);
             this.txtBias2.TabIndex = 5;
@@ -451,6 +462,17 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "Bias:";
             // 
+            // pbColor2
+            // 
+            this.pbColor2.BackColor = System.Drawing.Color.Lime;
+            this.pbColor2.Location = new System.Drawing.Point(48, 185);
+            this.pbColor2.Margin = new System.Windows.Forms.Padding(4);
+            this.pbColor2.Name = "pbColor2";
+            this.pbColor2.Size = new System.Drawing.Size(133, 25);
+            this.pbColor2.TabIndex = 3;
+            this.pbColor2.TabStop = false;
+            this.pbColor2.Click += new System.EventHandler(this.pbColor_Click);
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -464,7 +486,7 @@
             // txtByte2
             // 
             this.txtByte2.Location = new System.Drawing.Point(48, 47);
-            this.txtByte2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtByte2.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte2.Name = "txtByte2";
             this.txtByte2.Size = new System.Drawing.Size(132, 22);
             this.txtByte2.TabIndex = 1;
@@ -496,9 +518,9 @@
             this.groupBox3.Controls.Add(this.txtByte3);
             this.groupBox3.Controls.Add(this.label13);
             this.groupBox3.Location = new System.Drawing.Point(675, 444);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox3.Size = new System.Drawing.Size(188, 252);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
@@ -518,7 +540,7 @@
             // btnRefresh3
             // 
             this.btnRefresh3.Location = new System.Drawing.Point(8, 217);
-            this.btnRefresh3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRefresh3.Margin = new System.Windows.Forms.Padding(4);
             this.btnRefresh3.Name = "btnRefresh3";
             this.btnRefresh3.Size = new System.Drawing.Size(175, 28);
             this.btnRefresh3.TabIndex = 14;
@@ -529,11 +551,11 @@
             // txtMask3
             // 
             this.txtMask3.Location = new System.Drawing.Point(48, 98);
-            this.txtMask3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMask3.Margin = new System.Windows.Forms.Padding(4);
             this.txtMask3.Name = "txtMask3";
             this.txtMask3.Size = new System.Drawing.Size(132, 22);
             this.txtMask3.TabIndex = 13;
-            this.txtMask3.Text = "FFFFFFFF";
+            this.txtMask3.Text = "0xFFFFFFFF";
             // 
             // label24
             // 
@@ -548,7 +570,7 @@
             // txtID3
             // 
             this.txtID3.Location = new System.Drawing.Point(48, 18);
-            this.txtID3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtID3.Margin = new System.Windows.Forms.Padding(4);
             this.txtID3.Name = "txtID3";
             this.txtID3.Size = new System.Drawing.Size(132, 22);
             this.txtID3.TabIndex = 12;
@@ -566,7 +588,7 @@
             // txtScale3
             // 
             this.txtScale3.Location = new System.Drawing.Point(48, 154);
-            this.txtScale3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtScale3.Margin = new System.Windows.Forms.Padding(4);
             this.txtScale3.Name = "txtScale3";
             this.txtScale3.Size = new System.Drawing.Size(132, 22);
             this.txtScale3.TabIndex = 7;
@@ -585,7 +607,7 @@
             // txtBias3
             // 
             this.txtBias3.Location = new System.Drawing.Point(48, 126);
-            this.txtBias3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBias3.Margin = new System.Windows.Forms.Padding(4);
             this.txtBias3.Name = "txtBias3";
             this.txtBias3.Size = new System.Drawing.Size(132, 22);
             this.txtBias3.TabIndex = 5;
@@ -601,6 +623,17 @@
             this.label9.TabIndex = 4;
             this.label9.Text = "Bias:";
             // 
+            // pbColor3
+            // 
+            this.pbColor3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.pbColor3.Location = new System.Drawing.Point(48, 183);
+            this.pbColor3.Margin = new System.Windows.Forms.Padding(4);
+            this.pbColor3.Name = "pbColor3";
+            this.pbColor3.Size = new System.Drawing.Size(133, 25);
+            this.pbColor3.TabIndex = 3;
+            this.pbColor3.TabStop = false;
+            this.pbColor3.Click += new System.EventHandler(this.pbColor_Click);
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -614,7 +647,7 @@
             // txtByte3
             // 
             this.txtByte3.Location = new System.Drawing.Point(48, 47);
-            this.txtByte3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtByte3.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte3.Name = "txtByte3";
             this.txtByte3.Size = new System.Drawing.Size(132, 22);
             this.txtByte3.TabIndex = 1;
@@ -646,9 +679,9 @@
             this.groupBox4.Controls.Add(this.txtByte4);
             this.groupBox4.Controls.Add(this.label17);
             this.groupBox4.Location = new System.Drawing.Point(867, 444);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox4.Size = new System.Drawing.Size(192, 252);
             this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
@@ -668,7 +701,7 @@
             // btnRefresh4
             // 
             this.btnRefresh4.Location = new System.Drawing.Point(3, 217);
-            this.btnRefresh4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRefresh4.Margin = new System.Windows.Forms.Padding(4);
             this.btnRefresh4.Name = "btnRefresh4";
             this.btnRefresh4.Size = new System.Drawing.Size(175, 28);
             this.btnRefresh4.TabIndex = 15;
@@ -679,11 +712,12 @@
             // txtMask4
             // 
             this.txtMask4.Location = new System.Drawing.Point(52, 98);
-            this.txtMask4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMask4.Margin = new System.Windows.Forms.Padding(4);
             this.txtMask4.Name = "txtMask4";
             this.txtMask4.Size = new System.Drawing.Size(132, 22);
             this.txtMask4.TabIndex = 13;
-            this.txtMask4.Text = "FFFFFFFF";
+            this.txtMask4.Text = "0xFFFFFFFF";
+            this.txtMask4.TextChanged += new System.EventHandler(this.txtMask4_TextChanged);
             // 
             // label25
             // 
@@ -698,7 +732,7 @@
             // txtID4
             // 
             this.txtID4.Location = new System.Drawing.Point(48, 18);
-            this.txtID4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtID4.Margin = new System.Windows.Forms.Padding(4);
             this.txtID4.Name = "txtID4";
             this.txtID4.Size = new System.Drawing.Size(132, 22);
             this.txtID4.TabIndex = 12;
@@ -716,7 +750,7 @@
             // txtScale4
             // 
             this.txtScale4.Location = new System.Drawing.Point(52, 154);
-            this.txtScale4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtScale4.Margin = new System.Windows.Forms.Padding(4);
             this.txtScale4.Name = "txtScale4";
             this.txtScale4.Size = new System.Drawing.Size(132, 22);
             this.txtScale4.TabIndex = 7;
@@ -735,7 +769,7 @@
             // txtBias4
             // 
             this.txtBias4.Location = new System.Drawing.Point(52, 127);
-            this.txtBias4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBias4.Margin = new System.Windows.Forms.Padding(4);
             this.txtBias4.Name = "txtBias4";
             this.txtBias4.Size = new System.Drawing.Size(132, 22);
             this.txtBias4.TabIndex = 5;
@@ -751,6 +785,17 @@
             this.label15.TabIndex = 4;
             this.label15.Text = "Bias:";
             // 
+            // pbColor4
+            // 
+            this.pbColor4.BackColor = System.Drawing.Color.Fuchsia;
+            this.pbColor4.Location = new System.Drawing.Point(52, 183);
+            this.pbColor4.Margin = new System.Windows.Forms.Padding(4);
+            this.pbColor4.Name = "pbColor4";
+            this.pbColor4.Size = new System.Drawing.Size(133, 25);
+            this.pbColor4.TabIndex = 3;
+            this.pbColor4.TabStop = false;
+            this.pbColor4.Click += new System.EventHandler(this.pbColor_Click);
+            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -764,7 +809,7 @@
             // txtByte4
             // 
             this.txtByte4.Location = new System.Drawing.Point(48, 47);
-            this.txtByte4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtByte4.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte4.Name = "txtByte4";
             this.txtByte4.Size = new System.Drawing.Size(132, 22);
             this.txtByte4.TabIndex = 1;
@@ -796,9 +841,9 @@
             this.groupBox5.Controls.Add(this.txtByte5);
             this.groupBox5.Controls.Add(this.label31);
             this.groupBox5.Location = new System.Drawing.Point(1065, 444);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox5.Size = new System.Drawing.Size(192, 252);
             this.groupBox5.TabIndex = 16;
             this.groupBox5.TabStop = false;
@@ -818,7 +863,7 @@
             // btnRefresh5
             // 
             this.btnRefresh5.Location = new System.Drawing.Point(9, 217);
-            this.btnRefresh5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRefresh5.Margin = new System.Windows.Forms.Padding(4);
             this.btnRefresh5.Name = "btnRefresh5";
             this.btnRefresh5.Size = new System.Drawing.Size(175, 28);
             this.btnRefresh5.TabIndex = 15;
@@ -829,11 +874,11 @@
             // txtMask5
             // 
             this.txtMask5.Location = new System.Drawing.Point(52, 98);
-            this.txtMask5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMask5.Margin = new System.Windows.Forms.Padding(4);
             this.txtMask5.Name = "txtMask5";
             this.txtMask5.Size = new System.Drawing.Size(132, 22);
             this.txtMask5.TabIndex = 13;
-            this.txtMask5.Text = "FFFFFFFF";
+            this.txtMask5.Text = "0xFFFFFFFF";
             // 
             // label26
             // 
@@ -848,7 +893,7 @@
             // txtID5
             // 
             this.txtID5.Location = new System.Drawing.Point(48, 18);
-            this.txtID5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtID5.Margin = new System.Windows.Forms.Padding(4);
             this.txtID5.Name = "txtID5";
             this.txtID5.Size = new System.Drawing.Size(132, 22);
             this.txtID5.TabIndex = 12;
@@ -866,7 +911,7 @@
             // txtScale5
             // 
             this.txtScale5.Location = new System.Drawing.Point(52, 154);
-            this.txtScale5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtScale5.Margin = new System.Windows.Forms.Padding(4);
             this.txtScale5.Name = "txtScale5";
             this.txtScale5.Size = new System.Drawing.Size(132, 22);
             this.txtScale5.TabIndex = 7;
@@ -885,7 +930,7 @@
             // txtBias5
             // 
             this.txtBias5.Location = new System.Drawing.Point(52, 127);
-            this.txtBias5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBias5.Margin = new System.Windows.Forms.Padding(4);
             this.txtBias5.Name = "txtBias5";
             this.txtBias5.Size = new System.Drawing.Size(132, 22);
             this.txtBias5.TabIndex = 5;
@@ -901,6 +946,17 @@
             this.label29.TabIndex = 4;
             this.label29.Text = "Bias:";
             // 
+            // pbColor5
+            // 
+            this.pbColor5.BackColor = System.Drawing.Color.Yellow;
+            this.pbColor5.Location = new System.Drawing.Point(52, 183);
+            this.pbColor5.Margin = new System.Windows.Forms.Padding(4);
+            this.pbColor5.Name = "pbColor5";
+            this.pbColor5.Size = new System.Drawing.Size(133, 25);
+            this.pbColor5.TabIndex = 3;
+            this.pbColor5.TabStop = false;
+            this.pbColor5.Click += new System.EventHandler(this.pbColor_Click);
+            // 
             // label30
             // 
             this.label30.AutoSize = true;
@@ -914,7 +970,7 @@
             // txtByte5
             // 
             this.txtByte5.Location = new System.Drawing.Point(48, 47);
-            this.txtByte5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtByte5.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte5.Name = "txtByte5";
             this.txtByte5.Size = new System.Drawing.Size(132, 22);
             this.txtByte5.TabIndex = 1;
@@ -946,9 +1002,9 @@
             this.groupBox6.Controls.Add(this.txtByte6);
             this.groupBox6.Controls.Add(this.label37);
             this.groupBox6.Location = new System.Drawing.Point(1261, 444);
-            this.groupBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox6.Size = new System.Drawing.Size(192, 252);
             this.groupBox6.TabIndex = 17;
             this.groupBox6.TabStop = false;
@@ -968,7 +1024,7 @@
             // btnRefresh6
             // 
             this.btnRefresh6.Location = new System.Drawing.Point(9, 217);
-            this.btnRefresh6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRefresh6.Margin = new System.Windows.Forms.Padding(4);
             this.btnRefresh6.Name = "btnRefresh6";
             this.btnRefresh6.Size = new System.Drawing.Size(175, 28);
             this.btnRefresh6.TabIndex = 15;
@@ -979,11 +1035,11 @@
             // txtMask6
             // 
             this.txtMask6.Location = new System.Drawing.Point(51, 98);
-            this.txtMask6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMask6.Margin = new System.Windows.Forms.Padding(4);
             this.txtMask6.Name = "txtMask6";
             this.txtMask6.Size = new System.Drawing.Size(132, 22);
             this.txtMask6.TabIndex = 13;
-            this.txtMask6.Text = "FFFFFFFF";
+            this.txtMask6.Text = "0xFFFFFFFF";
             // 
             // label32
             // 
@@ -998,7 +1054,7 @@
             // txtID6
             // 
             this.txtID6.Location = new System.Drawing.Point(48, 18);
-            this.txtID6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtID6.Margin = new System.Windows.Forms.Padding(4);
             this.txtID6.Name = "txtID6";
             this.txtID6.Size = new System.Drawing.Size(132, 22);
             this.txtID6.TabIndex = 12;
@@ -1016,7 +1072,7 @@
             // txtScale6
             // 
             this.txtScale6.Location = new System.Drawing.Point(51, 154);
-            this.txtScale6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtScale6.Margin = new System.Windows.Forms.Padding(4);
             this.txtScale6.Name = "txtScale6";
             this.txtScale6.Size = new System.Drawing.Size(132, 22);
             this.txtScale6.TabIndex = 7;
@@ -1035,7 +1091,7 @@
             // txtBias6
             // 
             this.txtBias6.Location = new System.Drawing.Point(51, 127);
-            this.txtBias6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBias6.Margin = new System.Windows.Forms.Padding(4);
             this.txtBias6.Name = "txtBias6";
             this.txtBias6.Size = new System.Drawing.Size(132, 22);
             this.txtBias6.TabIndex = 5;
@@ -1051,6 +1107,17 @@
             this.label35.TabIndex = 4;
             this.label35.Text = "Bias:";
             // 
+            // pbColor6
+            // 
+            this.pbColor6.BackColor = System.Drawing.Color.White;
+            this.pbColor6.Location = new System.Drawing.Point(51, 183);
+            this.pbColor6.Margin = new System.Windows.Forms.Padding(4);
+            this.pbColor6.Name = "pbColor6";
+            this.pbColor6.Size = new System.Drawing.Size(133, 25);
+            this.pbColor6.TabIndex = 3;
+            this.pbColor6.TabStop = false;
+            this.pbColor6.Click += new System.EventHandler(this.pbColor_Click);
+            // 
             // label36
             // 
             this.label36.AutoSize = true;
@@ -1064,7 +1131,7 @@
             // txtByte6
             // 
             this.txtByte6.Location = new System.Drawing.Point(48, 47);
-            this.txtByte6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtByte6.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte6.Name = "txtByte6";
             this.txtByte6.Size = new System.Drawing.Size(132, 22);
             this.txtByte6.TabIndex = 1;
@@ -1092,76 +1159,10 @@
             // treeDetails
             // 
             this.treeDetails.Location = new System.Drawing.Point(4, 462);
-            this.treeDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.treeDetails.Margin = new System.Windows.Forms.Padding(4);
             this.treeDetails.Name = "treeDetails";
             this.treeDetails.Size = new System.Drawing.Size(271, 234);
             this.treeDetails.TabIndex = 21;
-            // 
-            // pbColor6
-            // 
-            this.pbColor6.BackColor = System.Drawing.Color.White;
-            this.pbColor6.Location = new System.Drawing.Point(51, 183);
-            this.pbColor6.Margin = new System.Windows.Forms.Padding(4);
-            this.pbColor6.Name = "pbColor6";
-            this.pbColor6.Size = new System.Drawing.Size(133, 25);
-            this.pbColor6.TabIndex = 3;
-            this.pbColor6.TabStop = false;
-            this.pbColor6.Click += new System.EventHandler(this.pbColor_Click);
-            // 
-            // pbColor5
-            // 
-            this.pbColor5.BackColor = System.Drawing.Color.Yellow;
-            this.pbColor5.Location = new System.Drawing.Point(52, 183);
-            this.pbColor5.Margin = new System.Windows.Forms.Padding(4);
-            this.pbColor5.Name = "pbColor5";
-            this.pbColor5.Size = new System.Drawing.Size(133, 25);
-            this.pbColor5.TabIndex = 3;
-            this.pbColor5.TabStop = false;
-            this.pbColor5.Click += new System.EventHandler(this.pbColor_Click);
-            // 
-            // pbColor4
-            // 
-            this.pbColor4.BackColor = System.Drawing.Color.Fuchsia;
-            this.pbColor4.Location = new System.Drawing.Point(52, 183);
-            this.pbColor4.Margin = new System.Windows.Forms.Padding(4);
-            this.pbColor4.Name = "pbColor4";
-            this.pbColor4.Size = new System.Drawing.Size(133, 25);
-            this.pbColor4.TabIndex = 3;
-            this.pbColor4.TabStop = false;
-            this.pbColor4.Click += new System.EventHandler(this.pbColor_Click);
-            // 
-            // pbColor3
-            // 
-            this.pbColor3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.pbColor3.Location = new System.Drawing.Point(48, 183);
-            this.pbColor3.Margin = new System.Windows.Forms.Padding(4);
-            this.pbColor3.Name = "pbColor3";
-            this.pbColor3.Size = new System.Drawing.Size(133, 25);
-            this.pbColor3.TabIndex = 3;
-            this.pbColor3.TabStop = false;
-            this.pbColor3.Click += new System.EventHandler(this.pbColor_Click);
-            // 
-            // pbColor2
-            // 
-            this.pbColor2.BackColor = System.Drawing.Color.Lime;
-            this.pbColor2.Location = new System.Drawing.Point(48, 185);
-            this.pbColor2.Margin = new System.Windows.Forms.Padding(4);
-            this.pbColor2.Name = "pbColor2";
-            this.pbColor2.Size = new System.Drawing.Size(133, 25);
-            this.pbColor2.TabIndex = 3;
-            this.pbColor2.TabStop = false;
-            this.pbColor2.Click += new System.EventHandler(this.pbColor_Click);
-            // 
-            // pbColor1
-            // 
-            this.pbColor1.BackColor = System.Drawing.Color.Red;
-            this.pbColor1.Location = new System.Drawing.Point(48, 185);
-            this.pbColor1.Margin = new System.Windows.Forms.Padding(4);
-            this.pbColor1.Name = "pbColor1";
-            this.pbColor1.Size = new System.Drawing.Size(133, 25);
-            this.pbColor1.TabIndex = 3;
-            this.pbColor1.TabStop = false;
-            this.pbColor1.Click += new System.EventHandler(this.pbColor_Click);
             // 
             // GraphingForm
             // 
@@ -1179,28 +1180,28 @@
             this.Controls.Add(this.display);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listFrameIDs);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GraphingForm";
             this.Text = "GraphingForm";
             this.Load += new System.EventHandler(this.GraphingForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbColor1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbColor2)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbColor3)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbColor4)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbColor5)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbColor6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbColor5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbColor4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbColor3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbColor2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbColor1)).EndInit();
             this.ResumeLayout(false);
 
         }
