@@ -281,6 +281,22 @@ namespace GVRET
 
         }
 
+        public int findDataRecord(int line)
+        {
+            for (int i = 0; i < sendingData.Count; i++)
+            {
+                if (sendingData[i].line == line) return i;
+            }
+            return -1;
+        }
+
+
+        /// <summary>
+        /// Process a single line from the dataGrid. First it will try to lookup an older copy of this record
+        /// and delete it so that we can redo it with the new info. This clears out all counters but I think
+        /// that's the right thing to do.
+        /// </summary>
+        /// <param name="line"></param>
         private void processGrid(int line) 
         {
             String trigger, modString;
@@ -288,9 +304,16 @@ namespace GVRET
 
             for (int i = 0; i < 8; i++) tempData.data[i] = 0;
 
+            int oldRecord = findDataRecord(line);
+            if (oldRecord > -1)
+            {
+                sendingData.RemoveAt(oldRecord);
+            }
+
             tempData.ID = Utility.ParseStringToNum((string)dataGridView1.Rows[line].Cells[2].Value);
             tempData.bus = Utility.ParseStringToNum((string)dataGridView1.Rows[line].Cells[1].Value);
             tempData.len = Utility.ParseStringToNum((string)dataGridView1.Rows[line].Cells[3].Value);
+            tempData.line = line;
             if (dataGridView1.Rows[line].Cells[0].Value != null)
             {
                 tempData.enabled = (bool)dataGridView1.Rows[line].Cells[0].Value;
@@ -518,6 +541,12 @@ namespace GVRET
         private void FrameSender_Leave(object sender, EventArgs e)
         {
             fastTimer.Stop();
+        }
+
+        private void dataGridView1_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            int rec = findDataRecord(e.RowIndex);
+            if (rec != -1) sendingData.RemoveAt(rec);
         }
     }
 
