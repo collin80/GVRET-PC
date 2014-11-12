@@ -109,11 +109,101 @@ namespace GVRET
             }
         }
 
-        //given an index into the sendingData list we run the modifier.
+        /// <summary>
+        /// given an index into the sendingData list we run the modifiers that it has set up
+        /// </summary>
+        /// <param name="idx">The index into the sendingData list</param>
         private void doModifiers(int idx)
         { 
+            int shadowReg = 0; //shadow register we use to accumulate results
+            int first=0, second=0;            
+            ModifierOp tempOp;
+            for (int i = 0; i < sendingData[idx].modifiers.Length; i++)
+            {
+                for (int j = 0; j < sendingData[idx].modifiers[i].operations.Length; j++)
+                {
+                    tempOp = sendingData[idx].modifiers[i].operations[j]; //makes the code lines a lot shorter
+                    if (tempOp.first.ID == -1)
+                    {
+                        first = shadowReg;
+                    }
+                    else first = fetchOperand(idx, tempOp.first);
+                    second = fetchOperand(idx, tempOp.second);
+                    switch (tempOp.operation)
+                    {
+                        case ModifierOperationType.ADDITION:
+                            shadowReg = first + second;
+                            break;
+                        case ModifierOperationType.AND:
+                            shadowReg = first & second;
+                            break;
+                        case ModifierOperationType.DIVISION:
+                            shadowReg = first / second;
+                            break;
+                        case ModifierOperationType.MULTIPLICATION:
+                            shadowReg = first * second;
+                            break;
+                        case ModifierOperationType.OR:
+                            shadowReg = first | second;
+                            break;
+                        case ModifierOperationType.SUBTRACTION:
+                            shadowReg = first - second;
+                            break;
+                        case ModifierOperationType.XOR:
+                            shadowReg = first ^ second;
+                            break;
+                    }
+                }
+                //Finally, drop the result into the proper data byte
+                sendingData[idx].data[sendingData[idx].modifiers[i].destByte] = (byte)shadowReg;
+            }
         }
 
+        public int fetchOperand(int idx, ModifierOperand op)
+        {
+            CANFrame tempFrame;
+            if (op.ID == 0) //numeric constant
+            {
+                return op.databyte;
+            }
+            else if (op.ID == -2)
+            {
+                return sendingData[idx].data[op.databyte];
+            }
+            else //look up external data byte
+            {
+                tempFrame = lookupFrame(op.ID, op.bus);
+                if (tempFrame != null)
+                {
+                    return tempFrame.data[op.databyte];
+                }
+                else return 0;
+            }
+        }
+
+
+        /// <summary>
+        /// Try to find the most recent frame given the input criteria
+        /// </summary>
+        /// <param name="ID">The ID to find</param>
+        /// <param name="bus">Which bus to look on (-1 if you don't care)</param>
+        /// <returns></returns>
+        public CANFrame lookupFrame(int ID, int bus)
+        {
+            for (int a = 0; a < frames.Count; a++)
+            {
+                if ((ID == frames[a].ID) && ((bus == frames[a].bus) || bus == -1))
+                {           
+                    return frames[a];
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Set parent form so that we can call methods from it.
+        /// </summary>
+        /// <param name="val">Reference to the parent form</param>
         public void setParent(MainForm val)
         {
             parent = val;
@@ -121,6 +211,10 @@ namespace GVRET
         }
 
         public delegate void GotCANDelegate(CANFrame frame);
+        /// <summary>
+        /// Event callback for reception of canbus frames
+        /// </summary>
+        /// <param name="frame">The frame that came in</param>
         public void GotCANFrame(CANFrame frame)
         {
             if (this.InvokeRequired)
@@ -292,7 +386,7 @@ namespace GVRET
                     tempData.modifiers[i].destByte = 0;
                     //now split by space to extract tokens
                     string[] modToks = mods[i].Split(' ');
-                    if (modToks.Length >= 5) //any valid modifier has at least 5 tokens (D0 = D0 + 1)
+                    if (modToks.Length >= 5) //any valid modifier that this code can process has at least 5 tokens (D0 = D0 + 1)
                     {
                         //valid token assignment will have a data byte as the first token and = as the second
                         if (modToks[0].Length == 2 && modToks[0].StartsWith("D"))
@@ -315,9 +409,6 @@ namespace GVRET
                                 if (j == 0)
                                 {
                                     firstToks = modToks[currToken++].ToUpper().Split(':');
-                                    //copy our sending bus and ID to use as the default for the modifier too
-                                    tempData.modifiers[i].operations[j].first.bus = tempData.bus;
-                                    tempData.modifiers[i].operations[j].first.ID = tempData.ID;
                                     parseOperandString(firstToks, ref tempData.modifiers[i].operations[j].first);
                                 }
                                 else //the rest of the ops implicitly use the shadow register as first
@@ -332,6 +423,17 @@ namespace GVRET
                             }
                         }
                     }
+                    else //must be a direct assignment, aka D0 = id:0x230:d3 in which case we'll create a dummy op to do this
+                    {
+                        int numOperations = 1;
+                        tempData.modifiers[i].operations = new ModifierOp[numOperations];
+                        tempData.modifiers[i].destByte = int.Parse(modToks[0].Substring(1));
+                        tempData.modifiers[i].operations[0].operation = ModifierOperationType.ADDITION;
+                        tempData.modifiers[i].operations[0].second.ID = 0;
+                        tempData.modifiers[i].operations[0].second.databyte = (byte)0;
+                        string[] firstToks = modToks[2].ToUpper().Split(':');
+                        parseOperandString(firstToks, ref tempData.modifiers[i].operations[0].first);
+                    }
                 }
             }
             //there is no else for the modifiers. We'll accept there not being any
@@ -342,7 +444,12 @@ namespace GVRET
         //Turn a set of tokens into an operand
         private void parseOperandString(string[] tokens, ref ModifierOperand operand)
         {
-            //bus:0:id:200:d3
+            //example string -> bus:0:id:200:d3
+
+            operand.bus = -1;
+            operand.ID = -2;
+            operand.databyte = 0;
+
             for (int i = 0; i < tokens.Length; i++)
             {
                 if (tokens[i] == "BUS")
@@ -434,6 +541,7 @@ namespace GVRET
     //stored in databyte
     //If ID is -1 then this is the temporary storage register. This is a shadow
     //register used to accumulate the results of a multi operation modifier.
+    //if ID is -2 then this is a look up of our own data bytes stored in the class data.
     class ModifierOperand
     {
         public int ID;
