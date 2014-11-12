@@ -88,9 +88,31 @@ namespace GVRET
         /// <param name="timerEventArgs"></param>
         private void HandleTick(object sender, EventArgs e)
         {
-
+            for (int i = 0; i < sendingData.Count; i++)
+            {
+                for (int j = 0; j < sendingData[i].triggers.Length; j++)
+                {
+                    if (sendingData[i].triggers[j].currCount >= sendingData[i].triggers[j].maxCount) continue;
+                    if (sendingData[i].triggers[j].ID == 0) //Is this a time trigger and not ID trigger?
+                    {
+                        //is it time to fire?
+                        if (++sendingData[i].triggers[j].msCounter >= sendingData[i].triggers[j].milliseconds)
+                        {
+                            sendingData[i].triggers[j].msCounter = 0;
+                            sendingData[i].count++;
+                            sendingData[i].triggers[j].currCount++;
+                            doModifiers(i);
+                            parent.SendCANFrame(sendingData[i], sendingData[i].bus);
+                        }
+                    }
+                }
+            }
         }
 
+        //given an index into the sendingData list we run the modifier.
+        private void doModifiers(int idx)
+        { 
+        }
 
         public void setParent(MainForm val)
         {
@@ -122,6 +144,33 @@ namespace GVRET
                 if (!found)
                 {
                     frames.Add(frame);
+                }
+
+                //now that frame cache has been updated, try to see if this incoming frame
+                //satisfies any triggers
+
+                for (int b = 0; b < sendingData.Count; b++)
+                {
+                    for (int c = 0; c < sendingData[b].triggers.Length; c++)
+                    {
+                        Trigger thisTrigger = sendingData[b].triggers[c];
+                        if (thisTrigger.ID > 0) 
+                        {
+                            if ((thisTrigger.bus == frame.bus) || (thisTrigger.bus == -1))
+                            {
+                                if (thisTrigger.ID == frame.ID)
+                                {
+                                    //seems to match this trigger.
+                                    if (thisTrigger.currCount < thisTrigger.maxCount)
+                                    {
+                                        sendingData[b].triggers[c].currCount++;
+                                        doModifiers(b);
+                                        parent.SendCANFrame(sendingData[b], sendingData[b].bus);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -352,7 +401,7 @@ namespace GVRET
     {
         public int ID; //which ID to match against
         public int milliseconds; //interval for triggering
-        private int msCounter; //how many MS have ticked since last trigger
+        public int msCounter; //how many MS have ticked since last trigger
         public int maxCount; //max # of these frames to trigger for
         public int currCount; //how many we have triggered for so far.
         public int bus; //which bus to monitor (-1 if we aren't picky)

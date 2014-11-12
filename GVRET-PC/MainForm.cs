@@ -208,6 +208,7 @@ namespace GVRET
 		                    case 8:
 			                    buildFrame.len = c & 0xF;
 			                    if (buildFrame.len > 8) buildFrame.len = 8;
+                                buildFrame.bus = (c & 0xF0) >> 4;
 			                    break;
 		                    default:
 			                    if (rx_step < buildFrame.len + 9)
