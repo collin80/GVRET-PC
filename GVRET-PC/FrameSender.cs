@@ -90,20 +90,20 @@ namespace GVRET
         {
             for (int i = 0; i < sendingData.Count; i++)
             {
+                if (!sendingData[i].enabled) continue; //abort any processing on this if it is not enabled.
                 for (int j = 0; j < sendingData[i].triggers.Length; j++)
                 {
-                    if (sendingData[i].triggers[j].currCount >= sendingData[i].triggers[j].maxCount) continue;
-                    if (sendingData[i].triggers[j].ID == 0) //Is this a time trigger and not ID trigger?
+                    if (sendingData[i].triggers[j].currCount >= sendingData[i].triggers[j].maxCount) continue; //don't process if we've sent max frames we were supposed to
+                    if (!sendingData[i].triggers[j].readyCount) continue; //don't tick if not ready to tick
+                    //is it time to fire?
+                    if (++sendingData[i].triggers[j].msCounter >= sendingData[i].triggers[j].milliseconds)
                     {
-                        //is it time to fire?
-                        if (++sendingData[i].triggers[j].msCounter >= sendingData[i].triggers[j].milliseconds)
-                        {
-                            sendingData[i].triggers[j].msCounter = 0;
-                            sendingData[i].count++;
-                            sendingData[i].triggers[j].currCount++;
-                            doModifiers(i);
-                            parent.SendCANFrame(sendingData[i], sendingData[i].bus);
-                        }
+                        sendingData[i].triggers[j].msCounter = 0;
+                        sendingData[i].count++;
+                        sendingData[i].triggers[j].currCount++;
+                        doModifiers(i);
+                        parent.SendCANFrame(sendingData[i], sendingData[i].bus);
+                        if (sendingData[i].triggers[j].ID > 0) sendingData[i].triggers[j].readyCount = false; //reset flag if this is a timed ID trigger
                     }
                 }
             }
@@ -163,9 +163,16 @@ namespace GVRET
                                     //seems to match this trigger.
                                     if (thisTrigger.currCount < thisTrigger.maxCount)
                                     {
-                                        sendingData[b].triggers[c].currCount++;
-                                        doModifiers(b);
-                                        parent.SendCANFrame(sendingData[b], sendingData[b].bus);
+                                        if (thisTrigger.milliseconds == 0) //don't want to time the frame, send it right away
+                                        {
+                                            sendingData[b].triggers[c].currCount++;
+                                            doModifiers(b);
+                                            parent.SendCANFrame(sendingData[b], sendingData[b].bus);
+                                        }
+                                        else //instead of immediate sending we start the timer
+                                        {
+                                            sendingData[b].triggers[c].readyCount = true;
+                                        }
                                     }
                                 }
                             }
@@ -219,9 +226,12 @@ namespace GVRET
                     tempData.triggers[k] = new Trigger();
                     //start out by setting defaults - should be moved to constructor for class Trigger.
                     tempData.triggers[k].bus = -1; //-1 means we don't care which
-                    tempData.triggers[k].ID = 0;
-                    tempData.triggers[k].maxCount = 1000000000;
-                    tempData.triggers[k].milliseconds = 1000;
+                    tempData.triggers[k].ID = -1; //the rest of these being -1 means nothing has changed it
+                    tempData.triggers[k].maxCount = -1;
+                    tempData.triggers[k].milliseconds = -1;
+                    tempData.triggers[k].currCount = 0;
+                    tempData.triggers[k].msCounter = 0;
+                    tempData.triggers[k].readyCount = true;
 
                     string[] trigToks = triggers[k].Split(' ');
                     foreach (string tok in trigToks)
@@ -229,20 +239,31 @@ namespace GVRET
                         if (tok.Substring(0, 3) == "ID=")
                         {
                             tempData.triggers[k].ID = Utility.ParseStringToNum(tok.Substring(3));
+                            if (tempData.triggers[k].maxCount == -1) tempData.triggers[k].maxCount = 10000000;
+                            if (tempData.triggers[k].milliseconds == -1) tempData.triggers[k].milliseconds = 0; //by default don't count, just send it upon trigger
+                            tempData.triggers[k].readyCount = false; //won't try counting until trigger hits
                         }
                         else if (tok.EndsWith("MS"))
                         {
                             tempData.triggers[k].milliseconds = Utility.ParseStringToNum(tok.Substring(0, tok.Length - 2));
+                            if (tempData.triggers[k].maxCount == -1) tempData.triggers[k].maxCount = 10000000;
+                            if (tempData.triggers[k].ID == -1) tempData.triggers[k].ID = 0;
                         }
                         else if (tok.EndsWith("X"))
                         {
                             tempData.triggers[k].maxCount = Utility.ParseStringToNum(tok.Substring(0, tok.Length - 1));
+                            if (tempData.triggers[k].ID == -1) tempData.triggers[k].ID = 0;
+                            if (tempData.triggers[k].milliseconds == -1) tempData.triggers[k].milliseconds = 10;
                         }
                         else if (tok.StartsWith("BUS"))
                         {
                             tempData.triggers[k].bus = Utility.ParseStringToNum(tok.Substring(3));
                         }
                     }
+                    //now, find anything that wasn't set and set it to defaults
+                    if (tempData.triggers[k].maxCount == -1) tempData.triggers[k].maxCount = 10000000;
+                    if (tempData.triggers[k].milliseconds == -1) tempData.triggers[k].milliseconds = 100;
+                    if (tempData.triggers[k].ID == -1) tempData.triggers[k].ID = 0;
                 }
             }
             else //setup a default single shot trigger
@@ -399,6 +420,7 @@ namespace GVRET
     //Stores a single trigger.
     class Trigger
     {
+        public bool readyCount; //ready to do millisecond ticks?
         public int ID; //which ID to match against
         public int milliseconds; //interval for triggering
         public int msCounter; //how many MS have ticked since last trigger
