@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -58,12 +59,15 @@ namespace GVRET
         public MainForm parent;
         private List<CANFrame> frames;
         private List<FrameSendData> sendingData;
+        Multimedia.Timer fastTimer;
 
         public FrameSender()
         {
             InitializeComponent();
             frames = new List<CANFrame>();
             sendingData = new List<FrameSendData>();
+            fastTimer = new Multimedia.Timer();
+            fastTimer.Period = 1;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -73,8 +77,20 @@ namespace GVRET
 
         private void FrameSender_Load(object sender, EventArgs e)
         {
+            fastTimer.Tick += new System.EventHandler(this.HandleTick);
+            fastTimer.Start();
+        }
+
+        /// <summary>
+        /// Called every millisecond to set the system update figures and send frames if necessary.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="timerEventArgs"></param>
+        private void HandleTick(object sender, EventArgs e)
+        {
 
         }
+
 
         public void setParent(MainForm val)
         {
@@ -319,7 +335,12 @@ namespace GVRET
 
         private void dataGridView1_RowLeave(object sender, DataGridViewCellEventArgs e)
         {
-            processGrid(e.RowIndex);
+            //processGrid(e.RowIndex);
+        }
+
+        private void FrameSender_Leave(object sender, EventArgs e)
+        {
+            fastTimer.Stop();
         }
     }
 
@@ -329,11 +350,12 @@ namespace GVRET
     //Stores a single trigger.
     class Trigger
     {
-        public int ID;
-        public int milliseconds;
-        public int maxCount;
-        public int currCount;
-        public int bus;
+        public int ID; //which ID to match against
+        public int milliseconds; //interval for triggering
+        private int msCounter; //how many MS have ticked since last trigger
+        public int maxCount; //max # of these frames to trigger for
+        public int currCount; //how many we have triggered for so far.
+        public int bus; //which bus to monitor (-1 if we aren't picky)
     }
 
     //referece for a source location for a single modifier.

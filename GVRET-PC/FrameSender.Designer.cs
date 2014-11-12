@@ -136,6 +136,7 @@
             this.Name = "FrameSender";
             this.Text = "FrameSender";
             this.Load += new System.EventHandler(this.FrameSender_Load);
+            this.Leave += new System.EventHandler(this.FrameSender_Leave);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
