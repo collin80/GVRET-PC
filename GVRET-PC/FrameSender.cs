@@ -159,7 +159,7 @@ namespace GVRET
             }
         }
 
-        public int fetchOperand(int idx, ModifierOperand op)
+        private int fetchOperand(int idx, ModifierOperand op)
         {
             CANFrame tempFrame;
             if (op.ID == 0) //numeric constant
@@ -308,6 +308,7 @@ namespace GVRET
             if (oldRecord > -1)
             {
                 sendingData.RemoveAt(oldRecord);
+                Debug.Print("Removing older version of this record.");
             }
 
             tempData.ID = Utility.ParseStringToNum((string)dataGridView1.Rows[line].Cells[2].Value);
@@ -451,7 +452,10 @@ namespace GVRET
                         int numOperations = 1;
                         tempData.modifiers[i].operations = new ModifierOp[numOperations];
                         tempData.modifiers[i].destByte = int.Parse(modToks[0].Substring(1));
+                        tempData.modifiers[i].operations[0] = new ModifierOp();
                         tempData.modifiers[i].operations[0].operation = ModifierOperationType.ADDITION;
+                        tempData.modifiers[i].operations[0].first = new ModifierOperand();
+                        tempData.modifiers[i].operations[0].second = new ModifierOperand();
                         tempData.modifiers[i].operations[0].second.ID = 0;
                         tempData.modifiers[i].operations[0].second.databyte = (byte)0;
                         string[] firstToks = modToks[2].ToUpper().Split(':');
@@ -535,7 +539,7 @@ namespace GVRET
 
         private void dataGridView1_RowLeave(object sender, DataGridViewCellEventArgs e)
         {
-            //processGrid(e.RowIndex);
+            processGrid(e.RowIndex);
         }
 
         private void FrameSender_Leave(object sender, EventArgs e)
