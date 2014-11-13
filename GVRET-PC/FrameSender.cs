@@ -102,6 +102,7 @@ namespace GVRET
                         sendingData[i].count++;
                         sendingData[i].triggers[j].currCount++;
                         doModifiers(i);
+                        updateGridRow(i);
                         parent.SendCANFrame(sendingData[i], sendingData[i].bus);
                         if (sendingData[i].triggers[j].ID > 0) sendingData[i].triggers[j].readyCount = false; //reset flag if this is a timed ID trigger
                     }
@@ -157,6 +158,26 @@ namespace GVRET
                 //Finally, drop the result into the proper data byte
                 sendingData[idx].data[sendingData[idx].modifiers[i].destByte] = (byte)shadowReg;
             }
+        }
+
+        
+        /// <summary>
+        /// Updaet the DataGridView with the newest info from sendingData
+        /// </summary>
+        /// <param name="idx"></param>
+        private void updateGridRow(int idx)
+        {
+            FrameSendData temp = sendingData[idx];
+            int gridLine = temp.line;
+            StringBuilder dataString = new StringBuilder();
+            dataGridView1.Rows[gridLine].Cells[7].Value = temp.count.ToString();
+            for (int i = 0; i < temp.len; i++)
+            {
+                dataString.Append("0x");
+                dataString.Append(temp.data[i].ToString("X2"));
+                dataString.Append(" ");
+            }
+            dataGridView1.Rows[gridLine].Cells[4].Value = dataString.ToString();
         }
 
         private int fetchOperand(int idx, ModifierOperand op)
@@ -260,7 +281,9 @@ namespace GVRET
                                         if (thisTrigger.milliseconds == 0) //don't want to time the frame, send it right away
                                         {
                                             sendingData[b].triggers[c].currCount++;
+                                            sendingData[b].count++;
                                             doModifiers(b);
+                                            updateGridRow(b);
                                             parent.SendCANFrame(sendingData[b], sendingData[b].bus);
                                         }
                                         else //instead of immediate sending we start the timer
@@ -300,6 +323,12 @@ namespace GVRET
         private void processGrid(int line) 
         {
             String trigger, modString;
+
+            if (dataGridView1.Rows[line].Cells[1].Value == null) return;
+            if (dataGridView1.Rows[line].Cells[2].Value == null) return;
+            if (dataGridView1.Rows[line].Cells[3].Value == null) return;
+            if (dataGridView1.Rows[line].Cells[4].Value == null) return;
+
             FrameSendData tempData = new FrameSendData();
 
             for (int i = 0; i < 8; i++) tempData.data[i] = 0;

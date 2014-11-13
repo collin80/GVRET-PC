@@ -557,7 +557,7 @@ namespace GVRET
             buffer[5] = (byte)(ID >> 24);
             buffer[6] = (byte)(bus & 1);
             buffer[7] = (byte)frame.len;
-            for (c = 0; c < len; c++)
+            for (c = 0; c < frame.len; c++)
             {
                 buffer[8 + c] = frame.data[c];
             }
