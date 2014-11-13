@@ -119,6 +119,9 @@ namespace GVRET
             int shadowReg = 0; //shadow register we use to accumulate results
             int first=0, second=0;            
             ModifierOp tempOp;
+
+            if (sendingData[idx].modifiers == null) return;
+
             for (int i = 0; i < sendingData[idx].modifiers.Length; i++)
             {
                 for (int j = 0; j < sendingData[idx].modifiers[i].operations.Length; j++)
@@ -168,7 +171,7 @@ namespace GVRET
         private void updateGridRow(int idx)
         {
             FrameSendData temp = sendingData[idx];
-            int gridLine = temp.line;
+            int gridLine = idx;
             StringBuilder dataString = new StringBuilder();
             dataGridView1.Rows[gridLine].Cells[7].Value = temp.count.ToString();
             for (int i = 0; i < temp.len; i++)
@@ -304,124 +307,14 @@ namespace GVRET
 
         }
 
-        public int findDataRecord(int line)
-        {
-            for (int i = 0; i < sendingData.Count; i++)
-            {
-                if (sendingData[i].line == line) return i;
-            }
-            return -1;
-        }
-
-
         /// <summary>
-        /// Process a single line from the dataGrid. First it will try to lookup an older copy of this record
-        /// and delete it so that we can redo it with the new info. This clears out all counters but I think
-        /// that's the right thing to do.
+        /// Process a single line from the dataGrid. Right now it seems to not trigger at all after the first adding of the code but that seems to maybe
+        /// be because whichever field you where just in will show up as nothing to the code.
         /// </summary>
         /// <param name="line"></param>
-        private void processGrid(int line) 
+        private void processModifierText(int line) 
         {
-            String trigger, modString;
-
-            if (dataGridView1.Rows[line].Cells[1].Value == null) return;
-            if (dataGridView1.Rows[line].Cells[2].Value == null) return;
-            if (dataGridView1.Rows[line].Cells[3].Value == null) return;
-            if (dataGridView1.Rows[line].Cells[4].Value == null) return;
-
-            FrameSendData tempData = new FrameSendData();
-
-            for (int i = 0; i < 8; i++) tempData.data[i] = 0;
-
-            int oldRecord = findDataRecord(line);
-            if (oldRecord > -1)
-            {
-                sendingData.RemoveAt(oldRecord);
-                Debug.Print("Removing older version of this record.");
-            }
-
-            tempData.ID = Utility.ParseStringToNum((string)dataGridView1.Rows[line].Cells[2].Value);
-            tempData.bus = Utility.ParseStringToNum((string)dataGridView1.Rows[line].Cells[1].Value);
-            tempData.len = Utility.ParseStringToNum((string)dataGridView1.Rows[line].Cells[3].Value);
-            tempData.line = line;
-            if (dataGridView1.Rows[line].Cells[0].Value != null)
-            {
-                tempData.enabled = (bool)dataGridView1.Rows[line].Cells[0].Value;
-            }
-            else tempData.enabled = false;
-            string[] tokens = ((string)dataGridView1.Rows[line].Cells[4].Value).Split(' ');
-            for (int j = 0; j < tokens.Length; j++)
-            {
-                tempData.data[j] = (byte)Utility.ParseStringToNum(tokens[j]);
-            }
-            tempData.count = 0;
-            if (tempData.ID <= 0x7FF) tempData.extended = false;
-            else tempData.extended = true;
-            tempData.line = line;
-
-            //Example line:
-            //id=0x200 5ms 10x bus0,1000ms
-            //trigger has two levels of syntactic parsing. First you split by comma to get each
-            //actual trigger. Then you split by spaces to get the tokens within each trigger
-            if (dataGridView1.Rows[line].Cells[5].Value != null)
-            {
-                trigger = ((string)dataGridView1.Rows[line].Cells[5].Value).ToUpper();
-                string[] triggers = trigger.Split(',');
-                tempData.triggers = new Trigger[triggers.Length];
-                for (int k = 0; k < triggers.Length; k++)
-                {
-                    tempData.triggers[k] = new Trigger();
-                    //start out by setting defaults - should be moved to constructor for class Trigger.
-                    tempData.triggers[k].bus = -1; //-1 means we don't care which
-                    tempData.triggers[k].ID = -1; //the rest of these being -1 means nothing has changed it
-                    tempData.triggers[k].maxCount = -1;
-                    tempData.triggers[k].milliseconds = -1;
-                    tempData.triggers[k].currCount = 0;
-                    tempData.triggers[k].msCounter = 0;
-                    tempData.triggers[k].readyCount = true;
-
-                    string[] trigToks = triggers[k].Split(' ');
-                    foreach (string tok in trigToks)
-                    {
-                        if (tok.Substring(0, 3) == "ID=")
-                        {
-                            tempData.triggers[k].ID = Utility.ParseStringToNum(tok.Substring(3));
-                            if (tempData.triggers[k].maxCount == -1) tempData.triggers[k].maxCount = 10000000;
-                            if (tempData.triggers[k].milliseconds == -1) tempData.triggers[k].milliseconds = 0; //by default don't count, just send it upon trigger
-                            tempData.triggers[k].readyCount = false; //won't try counting until trigger hits
-                        }
-                        else if (tok.EndsWith("MS"))
-                        {
-                            tempData.triggers[k].milliseconds = Utility.ParseStringToNum(tok.Substring(0, tok.Length - 2));
-                            if (tempData.triggers[k].maxCount == -1) tempData.triggers[k].maxCount = 10000000;
-                            if (tempData.triggers[k].ID == -1) tempData.triggers[k].ID = 0;
-                        }
-                        else if (tok.EndsWith("X"))
-                        {
-                            tempData.triggers[k].maxCount = Utility.ParseStringToNum(tok.Substring(0, tok.Length - 1));
-                            if (tempData.triggers[k].ID == -1) tempData.triggers[k].ID = 0;
-                            if (tempData.triggers[k].milliseconds == -1) tempData.triggers[k].milliseconds = 10;
-                        }
-                        else if (tok.StartsWith("BUS"))
-                        {
-                            tempData.triggers[k].bus = Utility.ParseStringToNum(tok.Substring(3));
-                        }
-                    }
-                    //now, find anything that wasn't set and set it to defaults
-                    if (tempData.triggers[k].maxCount == -1) tempData.triggers[k].maxCount = 10000000;
-                    if (tempData.triggers[k].milliseconds == -1) tempData.triggers[k].milliseconds = 100;
-                    if (tempData.triggers[k].ID == -1) tempData.triggers[k].ID = 0;
-                }
-            }
-            else //setup a default single shot trigger
-            {
-                tempData.triggers = new Trigger[1];
-                tempData.triggers[0] = new Trigger();
-                tempData.triggers[0].bus = -1;
-                tempData.triggers[0].ID = 0;
-                tempData.triggers[0].maxCount = 1;
-                tempData.triggers[0].milliseconds = 10;
-            }
+            String modString;            
 
             //Example line:
             //d0 = D0 + 1,d1 = id:0x200:d3 + id:0x200:d4 AND 0xF0
@@ -432,11 +325,11 @@ namespace GVRET
             {
                 modString = ((string)dataGridView1.Rows[line].Cells[6].Value).ToUpper();
                 string[] mods = modString.Split(','); //extract all the modifiers on this line
-                tempData.modifiers = new Modifier[mods.Length];
+                sendingData[line].modifiers = new Modifier[mods.Length];
                 for (int i = 0; i < mods.Length; i++)
                 {
-                    tempData.modifiers[i] = new Modifier();
-                    tempData.modifiers[i].destByte = 0;
+                    sendingData[line].modifiers[i] = new Modifier();
+                    sendingData[line].modifiers[i].destByte = 0;
                     //now split by space to extract tokens
                     string[] modToks = mods[i].Split(' ');
                     if (modToks.Length >= 5) //any valid modifier that this code can process has at least 5 tokens (D0 = D0 + 1)
@@ -445,8 +338,8 @@ namespace GVRET
                         if (modToks[0].Length == 2 && modToks[0].StartsWith("D"))
                         {
                             int numOperations = ((modToks.Length - 5) / 2) + 1;
-                            tempData.modifiers[i].operations = new ModifierOp[numOperations];
-                            tempData.modifiers[i].destByte = int.Parse(modToks[0].Substring(1));
+                            sendingData[line].modifiers[i].operations = new ModifierOp[numOperations];
+                            sendingData[line].modifiers[i].destByte = int.Parse(modToks[0].Substring(1));
                             //Now start at token 2 and extract all operations. All ops past the first one
                             //use the implicit shadow register as the first operand.The contents of the shadow
                             //register are what is copied to the destination byte at the end.
@@ -456,46 +349,116 @@ namespace GVRET
                             int currToken = 2;
                             for (int j = 0; j < numOperations; j++)
                             {
-                                tempData.modifiers[i].operations[j] = new ModifierOp();
-                                tempData.modifiers[i].operations[j].first = new ModifierOperand();
-                                tempData.modifiers[i].operations[j].second = new ModifierOperand();
+                                sendingData[line].modifiers[i].operations[j] = new ModifierOp();
+                                sendingData[line].modifiers[i].operations[j].first = new ModifierOperand();
+                                sendingData[line].modifiers[i].operations[j].second = new ModifierOperand();
                                 if (j == 0)
                                 {
                                     firstToks = modToks[currToken++].ToUpper().Split(':');
-                                    parseOperandString(firstToks, ref tempData.modifiers[i].operations[j].first);
+                                    parseOperandString(firstToks, ref sendingData[line].modifiers[i].operations[j].first);
                                 }
                                 else //the rest of the ops implicitly use the shadow register as first
                                 {
-                                    tempData.modifiers[i].operations[j].first.ID = -1;
+                                    sendingData[line].modifiers[i].operations[j].first.ID = -1;
                                 }
-                                tempData.modifiers[i].operations[j].operation = parseOperation(modToks[currToken++].ToUpper());
+                                sendingData[line].modifiers[i].operations[j].operation = parseOperation(modToks[currToken++].ToUpper());
                                 secondToks = modToks[currToken++].ToUpper().Split(':');
-                                tempData.modifiers[i].operations[j].second.bus = tempData.bus;
-                                tempData.modifiers[i].operations[j].second.ID = tempData.ID;
-                                parseOperandString(secondToks, ref tempData.modifiers[i].operations[j].second);
+                                sendingData[line].modifiers[i].operations[j].second.bus = sendingData[line].bus;
+                                sendingData[line].modifiers[i].operations[j].second.ID = sendingData[line].ID;
+                                parseOperandString(secondToks, ref sendingData[line].modifiers[i].operations[j].second);
                             }
                         }
                     }
                     else //must be a direct assignment, aka D0 = id:0x230:d3 in which case we'll create a dummy op to do this
                     {
                         int numOperations = 1;
-                        tempData.modifiers[i].operations = new ModifierOp[numOperations];
-                        tempData.modifiers[i].destByte = int.Parse(modToks[0].Substring(1));
-                        tempData.modifiers[i].operations[0] = new ModifierOp();
-                        tempData.modifiers[i].operations[0].operation = ModifierOperationType.ADDITION;
-                        tempData.modifiers[i].operations[0].first = new ModifierOperand();
-                        tempData.modifiers[i].operations[0].second = new ModifierOperand();
-                        tempData.modifiers[i].operations[0].second.ID = 0;
-                        tempData.modifiers[i].operations[0].second.databyte = (byte)0;
+                        sendingData[line].modifiers[i].operations = new ModifierOp[numOperations];
+                        sendingData[line].modifiers[i].destByte = int.Parse(modToks[0].Substring(1));
+                        sendingData[line].modifiers[i].operations[0] = new ModifierOp();
+                        sendingData[line].modifiers[i].operations[0].operation = ModifierOperationType.ADDITION;
+                        sendingData[line].modifiers[i].operations[0].first = new ModifierOperand();
+                        sendingData[line].modifiers[i].operations[0].second = new ModifierOperand();
+                        sendingData[line].modifiers[i].operations[0].second.ID = 0;
+                        sendingData[line].modifiers[i].operations[0].second.databyte = (byte)0;
                         string[] firstToks = modToks[2].ToUpper().Split(':');
-                        parseOperandString(firstToks, ref tempData.modifiers[i].operations[0].first);
+                        parseOperandString(firstToks, ref sendingData[line].modifiers[i].operations[0].first);
                     }
                 }
             }
             //there is no else for the modifiers. We'll accept there not being any
-
-            sendingData.Add(tempData);
         }
+
+
+        private void processTriggerText(int line)
+        {
+            String trigger;
+
+            //Example line:
+            //id=0x200 5ms 10x bus0,1000ms
+            //trigger has two levels of syntactic parsing. First you split by comma to get each
+            //actual trigger. Then you split by spaces to get the tokens within each trigger
+            if (dataGridView1.Rows[line].Cells[5].Value != null)
+            {
+                trigger = ((string)dataGridView1.Rows[line].Cells[5].Value).ToUpper();
+                string[] triggers = trigger.Split(',');
+                sendingData[line].triggers = new Trigger[triggers.Length];
+                for (int k = 0; k < triggers.Length; k++)
+                {
+                    sendingData[line].triggers[k] = new Trigger();
+                    //start out by setting defaults - should be moved to constructor for class Trigger.
+                    sendingData[line].triggers[k].bus = -1; //-1 means we don't care which
+                    sendingData[line].triggers[k].ID = -1; //the rest of these being -1 means nothing has changed it
+                    sendingData[line].triggers[k].maxCount = -1;
+                    sendingData[line].triggers[k].milliseconds = -1;
+                    sendingData[line].triggers[k].currCount = 0;
+                    sendingData[line].triggers[k].msCounter = 0;
+                    sendingData[line].triggers[k].readyCount = true;
+
+                    string[] trigToks = triggers[k].Split(' ');
+                    foreach (string tok in trigToks)
+                    {
+                        if (tok.Substring(0, 3) == "ID=")
+                        {
+                            sendingData[line].triggers[k].ID = Utility.ParseStringToNum(tok.Substring(3));
+                            if (sendingData[line].triggers[k].maxCount == -1) sendingData[line].triggers[k].maxCount = 10000000;
+                            if (sendingData[line].triggers[k].milliseconds == -1) sendingData[line].triggers[k].milliseconds = 0; //by default don't count, just send it upon trigger
+                            sendingData[line].triggers[k].readyCount = false; //won't try counting until trigger hits
+                        }
+                        else if (tok.EndsWith("MS"))
+                        {
+                            sendingData[line].triggers[k].milliseconds = Utility.ParseStringToNum(tok.Substring(0, tok.Length - 2));
+                            if (sendingData[line].triggers[k].maxCount == -1) sendingData[line].triggers[k].maxCount = 10000000;
+                            if (sendingData[line].triggers[k].ID == -1) sendingData[line].triggers[k].ID = 0;
+                        }
+                        else if (tok.EndsWith("X"))
+                        {
+                            sendingData[line].triggers[k].maxCount = Utility.ParseStringToNum(tok.Substring(0, tok.Length - 1));
+                            if (sendingData[line].triggers[k].ID == -1) sendingData[line].triggers[k].ID = 0;
+                            if (sendingData[line].triggers[k].milliseconds == -1) sendingData[line].triggers[k].milliseconds = 10;
+                        }
+                        else if (tok.StartsWith("BUS"))
+                        {
+                            sendingData[line].triggers[k].bus = Utility.ParseStringToNum(tok.Substring(3));
+                        }
+                    }
+                    //now, find anything that wasn't set and set it to defaults
+                    if (sendingData[line].triggers[k].maxCount == -1) sendingData[line].triggers[k].maxCount = 10000000;
+                    if (sendingData[line].triggers[k].milliseconds == -1) sendingData[line].triggers[k].milliseconds = 100;
+                    if (sendingData[line].triggers[k].ID == -1) sendingData[line].triggers[k].ID = 0;
+                }
+            }
+            else //setup a default single shot trigger
+            {
+                sendingData[line].triggers = new Trigger[1];
+                sendingData[line].triggers[0] = new Trigger();
+                sendingData[line].triggers[0].bus = -1;
+                sendingData[line].triggers[0].ID = 0;
+                sendingData[line].triggers[0].maxCount = 1;
+                sendingData[line].triggers[0].milliseconds = 10;
+            }
+        }
+
+
 
         //Turn a set of tokens into an operand
         private void parseOperandString(string[] tokens, ref ModifierOperand operand)
@@ -568,7 +531,7 @@ namespace GVRET
 
         private void dataGridView1_RowLeave(object sender, DataGridViewCellEventArgs e)
         {
-            processGrid(e.RowIndex);
+            //processGrid(e.RowIndex);
         }
 
         private void FrameSender_Leave(object sender, EventArgs e)
@@ -578,8 +541,75 @@ namespace GVRET
 
         private void dataGridView1_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            int rec = findDataRecord(e.RowIndex);
+            int rec = e.RowIndex;
             if (rec != -1) sendingData.RemoveAt(rec);
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            FrameSendData tempData;
+            int line = e.RowIndex;
+            int tempVal;
+
+            //if this is a new line then create the base object for the line
+            if ((line >= sendingData.Count) || (sendingData[line] == null))
+            {
+                tempData = new FrameSendData();
+                sendingData.Add(tempData);
+            }
+
+            sendingData[line].count = 0;
+
+            switch (e.ColumnIndex)
+            {
+                case 0: //Enable check box
+                    if (dataGridView1.Rows[line].Cells[0].Value != null)
+                    {
+                        sendingData[line].enabled = (bool)dataGridView1.Rows[line].Cells[0].Value;
+                    }
+                    else sendingData[line].enabled = false;
+                    break;
+                case 1: //Bus designation
+                    tempVal = Utility.ParseStringToNum((string)dataGridView1.Rows[line].Cells[1].Value);
+                    if (tempVal < 0) tempVal = 0;
+                    if (tempVal > 1) tempVal = 1;
+                    sendingData[line].bus = tempVal;
+                    break;
+                case 2: //ID field
+                    tempVal = Utility.ParseStringToNum((string)dataGridView1.Rows[line].Cells[2].Value);
+                    if (tempVal < 1) tempVal = 1;
+                    if (tempVal > 0x7FFFFFFF) tempVal = 0x7FFFFFFF;
+                    sendingData[line].ID = tempVal;
+                    if (sendingData[line].ID <= 0x7FF) sendingData[line].extended = false;
+                    else sendingData[line].extended = true;
+                    break;
+                case 3: //length field
+                    tempVal = Utility.ParseStringToNum((string)dataGridView1.Rows[line].Cells[3].Value);
+                    if (tempVal < 0) tempVal = 0;
+                    if (tempVal > 8) tempVal = 8;
+                    sendingData[line].len = tempVal;
+                    break;
+                case 4: //Data bytes
+                    for (int i = 0; i < 8; i++) sendingData[line].data[i] = 0;
+
+                    string[] tokens = ((string)dataGridView1.Rows[line].Cells[4].Value).Split(' ');
+                    for (int j = 0; j < tokens.Length; j++)
+                    {
+                        sendingData[line].data[j] = (byte)Utility.ParseStringToNum(tokens[j]);
+                    }
+                    break;
+                case 5: //triggers
+                    processTriggerText(line);
+                    break;
+                case 6: //modifiers
+                    processModifierText(line);
+                    break;
+            }
         }
     }
 
@@ -644,7 +674,6 @@ namespace GVRET
     class FrameSendData : CANFrame
     {
         public bool enabled;
-        public int line;
         public int count;
         public Trigger[] triggers;
         public Modifier[] modifiers;
