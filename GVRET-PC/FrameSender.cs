@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -91,6 +92,7 @@ namespace GVRET
             for (int i = 0; i < sendingData.Count; i++)
             {
                 if (!sendingData[i].enabled) continue; //abort any processing on this if it is not enabled.
+                if (sendingData[i].triggers == null) return;
                 for (int j = 0; j < sendingData[i].triggers.Length; j++)
                 {
                     if (sendingData[i].triggers[j].currCount >= sendingData[i].triggers[j].maxCount) continue; //don't process if we've sent max frames we were supposed to
@@ -550,10 +552,9 @@ namespace GVRET
             
         }
 
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void processCellChange(int line, int col)
         {
             FrameSendData tempData;
-            int line = e.RowIndex;
             int tempVal;
 
             //if this is a new line then create the base object for the line
@@ -565,7 +566,7 @@ namespace GVRET
 
             sendingData[line].count = 0;
 
-            switch (e.ColumnIndex)
+            switch (col)
             {
                 case 0: //Enable check box
                     if (dataGridView1.Rows[line].Cells[0].Value != null)
@@ -609,6 +610,95 @@ namespace GVRET
                 case 6: //modifiers
                     processModifierText(line);
                     break;
+            }
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            processCellChange(e.RowIndex, e.ColumnIndex);
+        }
+
+        private void loadFromFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult res;
+            //First zap all existing data. Ask first. Might not need to actually ask here since you can abort the file open
+            //and be OK that way too.
+            if (sendingData.Count > 0)
+            {
+                res = MessageBox.Show("Proceding will erase the current\ncontents of the grid.", "Warning", MessageBoxButtons.YesNo);
+                if (res == DialogResult.No) return;
+            }
+            res = openFileDialog1.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                sendingData.Clear();
+                dataGridView1.Rows.Clear();
+                Stream inputFile = openFileDialog1.OpenFile();
+                StreamReader inputReader = new StreamReader(inputFile);
+                string line;
+                int row;
+                try
+                {
+                    while (!inputReader.EndOfStream)
+                    {
+                        line = inputReader.ReadLine();
+                        string[] tokens = line.Split('#');
+                        row = dataGridView1.Rows.Add();
+                        if (tokens[0] == "T")
+                        {
+                            dataGridView1.Rows[row].Cells[0].Value = true;
+                        }
+                        else dataGridView1.Rows[row].Cells[0].Value = false;                        
+                        for (int j = 1; j < 7; j++)
+                        {
+                            dataGridView1.Rows[row].Cells[j].Value = tokens[j];                            
+                        }
+                        for (int k = 0; k < 6; k++) processCellChange(row, k);
+                    }
+                }
+                catch (Exception ee)
+                { 
+                }
+            }
+        }
+
+        private void saveGridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StringBuilder buildStr = new StringBuilder();
+            DialogResult res;
+            res = saveFileDialog1.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                Stream outputFile = saveFileDialog1.OpenFile();
+                StreamWriter outputWriter = new StreamWriter(outputFile);
+                try
+                {
+                    for (int i = 0; i < sendingData.Count; i++) 
+                    {
+                        buildStr.Clear();
+                        if (dataGridView1.Rows[i].Cells[0].Value != null) 
+                        {
+                            if ((bool)dataGridView1.Rows[i].Cells[0].Value == true) 
+                            {
+                                buildStr.Append("T");
+                            }
+                            else buildStr.Append("F");       
+                        }
+                        else buildStr.Append("F");
+                        buildStr.Append("#");
+                        for (int j = 1; j < 7; j++)
+                        {
+                            buildStr.Append(dataGridView1.Rows[i].Cells[j].Value);
+                            buildStr.Append("#");
+                        }
+                        outputWriter.WriteLine(buildStr.ToString());
+                    }
+                }
+                catch (Exception ee)
+                {
+                }
+                outputWriter.Flush();
+                outputWriter.Close();
             }
         }
     }

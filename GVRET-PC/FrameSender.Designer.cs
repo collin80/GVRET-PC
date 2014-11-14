@@ -38,7 +38,16 @@
             this.txtTrigger = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtMutator = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtTriggerCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.loadFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -63,7 +72,7 @@
             this.txtTrigger,
             this.txtMutator,
             this.txtTriggerCount});
-            this.dataGridView1.Location = new System.Drawing.Point(9, 10);
+            this.dataGridView1.Location = new System.Drawing.Point(7, 33);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
@@ -132,19 +141,89 @@
             this.txtTriggerCount.ReadOnly = true;
             this.txtTriggerCount.Width = 60;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadFromFileToolStripMenuItem,
+            this.saveGridToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(777, 24);
+            this.menuStrip1.TabIndex = 6;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // loadFromFileToolStripMenuItem
+            // 
+            this.loadFromFileToolStripMenuItem.Name = "loadFromFileToolStripMenuItem";
+            this.loadFromFileToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+            this.loadFromFileToolStripMenuItem.Text = "&Load Grid";
+            this.loadFromFileToolStripMenuItem.Click += new System.EventHandler(this.loadFromFileToolStripMenuItem_Click);
+            // 
+            // saveGridToolStripMenuItem
+            // 
+            this.saveGridToolStripMenuItem.Name = "saveGridToolStripMenuItem";
+            this.saveGridToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.saveGridToolStripMenuItem.Text = "&Save Grid";
+            this.saveGridToolStripMenuItem.Click += new System.EventHandler(this.saveGridToolStripMenuItem_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.DefaultExt = "csd";
+            this.openFileDialog1.Filter = "Sending Definitions|*.csd";
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "csd";
+            this.saveFileDialog1.Filter = "Sending Definitions|*.csd";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(13, 391);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Enable All";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(94, 391);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "Disable All";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(691, 391);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 9;
+            this.button3.Text = "Clear All";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
             // FrameSender
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(777, 370);
+            this.ClientSize = new System.Drawing.Size(777, 423);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrameSender";
             this.Text = "FrameSender";
             this.Load += new System.EventHandler(this.FrameSender_Load);
             this.Leave += new System.EventHandler(this.FrameSender_Leave);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -159,5 +238,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn txtTrigger;
         private System.Windows.Forms.DataGridViewTextBoxColumn txtMutator;
         private System.Windows.Forms.DataGridViewTextBoxColumn txtTriggerCount;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem loadFromFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveGridToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
     }
 }
