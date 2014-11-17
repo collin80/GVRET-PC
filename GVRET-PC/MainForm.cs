@@ -398,6 +398,7 @@ namespace GVRET
                     }
                     catch (Exception ed)
                     {
+                        Debug.Print(ed.ToString());
                     }
                     Thread.Sleep(8);
                 } while (runBGThread);
@@ -439,6 +440,7 @@ namespace GVRET
                         }
                         catch (Exception ed)
                         {
+                            Debug.Print(ed.ToString());
                         }                        
                     }
                     loops++;
@@ -701,9 +703,10 @@ namespace GVRET
                 continuousOutput.WriteByte(10);
 
             }
-            catch
+            catch (Exception ed)
             {
                 contLogging = false; //stop trying to log on error.
+                Debug.Print(ed.ToString());
             }
         }
 

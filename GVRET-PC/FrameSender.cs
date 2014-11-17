@@ -323,7 +323,7 @@ namespace GVRET
             //This is certainly much harder to parse than the trigger definitions.
             //the left side of the = has to be D0 to D7. After that there is a string of
             //data that for ease of parsing will require spaces between tokens
-            if (dataGridView1.Rows[line].Cells[6].Value != null)
+            if (dataGridView1.Rows[line].Cells[6].Value != null && dataGridView1.Rows[line].Cells[6].Value != "")
             {
                 modString = ((string)dataGridView1.Rows[line].Cells[6].Value).ToUpper();
                 string[] mods = modString.Split(','); //extract all the modifiers on this line
@@ -653,11 +653,12 @@ namespace GVRET
                         {
                             dataGridView1.Rows[row].Cells[j].Value = tokens[j];                            
                         }
-                        for (int k = 0; k < 6; k++) processCellChange(row, k);
+                        for (int k = 0; k < 7; k++) processCellChange(row, k);
                     }
                 }
                 catch (Exception ee)
-                { 
+                {
+                    Debug.Print(ee.ToString());
                 }
             }
         }
@@ -696,6 +697,7 @@ namespace GVRET
                 }
                 catch (Exception ee)
                 {
+                    Debug.Print(ee.ToString());
                 }
                 outputWriter.Flush();
                 outputWriter.Close();

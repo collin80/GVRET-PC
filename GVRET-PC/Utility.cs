@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,7 @@ namespace GVRET
             }
             catch (Exception c)
             {
+                Debug.Print(c.ToString());
             }
             return temp;
         }
