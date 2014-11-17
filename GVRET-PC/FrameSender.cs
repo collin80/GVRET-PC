@@ -703,6 +703,37 @@ namespace GVRET
                 outputWriter.Close();
             }
         }
+
+        //Note for the below three functions that they all handle the fact that a data view grid will always have an extra row that is blank
+        //and available for a new record. Because of this the grid count is always one too high.
+        private void button1_Click(object sender, EventArgs e) //enable all lines in the grid
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+            {
+                dataGridView1.Rows[i].Cells[0].Value = true;
+                sendingData[i].enabled = true;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e) //disable all lines in the grid
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+            {
+                dataGridView1.Rows[i].Cells[0].Value = false;
+                sendingData[i].enabled = false;
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e) //delete all entries in the grid and data struct
+        {
+            if (dataGridView1.Rows.Count == 1) return;
+            for (int i = dataGridView1.Rows.Count - 2; i >= 0; i--)
+            {
+                sendingData[i].enabled = false;
+                sendingData.RemoveAt(i);
+                dataGridView1.Rows.RemoveAt(i);                
+            }
+        }
     }
 
     //Here follows a bunch of classes that record and store the details for the trigger

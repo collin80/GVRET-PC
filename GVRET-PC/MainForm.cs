@@ -71,6 +71,7 @@ namespace GVRET
         CANFrame buildFrame;
         Stream continuousOutput;
         bool contLogging = false;
+        bool isConnected = false; //are we connected to the serial port?
 
         int bufferReadPointer = 0, bufferWritePointer = 0;
 
@@ -315,6 +316,7 @@ namespace GVRET
                 //runBGThread = false;
                 Thread.Sleep(500);
                 serialPort1.Close();
+                isConnected = false;
                 btnConnect.Text = "Connect To Dongle";
             }
             else
@@ -325,6 +327,7 @@ namespace GVRET
                 btnConnect.Text = "Disconnect from Dongle";
                 byte[] tempBuff = {0xE7, 0xE7};
                 serialPort1.Write(tempBuff, 0, 2);
+                isConnected = true;
             }
         }
 
@@ -568,7 +571,7 @@ namespace GVRET
             GotCANFrame(frame); //pretend we got this frame on the line so that even frames we send show up in the table
             //FrameCtl = 0
 
-            serialPort1.Write(buffer, 0, frame.len + 9);
+            if (isConnected) serialPort1.Write(buffer, 0, frame.len + 9);
         }
 
 
@@ -723,7 +726,7 @@ namespace GVRET
             buffer[8] = (byte)(Speed2 >> 16);
             buffer[9] = (byte)(Speed2 >> 24);
             buffer[10] = 0;
-            serialPort1.Write(buffer, 0, 11);
+            if (isConnected) serialPort1.Write(buffer, 0, 11);
 
         }
 
