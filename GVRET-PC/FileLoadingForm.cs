@@ -20,6 +20,7 @@ namespace GVRET
         private bool playbackActive = false, playbackForward = true;
         private int playbackPos = 0;
         private int numFrames;
+        private int whichBusSend;
         MicroLibrary.MicroTimer fastTimer;
 
         public FileLoadingForm()
@@ -29,6 +30,7 @@ namespace GVRET
             fastTimer.MicroTimerElapsed +=
                new MicroLibrary.MicroTimer.MicroTimerElapsedEventHandler(OnTimedEvent);
             fastTimer.Interval = 20000; //in microseconds
+            whichBusSend = -1;
         }
 
         private void FileLoadingForm_Load(object sender, EventArgs e)
@@ -63,11 +65,10 @@ namespace GVRET
             //Debug.Print(playbackPos.ToString());
             loadedFrames[playbackPos].timestamp = Utility.GetTimeMS();
             parent.sideloadFrame(loadedFrames[playbackPos]);
-            int bus = cbCANSend.SelectedIndex;
             //index 0 is none, 1 is Bus 0, 2 is bus 1, 3 is from file.
-            if (bus == 1) parent.SendCANFrame(loadedFrames[playbackPos], 0);
-            if (bus == 2) parent.SendCANFrame(loadedFrames[playbackPos], 1);
-            if (bus == 3) parent.SendCANFrame(loadedFrames[playbackPos], loadedFrames[playbackPos].bus);
+            if (whichBusSend == 1) parent.SendCANFrame(loadedFrames[playbackPos], 0);
+            if (whichBusSend == 2) parent.SendCANFrame(loadedFrames[playbackPos], 1);
+            if (whichBusSend == 3) parent.SendCANFrame(loadedFrames[playbackPos], loadedFrames[playbackPos].bus);
             //updateFrameCounter();
         }
 
@@ -392,7 +393,7 @@ namespace GVRET
 
         private void cbCANSend_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            whichBusSend = cbCANSend.SelectedIndex;
         }
 
         private void cbUsePlayback_CheckedChanged(object sender, EventArgs e)
