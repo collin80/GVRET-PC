@@ -63,6 +63,11 @@ namespace GVRET
             //Debug.Print(playbackPos.ToString());
             loadedFrames[playbackPos].timestamp = Utility.GetTimeMS();
             parent.sideloadFrame(loadedFrames[playbackPos]);
+            int bus = cbCANSend.SelectedIndex;
+            //index 0 is none, 1 is Bus 0, 2 is bus 1, 3 is from file.
+            if (bus == 1) parent.SendCANFrame(loadedFrames[playbackPos], 0);
+            if (bus == 2) parent.SendCANFrame(loadedFrames[playbackPos], 1);
+            if (bus == 3) parent.SendCANFrame(loadedFrames[playbackPos], loadedFrames[playbackPos].bus);
             //updateFrameCounter();
         }
 
@@ -395,6 +400,7 @@ namespace GVRET
             if (cbUsePlayback.Checked)
             {
                 groupBox3.Enabled = true;
+                if (cbCANSend.SelectedIndex < 0) cbCANSend.SelectedIndex = 0;
             }
             else
             {
