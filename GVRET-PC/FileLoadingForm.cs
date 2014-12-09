@@ -22,6 +22,7 @@ namespace GVRET
         private int numFrames;
         private int whichBusSend;
         MicroLibrary.MicroTimer fastTimer;
+        private List<int> foundID = new List<int>();
 
         public FileLoadingForm()
         {
@@ -63,13 +64,19 @@ namespace GVRET
                 else if (ckLoop.Checked) playbackPos = numFrames - 1;
             }
             //Debug.Print(playbackPos.ToString());
-            loadedFrames[playbackPos].timestamp = Utility.GetTimeMS();
-            parent.sideloadFrame(loadedFrames[playbackPos]);
-            //index 0 is none, 1 is Bus 0, 2 is bus 1, 3 is from file.
-            if (whichBusSend == 1) parent.SendCANFrame(loadedFrames[playbackPos], 0);
-            if (whichBusSend == 2) parent.SendCANFrame(loadedFrames[playbackPos], 1);
-            if (whichBusSend == 3) parent.SendCANFrame(loadedFrames[playbackPos], loadedFrames[playbackPos].bus);
-            //updateFrameCounter();
+
+            //only send frame out if its ID is checked in the list. Otherwise discard it.
+            int fid = foundID.IndexOf(loadedFrames[playbackPos].ID);
+            if (cListFrames.GetItemChecked(fid))
+            {
+                loadedFrames[playbackPos].timestamp = Utility.GetTimeMS();
+                parent.sideloadFrame(loadedFrames[playbackPos]);
+                //index 0 is none, 1 is Bus 0, 2 is bus 1, 3 is from file.
+                if (whichBusSend == 1) parent.SendCANFrame(loadedFrames[playbackPos], 0);
+                if (whichBusSend == 2) parent.SendCANFrame(loadedFrames[playbackPos], 1);
+                if (whichBusSend == 3) parent.SendCANFrame(loadedFrames[playbackPos], loadedFrames[playbackPos].bus);
+                //updateFrameCounter();
+            }
         }
 
         private void loadNativeCSVFile(string filename)
@@ -286,6 +293,20 @@ namespace GVRET
                 }
                 numFrames = loadedFrames.Count;
 
+                for (int j = 0; j < numFrames; j++)
+                {
+                    if (!foundID.Contains(loadedFrames[j].ID))
+                    {
+                        foundID.Add(loadedFrames[j].ID);
+                        cListFrames.Items.Add("0x" + loadedFrames[j].ID.ToString("X4"));                        
+                    }
+                }
+
+                for (int l = 0; l < cListFrames.Items.Count; l++)
+                {
+                    cListFrames.SetItemChecked(l, true);
+                }
+
                 //If the user does not intend to use the playback system then immediately add all of the frames to the
                 //main form instantly but make it seem like they came in 10ms apart to give them all a unique time stamp
                 if (!cbUsePlayback.Checked)
@@ -407,6 +428,30 @@ namespace GVRET
             {
                 groupBox3.Enabled = false;
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            for (int l = 0; l < cListFrames.Items.Count; l++)
+            {
+                cListFrames.SetItemChecked(l, true);
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            for (int l = 0; l < cListFrames.Items.Count; l++)
+            {
+                cListFrames.SetItemChecked(l, false);
+            }
+        }
+
+        private void FileLoadingForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //stop any playback so it doesn't continue in the background.
+            fastTimer.Stop(); //pushing this button halts automatic playback
+            playbackActive = false;
+            playbackPos = 0;
         }
     }
 }
