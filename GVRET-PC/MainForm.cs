@@ -53,6 +53,7 @@ namespace GVRET
         byte[] inputBuffer = new byte[2048];
 
         private List<CANFrame> frameCache = new List<CANFrame>(100000); //initially we allocate 100,000 entries in the list
+        private List<CANFrame> uniqueFrames = new List<CANFrame>();
 
         //Allows for the possibility to do whatever we want with this instead of directly
         //allowing access to the actual member variable.
@@ -269,7 +270,7 @@ namespace GVRET
 
             showFrame(frame);
 
-            if (checkBox1.Checked) dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.RowCount - 1;
+            if (cbAutoScroll.Checked) dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.RowCount - 1;
             //if (dataGridView1.SortOrder == SortOrder.None) Debug.Print("No sort");
             //Resort the thing if it was previously sorted.
             if (dataGridView1.SortOrder == SortOrder.Ascending)
@@ -290,22 +291,46 @@ namespace GVRET
             else
             {
                 StringBuilder data = new StringBuilder();
-                int temp;
+                int rowIdx = 0;
+                //two choices - either we directly add the frame or we find the unique frame ID and update the old record
+                if (cbStaticMode.Checked)
+                {
+                    //first try to find a match
+                    bool found = false;
+                    for (int x = 0; x < uniqueFrames.Count; x++)
+                    {
+                        if (uniqueFrames[x].ID == frame.ID)
+                        {
+                            found = true;
+                            rowIdx = x;
+                            uniqueFrames[x] = frame;
+                        }
+                    }
+                    if (!found)
+                    {
+                        uniqueFrames.Add(frame);
+                        rowIdx = dataGridView1.Rows.Add();
+                    }
+                }
+                else
+                {
+                    rowIdx = dataGridView1.Rows.Add();
+                }
 
-                int n = dataGridView1.Rows.Add();
+                //In all cases use the rowIdx variable to update the proper grid row
                 //time, id, ext, bus, len, data
-                dataGridView1.Rows[n].Cells[0].Value = frame.timestamp.ToString();
-                dataGridView1.Rows[n].Cells[1].Value = "0x" + frame.ID.ToString("X8");
-                dataGridView1.Rows[n].Cells[2].Value = frame.extended.ToString();
-                dataGridView1.Rows[n].Cells[3].Value = frame.bus.ToString();
-                dataGridView1.Rows[n].Cells[4].Value = frame.len.ToString();
+                dataGridView1.Rows[rowIdx].Cells[0].Value = frame.timestamp.ToString();
+                dataGridView1.Rows[rowIdx].Cells[1].Value = "0x" + frame.ID.ToString("X8");
+                dataGridView1.Rows[rowIdx].Cells[2].Value = frame.extended.ToString();
+                dataGridView1.Rows[rowIdx].Cells[3].Value = frame.bus.ToString();
+                dataGridView1.Rows[rowIdx].Cells[4].Value = frame.len.ToString();
                 data.Clear();
                 for (int c = 0; c < frame.len; c++)
                 {
                     data.Append("0x" + frame.data[c].ToString("X2"));
                     data.Append(" ");
                 }
-                dataGridView1.Rows[n].Cells[5].Value = data.ToString(); //Payload
+                dataGridView1.Rows[rowIdx].Cells[5].Value = data.ToString(); //Payload                
             }
         }
 
@@ -340,7 +365,7 @@ namespace GVRET
             }
 
             //now, if we've selected to auto scroll then go to the bottom of the list
-            if (checkBox1.Checked && dataGridView1.RowCount > 0) dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.RowCount - 1;
+            if (cbAutoScroll.Checked && dataGridView1.RowCount > 0) dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.RowCount - 1;
 
             //Resort the thing if we've specified a desired sort order
             if (dataGridView1.SortOrder == SortOrder.Ascending)
@@ -874,6 +899,13 @@ namespace GVRET
             FrameSender theForm = new FrameSender();
             theForm.setParent(this);
             theForm.Show();
+        }
+
+        private void cbStaticMode_CheckedChanged(object sender, EventArgs e)
+        {
+            //Any time this is toggled we'll clear our display out
+            dataGridView1.Rows.Clear();
+            uniqueFrames.Clear();
         }
     }
 

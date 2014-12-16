@@ -33,11 +33,17 @@
             this.btnConnect = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.cbAutoScroll = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Timestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frameID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frameExt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frameBus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Length = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -62,12 +68,7 @@
             this.loadFramesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendFramesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbActivity = new System.Windows.Forms.PictureBox();
-            this.Timestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.frameID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.frameExt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.frameBus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Length = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cbStaticMode = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbActivity)).BeginInit();
@@ -83,10 +84,9 @@
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(1071, 53);
-            this.btnConnect.Margin = new System.Windows.Forms.Padding(4);
+            this.btnConnect.Location = new System.Drawing.Point(803, 43);
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(153, 28);
+            this.btnConnect.Size = new System.Drawing.Size(115, 23);
             this.btnConnect.TabIndex = 1;
             this.btnConnect.Text = "Connect To Dongle";
             this.btnConnect.UseVisualStyleBackColor = true;
@@ -94,10 +94,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(859, 215);
-            this.button4.Margin = new System.Windows.Forms.Padding(4);
+            this.button4.Location = new System.Drawing.Point(644, 166);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(181, 28);
+            this.button4.Size = new System.Drawing.Size(136, 23);
             this.button4.TabIndex = 4;
             this.button4.Text = "Enable Frame View";
             this.button4.UseVisualStyleBackColor = true;
@@ -105,44 +104,40 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1042, 215);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Location = new System.Drawing.Point(782, 166);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(183, 28);
+            this.button1.Size = new System.Drawing.Size(137, 23);
             this.button1.TabIndex = 7;
             this.button1.Text = "Clear List";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // checkBox1
+            // cbAutoScroll
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(859, 251);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(201, 21);
-            this.checkBox1.TabIndex = 8;
-            this.checkBox1.Text = "Auto Scroll Display Window";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.cbAutoScroll.AutoSize = true;
+            this.cbAutoScroll.Location = new System.Drawing.Point(644, 201);
+            this.cbAutoScroll.Name = "cbAutoScroll";
+            this.cbAutoScroll.Size = new System.Drawing.Size(156, 17);
+            this.cbAutoScroll.TabIndex = 8;
+            this.cbAutoScroll.Text = "Auto Scroll Display Window";
+            this.cbAutoScroll.UseVisualStyleBackColor = true;
+            this.cbAutoScroll.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(855, 288);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(641, 257);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(143, 17);
+            this.label2.Size = new System.Drawing.Size(108, 13);
             this.label2.TabIndex = 9;
             this.label2.Text = "# of frames captured:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1007, 288);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(755, 257);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 17);
+            this.label3.Size = new System.Drawing.Size(37, 13);
             this.label3.TabIndex = 10;
             this.label3.Text = "TEMP";
             // 
@@ -163,246 +158,12 @@
             this.frameBus,
             this.Length,
             this.data});
-            this.dataGridView1.Location = new System.Drawing.Point(16, 57);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 46);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(811, 442);
+            this.dataGridView1.Size = new System.Drawing.Size(608, 359);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(1007, 321);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(46, 17);
-            this.label11.TabIndex = 33;
-            this.label11.Text = "TEMP";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(857, 321);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(150, 17);
-            this.label12.TabIndex = 32;
-            this.label12.Text = "# of frames displaying:";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(616, 502);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(96, 17);
-            this.label13.TabIndex = 35;
-            this.label13.Text = "Activity Graph";
-            this.label13.Click += new System.EventHandler(this.label13_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(853, 57);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 17);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "COM Port:";
-            // 
-            // cbPortNum
-            // 
-            this.cbPortNum.FormattingEnabled = true;
-            this.cbPortNum.Location = new System.Drawing.Point(943, 53);
-            this.cbPortNum.Margin = new System.Windows.Forms.Padding(4);
-            this.cbPortNum.Name = "cbPortNum";
-            this.cbPortNum.Size = new System.Drawing.Size(119, 24);
-            this.cbPortNum.TabIndex = 6;
-            // 
-            // btnContLog
-            // 
-            this.btnContLog.Location = new System.Drawing.Point(835, 394);
-            this.btnContLog.Margin = new System.Windows.Forms.Padding(4);
-            this.btnContLog.Name = "btnContLog";
-            this.btnContLog.Size = new System.Drawing.Size(360, 30);
-            this.btnContLog.TabIndex = 40;
-            this.btnContLog.Text = "Start Continuous Logging";
-            this.btnContLog.UseVisualStyleBackColor = true;
-            this.btnContLog.Click += new System.EventHandler(this.button6_Click_1);
-            // 
-            // cbCAN1Speed
-            // 
-            this.cbCAN1Speed.FormattingEnabled = true;
-            this.cbCAN1Speed.Items.AddRange(new object[] {
-            "DISABLED",
-            "125K",
-            "250K",
-            "500K",
-            "1M"});
-            this.cbCAN1Speed.Location = new System.Drawing.Point(910, 118);
-            this.cbCAN1Speed.Margin = new System.Windows.Forms.Padding(4);
-            this.cbCAN1Speed.Name = "cbCAN1Speed";
-            this.cbCAN1Speed.Size = new System.Drawing.Size(119, 24);
-            this.cbCAN1Speed.TabIndex = 42;
-            this.cbCAN1Speed.SelectedIndexChanged += new System.EventHandler(this.cbCAN1Speed_SelectedIndexChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(855, 122);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 17);
-            this.label4.TabIndex = 41;
-            this.label4.Text = "CAN0";
-            // 
-            // cbCAN2Speed
-            // 
-            this.cbCAN2Speed.FormattingEnabled = true;
-            this.cbCAN2Speed.Items.AddRange(new object[] {
-            "DISABLED",
-            "125K",
-            "250K",
-            "500K",
-            "1M"});
-            this.cbCAN2Speed.Location = new System.Drawing.Point(1089, 118);
-            this.cbCAN2Speed.Margin = new System.Windows.Forms.Padding(4);
-            this.cbCAN2Speed.Name = "cbCAN2Speed";
-            this.cbCAN2Speed.Size = new System.Drawing.Size(119, 24);
-            this.cbCAN2Speed.TabIndex = 44;
-            this.cbCAN2Speed.SelectedIndexChanged += new System.EventHandler(this.cbCAN2Speed_SelectedIndexChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1038, 122);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(44, 17);
-            this.label5.TabIndex = 43;
-            this.label5.Text = "CAN1";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(999, 98);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(90, 17);
-            this.label6.TabIndex = 45;
-            this.label6.Text = "CAN SPEED:";
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(859, 151);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(365, 28);
-            this.button2.TabIndex = 46;
-            this.button2.Text = "Set Speeds";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.rEToolsToolStripMenuItem,
-            this.saveFramesToolStripMenuItem,
-            this.loadFramesToolStripMenuItem,
-            this.sendFramesToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1232, 28);
-            this.menuStrip1.TabIndex = 47;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(21, 24);
-            this.toolStripMenuItem1.Text = "&";
-            // 
-            // rEToolsToolStripMenuItem
-            // 
-            this.rEToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.singleToggleToolStripMenuItem,
-            this.multiToggleToolStripMenuItem,
-            this.flowViewToolStripMenuItem,
-            this.fuzzyScopeToolStripMenuItem,
-            this.graphDataToolStripMenuItem});
-            this.rEToolsToolStripMenuItem.Name = "rEToolsToolStripMenuItem";
-            this.rEToolsToolStripMenuItem.Size = new System.Drawing.Size(78, 24);
-            this.rEToolsToolStripMenuItem.Text = "&RE Tools";
-            // 
-            // singleToggleToolStripMenuItem
-            // 
-            this.singleToggleToolStripMenuItem.Name = "singleToggleToolStripMenuItem";
-            this.singleToggleToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
-            this.singleToggleToolStripMenuItem.Text = "&Single / Multi State";
-            this.singleToggleToolStripMenuItem.Click += new System.EventHandler(this.singleToggleToolStripMenuItem_Click);
-            // 
-            // multiToggleToolStripMenuItem
-            // 
-            this.multiToggleToolStripMenuItem.Name = "multiToggleToolStripMenuItem";
-            this.multiToggleToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
-            this.multiToggleToolStripMenuItem.Text = "&Range State";
-            // 
-            // flowViewToolStripMenuItem
-            // 
-            this.flowViewToolStripMenuItem.Name = "flowViewToolStripMenuItem";
-            this.flowViewToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
-            this.flowViewToolStripMenuItem.Text = "&Flow View";
-            this.flowViewToolStripMenuItem.Click += new System.EventHandler(this.flowViewToolStripMenuItem_Click);
-            // 
-            // fuzzyScopeToolStripMenuItem
-            // 
-            this.fuzzyScopeToolStripMenuItem.Name = "fuzzyScopeToolStripMenuItem";
-            this.fuzzyScopeToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
-            this.fuzzyScopeToolStripMenuItem.Text = "F&uzzy Scope";
-            this.fuzzyScopeToolStripMenuItem.Click += new System.EventHandler(this.fuzzyScopeToolStripMenuItem_Click);
-            // 
-            // graphDataToolStripMenuItem
-            // 
-            this.graphDataToolStripMenuItem.Name = "graphDataToolStripMenuItem";
-            this.graphDataToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
-            this.graphDataToolStripMenuItem.Text = "&Graph Data";
-            this.graphDataToolStripMenuItem.Click += new System.EventHandler(this.graphDataToolStripMenuItem_Click);
-            // 
-            // saveFramesToolStripMenuItem
-            // 
-            this.saveFramesToolStripMenuItem.Name = "saveFramesToolStripMenuItem";
-            this.saveFramesToolStripMenuItem.Size = new System.Drawing.Size(103, 24);
-            this.saveFramesToolStripMenuItem.Text = "&Save Frames";
-            this.saveFramesToolStripMenuItem.Click += new System.EventHandler(this.saveFramesToolStripMenuItem_Click);
-            // 
-            // loadFramesToolStripMenuItem
-            // 
-            this.loadFramesToolStripMenuItem.Name = "loadFramesToolStripMenuItem";
-            this.loadFramesToolStripMenuItem.Size = new System.Drawing.Size(105, 24);
-            this.loadFramesToolStripMenuItem.Text = "&Load Frames";
-            this.loadFramesToolStripMenuItem.Click += new System.EventHandler(this.loadFramesToolStripMenuItem_Click);
-            // 
-            // sendFramesToolStripMenuItem
-            // 
-            this.sendFramesToolStripMenuItem.Name = "sendFramesToolStripMenuItem";
-            this.sendFramesToolStripMenuItem.Size = new System.Drawing.Size(105, 24);
-            this.sendFramesToolStripMenuItem.Text = "S&end Frames";
-            this.sendFramesToolStripMenuItem.Click += new System.EventHandler(this.sendFramesToolStripMenuItem_Click);
-            // 
-            // pbActivity
-            // 
-            this.pbActivity.BackColor = System.Drawing.Color.White;
-            this.pbActivity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbActivity.Location = new System.Drawing.Point(16, 522);
-            this.pbActivity.Margin = new System.Windows.Forms.Padding(4);
-            this.pbActivity.Name = "pbActivity";
-            this.pbActivity.Size = new System.Drawing.Size(1208, 144);
-            this.pbActivity.TabIndex = 34;
-            this.pbActivity.TabStop = false;
             // 
             // Timestamp
             // 
@@ -442,11 +203,242 @@
             this.data.Name = "data";
             this.data.Width = 225;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(755, 284);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(37, 13);
+            this.label11.TabIndex = 33;
+            this.label11.Text = "TEMP";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(643, 284);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(112, 13);
+            this.label12.TabIndex = 32;
+            this.label12.Text = "# of frames displaying:";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(462, 408);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(73, 13);
+            this.label13.TabIndex = 35;
+            this.label13.Text = "Activity Graph";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(640, 46);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "COM Port:";
+            // 
+            // cbPortNum
+            // 
+            this.cbPortNum.FormattingEnabled = true;
+            this.cbPortNum.Location = new System.Drawing.Point(707, 43);
+            this.cbPortNum.Name = "cbPortNum";
+            this.cbPortNum.Size = new System.Drawing.Size(90, 21);
+            this.cbPortNum.TabIndex = 6;
+            // 
+            // btnContLog
+            // 
+            this.btnContLog.Location = new System.Drawing.Point(626, 320);
+            this.btnContLog.Name = "btnContLog";
+            this.btnContLog.Size = new System.Drawing.Size(270, 24);
+            this.btnContLog.TabIndex = 40;
+            this.btnContLog.Text = "Start Continuous Logging";
+            this.btnContLog.UseVisualStyleBackColor = true;
+            this.btnContLog.Click += new System.EventHandler(this.button6_Click_1);
+            // 
+            // cbCAN1Speed
+            // 
+            this.cbCAN1Speed.FormattingEnabled = true;
+            this.cbCAN1Speed.Items.AddRange(new object[] {
+            "DISABLED",
+            "125K",
+            "250K",
+            "500K",
+            "1M"});
+            this.cbCAN1Speed.Location = new System.Drawing.Point(682, 96);
+            this.cbCAN1Speed.Name = "cbCAN1Speed";
+            this.cbCAN1Speed.Size = new System.Drawing.Size(90, 21);
+            this.cbCAN1Speed.TabIndex = 42;
+            this.cbCAN1Speed.SelectedIndexChanged += new System.EventHandler(this.cbCAN1Speed_SelectedIndexChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(641, 99);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.TabIndex = 41;
+            this.label4.Text = "CAN0";
+            // 
+            // cbCAN2Speed
+            // 
+            this.cbCAN2Speed.FormattingEnabled = true;
+            this.cbCAN2Speed.Items.AddRange(new object[] {
+            "DISABLED",
+            "125K",
+            "250K",
+            "500K",
+            "1M"});
+            this.cbCAN2Speed.Location = new System.Drawing.Point(817, 96);
+            this.cbCAN2Speed.Name = "cbCAN2Speed";
+            this.cbCAN2Speed.Size = new System.Drawing.Size(90, 21);
+            this.cbCAN2Speed.TabIndex = 44;
+            this.cbCAN2Speed.SelectedIndexChanged += new System.EventHandler(this.cbCAN2Speed_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(778, 99);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 43;
+            this.label5.Text = "CAN1";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(749, 80);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(71, 13);
+            this.label6.TabIndex = 45;
+            this.label6.Text = "CAN SPEED:";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(644, 123);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(274, 23);
+            this.button2.TabIndex = 46;
+            this.button2.Text = "Set Speeds";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.rEToolsToolStripMenuItem,
+            this.saveFramesToolStripMenuItem,
+            this.loadFramesToolStripMenuItem,
+            this.sendFramesToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(924, 24);
+            this.menuStrip1.TabIndex = 47;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(19, 20);
+            this.toolStripMenuItem1.Text = "&";
+            // 
+            // rEToolsToolStripMenuItem
+            // 
+            this.rEToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.singleToggleToolStripMenuItem,
+            this.multiToggleToolStripMenuItem,
+            this.flowViewToolStripMenuItem,
+            this.fuzzyScopeToolStripMenuItem,
+            this.graphDataToolStripMenuItem});
+            this.rEToolsToolStripMenuItem.Name = "rEToolsToolStripMenuItem";
+            this.rEToolsToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.rEToolsToolStripMenuItem.Text = "&RE Tools";
+            // 
+            // singleToggleToolStripMenuItem
+            // 
+            this.singleToggleToolStripMenuItem.Name = "singleToggleToolStripMenuItem";
+            this.singleToggleToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.singleToggleToolStripMenuItem.Text = "&Single / Multi State";
+            this.singleToggleToolStripMenuItem.Click += new System.EventHandler(this.singleToggleToolStripMenuItem_Click);
+            // 
+            // multiToggleToolStripMenuItem
+            // 
+            this.multiToggleToolStripMenuItem.Name = "multiToggleToolStripMenuItem";
+            this.multiToggleToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.multiToggleToolStripMenuItem.Text = "&Range State";
+            // 
+            // flowViewToolStripMenuItem
+            // 
+            this.flowViewToolStripMenuItem.Name = "flowViewToolStripMenuItem";
+            this.flowViewToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.flowViewToolStripMenuItem.Text = "&Flow View";
+            this.flowViewToolStripMenuItem.Click += new System.EventHandler(this.flowViewToolStripMenuItem_Click);
+            // 
+            // fuzzyScopeToolStripMenuItem
+            // 
+            this.fuzzyScopeToolStripMenuItem.Name = "fuzzyScopeToolStripMenuItem";
+            this.fuzzyScopeToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.fuzzyScopeToolStripMenuItem.Text = "F&uzzy Scope";
+            this.fuzzyScopeToolStripMenuItem.Click += new System.EventHandler(this.fuzzyScopeToolStripMenuItem_Click);
+            // 
+            // graphDataToolStripMenuItem
+            // 
+            this.graphDataToolStripMenuItem.Name = "graphDataToolStripMenuItem";
+            this.graphDataToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.graphDataToolStripMenuItem.Text = "&Graph Data";
+            this.graphDataToolStripMenuItem.Click += new System.EventHandler(this.graphDataToolStripMenuItem_Click);
+            // 
+            // saveFramesToolStripMenuItem
+            // 
+            this.saveFramesToolStripMenuItem.Name = "saveFramesToolStripMenuItem";
+            this.saveFramesToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
+            this.saveFramesToolStripMenuItem.Text = "&Save Frames";
+            this.saveFramesToolStripMenuItem.Click += new System.EventHandler(this.saveFramesToolStripMenuItem_Click);
+            // 
+            // loadFramesToolStripMenuItem
+            // 
+            this.loadFramesToolStripMenuItem.Name = "loadFramesToolStripMenuItem";
+            this.loadFramesToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
+            this.loadFramesToolStripMenuItem.Text = "&Load Frames";
+            this.loadFramesToolStripMenuItem.Click += new System.EventHandler(this.loadFramesToolStripMenuItem_Click);
+            // 
+            // sendFramesToolStripMenuItem
+            // 
+            this.sendFramesToolStripMenuItem.Name = "sendFramesToolStripMenuItem";
+            this.sendFramesToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
+            this.sendFramesToolStripMenuItem.Text = "S&end Frames";
+            this.sendFramesToolStripMenuItem.Click += new System.EventHandler(this.sendFramesToolStripMenuItem_Click);
+            // 
+            // pbActivity
+            // 
+            this.pbActivity.BackColor = System.Drawing.Color.White;
+            this.pbActivity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbActivity.Location = new System.Drawing.Point(12, 424);
+            this.pbActivity.Name = "pbActivity";
+            this.pbActivity.Size = new System.Drawing.Size(906, 117);
+            this.pbActivity.TabIndex = 34;
+            this.pbActivity.TabStop = false;
+            // 
+            // cbStaticMode
+            // 
+            this.cbStaticMode.AutoSize = true;
+            this.cbStaticMode.Location = new System.Drawing.Point(644, 224);
+            this.cbStaticMode.Name = "cbStaticMode";
+            this.cbStaticMode.Size = new System.Drawing.Size(145, 17);
+            this.cbStaticMode.TabIndex = 48;
+            this.cbStaticMode.Text = "Static (Overwriting) Mode";
+            this.cbStaticMode.UseVisualStyleBackColor = true;
+            this.cbStaticMode.CheckedChanged += new System.EventHandler(this.cbStaticMode_CheckedChanged);
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1232, 674);
+            this.ClientSize = new System.Drawing.Size(924, 548);
+            this.Controls.Add(this.cbStaticMode);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cbCAN2Speed);
@@ -460,7 +452,7 @@
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.cbAutoScroll);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.cbPortNum);
             this.Controls.Add(this.label1);
@@ -469,7 +461,6 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "Generalized Vehicle Reverse Engineering Tool";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -488,7 +479,7 @@
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox cbAutoScroll;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
@@ -524,6 +515,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn frameBus;
         private System.Windows.Forms.DataGridViewTextBoxColumn Length;
         private System.Windows.Forms.DataGridViewTextBoxColumn data;
+        private System.Windows.Forms.CheckBox cbStaticMode;
     }
 }
 
