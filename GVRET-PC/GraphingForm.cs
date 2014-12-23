@@ -560,6 +560,11 @@ namespace GVRET
         {
 
         }
+
+        private void label38_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     struct GraphData
