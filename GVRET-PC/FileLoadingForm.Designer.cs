@@ -30,6 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cListFrames = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cbCANSend = new System.Windows.Forms.ComboBox();
             this.ckLoop = new System.Windows.Forms.CheckBox();
@@ -48,10 +52,6 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.ckUseHex = new System.Windows.Forms.CheckBox();
             this.cbUsePlayback = new System.Windows.Forms.CheckBox();
-            this.cListFrames = new System.Windows.Forms.CheckedListBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numPlaybackSpeed)).BeginInit();
             this.SuspendLayout();
@@ -82,6 +82,43 @@
             this.groupBox3.TabIndex = 21;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Playback Control";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(100, 347);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(43, 23);
+            this.button3.TabIndex = 36;
+            this.button3.Text = "None";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(21, 347);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(43, 23);
+            this.button2.TabIndex = 35;
+            this.button2.Text = "All";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(12, 215);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(141, 13);
+            this.label2.TabIndex = 34;
+            this.label2.Text = "ID Filtering:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // cListFrames
+            // 
+            this.cListFrames.FormattingEnabled = true;
+            this.cListFrames.Location = new System.Drawing.Point(11, 231);
+            this.cListFrames.Name = "cListFrames";
+            this.cListFrames.Size = new System.Drawing.Size(142, 109);
+            this.cListFrames.TabIndex = 33;
             // 
             // label1
             // 
@@ -244,8 +281,8 @@
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "csv";
-            this.openFileDialog1.Filter = "GVRET Logs|*.csv|Generic ID/Data CSV|*.csv|BusMaster Logs|*.log|Microchip Logs|*." +
-    "can";
+            this.openFileDialog1.Filter = "CRTD Logs|*.txt|GVRET Logs|*.csv|Generic ID/Data CSV|*.csv|BusMaster Logs|*.log|M" +
+    "icrochip Logs|*.can";
             // 
             // timer2
             // 
@@ -276,43 +313,6 @@
             this.cbUsePlayback.Text = "Use Playback System";
             this.cbUsePlayback.UseVisualStyleBackColor = true;
             this.cbUsePlayback.CheckedChanged += new System.EventHandler(this.cbUsePlayback_CheckedChanged);
-            // 
-            // cListFrames
-            // 
-            this.cListFrames.FormattingEnabled = true;
-            this.cListFrames.Location = new System.Drawing.Point(11, 231);
-            this.cListFrames.Name = "cListFrames";
-            this.cListFrames.Size = new System.Drawing.Size(142, 109);
-            this.cListFrames.TabIndex = 33;
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(12, 215);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(141, 13);
-            this.label2.TabIndex = 34;
-            this.label2.Text = "ID Filtering:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(21, 347);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(43, 23);
-            this.button2.TabIndex = 35;
-            this.button2.Text = "All";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(100, 347);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(43, 23);
-            this.button3.TabIndex = 36;
-            this.button3.Text = "None";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // FileLoadingForm
             // 

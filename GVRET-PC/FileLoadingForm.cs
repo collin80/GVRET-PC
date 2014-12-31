@@ -258,6 +258,67 @@ namespace GVRET
             logStream.Close();
         }
 
+
+        /*
+1320745424.000 CXX OVMS Tesla Roadster cando2crtd converted log
+1320745424.000 CXX OVMS Tesla roadster log: charge.20111108.csv
+1320745424.002 R11 402 FA 01 C3 A0 96 00 07 01
+1320745424.015 R11 400 02 9E 01 80 AB 80 55 00
+1320745424.066 R11 400 01 01 00 00 00 00 4C 1D
+1320745424.105 R11 100 A4 53 46 5A 52 45 38 42
+1320745424.106 R11 100 A5 31 35 42 33 30 30 30
+1320745424.106 R11 100 A6 35 36 39
+1320745424.106 CEV Open charge port door
+1320745424.106 R11 100 9B 97 A6 31 03 15 05 06
+1320745424.107 R11 100 07 64         
+         */
+        private void loadCRTDFile(string filename)
+        {
+            CANFrame thisFrame;
+            StreamReader logStream = new StreamReader(filename);
+            string thisLine;
+            System.Globalization.NumberStyles style;
+
+            if (ckUseHex.Checked) style = System.Globalization.NumberStyles.HexNumber;
+            else style = System.Globalization.NumberStyles.Integer;
+
+            loadedFrames = new List<CANFrame>();
+
+            while (!logStream.EndOfStream)
+            {
+                thisLine = logStream.ReadLine();
+
+                if (thisLine.StartsWith("***")) continue;
+
+                /*
+                tokens:
+                0 = timestamp
+                1 = Transmission direction
+                2 = Channel
+                3 = ID
+                4 = Type (s = standard, I believe x = extended)
+                5 = Data byte length
+                6-x = The data bytes
+                */
+                if (thisLine.Length > 1)
+                {
+                    string[] theseTokens = thisLine.Split(' ');
+                    thisFrame = new CANFrame();
+                    thisFrame.timestamp = Utility.GetTimeMS();
+                    thisFrame.ID = int.Parse(theseTokens[3].Substring(2), style);
+                    if (theseTokens[4] == "s") thisFrame.extended = false;
+                    else thisFrame.extended = true;
+                    thisFrame.bus = int.Parse(theseTokens[2]) - 1;
+                    thisFrame.len = int.Parse(theseTokens[5]);
+                    for (int c = 0; c < 8; c++) thisFrame.data[c] = 0;
+                    for (int d = 0; d < thisFrame.len; d++) thisFrame.data[d] = byte.Parse(theseTokens[6 + d], style);
+                    loadedFrames.Add(thisFrame);
+                }
+            }
+            logStream.Close();
+ 
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             string filename;
@@ -272,15 +333,18 @@ namespace GVRET
                     switch (openFileDialog1.FilterIndex)
                     {
                         case 1:
-                            loadNativeCSVFile(filename);
+                            loadCRTDFile(filename);
                             break;
                         case 2:
-                            loadGenericCSVFile(filename);
+                            loadNativeCSVFile(filename);
                             break;
                         case 3:
-                            loadLogFile(filename);
+                            loadGenericCSVFile(filename);
                             break;
                         case 4:
+                            loadLogFile(filename);
+                            break;
+                        case 5:
                             loadMicrochipFile(filename);
                             break;
                         default:
