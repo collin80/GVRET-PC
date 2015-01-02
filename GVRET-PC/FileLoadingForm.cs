@@ -259,7 +259,7 @@ namespace GVRET
         }
 
 
-        /*
+/* Sample data in CRTD format
 1320745424.000 CXX OVMS Tesla Roadster cando2crtd converted log
 1320745424.000 CXX OVMS Tesla roadster log: charge.20111108.csv
 1320745424.002 R11 402 FA 01 C3 A0 96 00 07 01
@@ -271,7 +271,7 @@ namespace GVRET
 1320745424.106 CEV Open charge port door
 1320745424.106 R11 100 9B 97 A6 31 03 15 05 06
 1320745424.107 R11 100 07 64         
-         */
+*/
         private void loadCRTDFile(string filename)
         {
             CANFrame thisFrame;
@@ -279,8 +279,7 @@ namespace GVRET
             string thisLine;
             System.Globalization.NumberStyles style;
 
-            if (ckUseHex.Checked) style = System.Globalization.NumberStyles.HexNumber;
-            else style = System.Globalization.NumberStyles.Integer;
+            style = System.Globalization.NumberStyles.HexNumber;
 
             loadedFrames = new List<CANFrame>();
 
@@ -288,35 +287,39 @@ namespace GVRET
             {
                 thisLine = logStream.ReadLine();
 
-                if (thisLine.StartsWith("***")) continue;
-
                 /*
                 tokens:
                 0 = timestamp
-                1 = Transmission direction
-                2 = Channel
-                3 = ID
-                4 = Type (s = standard, I believe x = extended)
-                5 = Data byte length
-                6-x = The data bytes
+                1 = line type
+                2 = ID
+                3-x = The data bytes
                 */
                 if (thisLine.Length > 1)
                 {
                     string[] theseTokens = thisLine.Split(' ');
                     thisFrame = new CANFrame();
-                    thisFrame.timestamp = Utility.GetTimeMS();
-                    thisFrame.ID = int.Parse(theseTokens[3].Substring(2), style);
-                    if (theseTokens[4] == "s") thisFrame.extended = false;
-                    else thisFrame.extended = true;
-                    thisFrame.bus = int.Parse(theseTokens[2]) - 1;
-                    thisFrame.len = int.Parse(theseTokens[5]);
                     for (int c = 0; c < 8; c++) thisFrame.data[c] = 0;
-                    for (int d = 0; d < thisFrame.len; d++) thisFrame.data[d] = byte.Parse(theseTokens[6 + d], style);
-                    loadedFrames.Add(thisFrame);
+                    thisFrame.timestamp = (UInt64)(Double.Parse(theseTokens[0]) * 1000);
+                    if (theseTokens[1] == "R11" || theseTokens[1] == "R29")
+                    {
+                        thisFrame.ID = int.Parse(theseTokens[2], style);
+                        thisFrame.extended = false;
+                        if (theseTokens[1] == "R29") thisFrame.extended = true;
+                        thisFrame.bus = 0;
+                        thisFrame.len = theseTokens.Length - 3;
+                        for (int d = 0; d < thisFrame.len; d++)
+                        {
+                            if (theseTokens[3 + d] != "")
+                            {
+                                thisFrame.data[d] = byte.Parse(theseTokens[3 + d], style);
+                            }
+                            else thisFrame.data[d] = 0;
+                        }
+                        loadedFrames.Add(thisFrame);
+                    }
                 }
             }
             logStream.Close();
- 
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -328,8 +331,8 @@ namespace GVRET
                 string fnSmall = filename.ToLower();
 
                 //doing the try/catch here allows for a generic handling of any file loading related problems.
-                try
-                {
+                //try
+                //{
                     switch (openFileDialog1.FilterIndex)
                     {
                         case 1:
@@ -350,11 +353,11 @@ namespace GVRET
                         default:
                             break;
                     }
-                }
-                catch (Exception ee)
-                {
-                    MessageBox.Show("Error while loading file! Aborted!");
-                }
+                //}
+                //catch (Exception ee)
+                //{
+                //    MessageBox.Show("Error while loading file! Aborted!");
+                //}
                 numFrames = loadedFrames.Count;
 
                 for (int j = 0; j < numFrames; j++)
@@ -379,7 +382,7 @@ namespace GVRET
                     for (int i = 0; i < numFrames; i++)
                     {
                         theTime += 10;
-                        loadedFrames[i].timestamp = theTime;
+                        if (loadedFrames[i].timestamp == 0) loadedFrames[i].timestamp = theTime;
                         parent.sideloadFrame(loadedFrames[i]);
                     }
                 }

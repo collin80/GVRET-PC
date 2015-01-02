@@ -825,57 +825,139 @@ namespace GVRET
             theForm.Show();
         }
 
+        private void saveCRTDFile(Stream outStream)
+        {
+            Byte[] bytes;
+            System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
+
+            bytes = encoding.GetBytes(frameCache[0].timestamp.ToString() + " CXX GVRET-PC Reverse Engineering Tool Output");
+            outStream.Write(bytes, 0, bytes.Length);
+            outStream.WriteByte(10);
+
+            for (int c = 0; c < frameCache.Count; c++)
+            {
+                bytes = encoding.GetBytes(frameCache[c].timestamp.ToString());
+                outStream.Write(bytes, 0, bytes.Length);
+                outStream.WriteByte(32); //space
+
+                if (frameCache[c].extended)
+                {
+                    bytes = encoding.GetBytes("R29 ");
+                }
+                else bytes = encoding.GetBytes("R11 ");
+                outStream.Write(bytes, 0, bytes.Length);
+
+                bytes = encoding.GetBytes(frameCache[c].ID.ToString("X8"));
+                outStream.Write(bytes, 0, bytes.Length);
+                outStream.WriteByte(32);
+
+                for (int temp = 0; temp < frameCache[c].len; temp++)
+                {
+                    bytes = encoding.GetBytes(frameCache[c].data[temp].ToString("X2"));
+                    outStream.Write(bytes, 0, bytes.Length);
+                    outStream.WriteByte(32);
+                }
+                //CrLf
+                outStream.WriteByte(13);
+                outStream.WriteByte(10);
+            }
+            outStream.Close();
+        }
+        
+        private void saveNativeCSVFile(Stream outStream)
+        {
+            Byte[] bytes;
+            System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
+
+            bytes = encoding.GetBytes("Time Stamp,ID,Extended,Bus,LEN,D1,D2,D3,D4,D5,D6,D7,D8");
+            outStream.Write(bytes, 0, bytes.Length);
+            outStream.WriteByte(10);
+
+            for (int c = 0; c < frameCache.Count; c++)
+            {
+                bytes = encoding.GetBytes(frameCache[c].timestamp.ToString());
+                outStream.Write(bytes, 0, bytes.Length);
+                outStream.WriteByte(44);
+
+                bytes = encoding.GetBytes(frameCache[c].ID.ToString("X8"));
+                outStream.Write(bytes, 0, bytes.Length);
+                outStream.WriteByte(44);
+
+                bytes = encoding.GetBytes(frameCache[c].extended.ToString());
+                outStream.Write(bytes, 0, bytes.Length);
+                outStream.WriteByte(44);
+
+                bytes = encoding.GetBytes(frameCache[c].bus.ToString());
+                outStream.Write(bytes, 0, bytes.Length);
+                outStream.WriteByte(44);
+
+                bytes = encoding.GetBytes(frameCache[c].len.ToString());
+                outStream.Write(bytes, 0, bytes.Length);
+                outStream.WriteByte(44);
+
+                for (int temp = 0; temp < 8; temp++)
+                {
+                    bytes = encoding.GetBytes(frameCache[c].data[temp].ToString("X2"));
+                    outStream.Write(bytes, 0, bytes.Length);
+                    outStream.WriteByte(44);
+                }
+                //CrLf
+                outStream.WriteByte(13);
+                outStream.WriteByte(10);
+            }
+            outStream.Close();
+        }
+
+        private void saveGenericCSVFile(Stream outStream)
+        {
+        }
+
+        private void saveLogFile(Stream outStream)
+        {
+        }
+
+        private void saveMicrochipFile(Stream outStream)
+        {
+        }
+
         private void saveFramesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Stream outStream;
-            System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
-            Byte[] bytes;
-            string[] temp_str;
-            char[] delim = new char[1];
 
             saveFileDialog1.RestoreDirectory = true;
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                if ((outStream = saveFileDialog1.OpenFile()) != null)
+                //doing the try/catch here allows for a generic handling of any file loading related problems.
+                try
                 {
-                    bytes = encoding.GetBytes("Time Stamp,ID,Extended,Bus,LEN,D1,D2,D3,D4,D5,D6,D7,D8");
-                    outStream.Write(bytes, 0, bytes.Length);
-                    outStream.WriteByte(10);
-
-                    for (int c = 0; c < frameCache.Count; c++)
+                    if ((outStream = saveFileDialog1.OpenFile()) != null)
                     {
-                        bytes = encoding.GetBytes(frameCache[c].timestamp.ToString());
-                        outStream.Write(bytes, 0, bytes.Length);
-                        outStream.WriteByte(44);
-
-                        bytes = encoding.GetBytes(frameCache[c].ID.ToString("X8"));
-                        outStream.Write(bytes, 0, bytes.Length);
-                        outStream.WriteByte(44);
-
-                        bytes = encoding.GetBytes(frameCache[c].extended.ToString());
-                        outStream.Write(bytes, 0, bytes.Length);
-                        outStream.WriteByte(44);
-
-                        bytes = encoding.GetBytes(frameCache[c].bus.ToString());
-                        outStream.Write(bytes, 0, bytes.Length);
-                        outStream.WriteByte(44);
-
-                        bytes = encoding.GetBytes(frameCache[c].len.ToString());
-                        outStream.Write(bytes, 0, bytes.Length);
-                        outStream.WriteByte(44);
-
-                        for (int temp = 0; temp < 8; temp++)
+                        switch (saveFileDialog1.FilterIndex)
                         {
-                            bytes = encoding.GetBytes(frameCache[c].data[temp].ToString("X2"));
-                            outStream.Write(bytes, 0, bytes.Length);
-                            outStream.WriteByte(44);
+                            case 1:
+                                saveCRTDFile(outStream); //CRTD standard from OVMS project
+                                break;
+                            case 2:
+                                saveNativeCSVFile(outStream); //The  native format for this utility
+                                break;
+                            case 3:
+                                saveGenericCSVFile(outStream); //just generic ID/DATA
+                                break;
+                            case 4:
+                                saveLogFile(outStream); //busmaster log files
+                                break;
+                            case 5:
+                                saveMicrochipFile(outStream); //microchip log files
+                                break;
+                            default:
+                                break;
                         }
-                        //CrLf
-                        outStream.WriteByte(13);
-                        outStream.WriteByte(10);
                     }
-                    outStream.Close();
+                }
+                catch (Exception ee)
+                {
+                    MessageBox.Show("Error while saving file! Aborted!");
                 }
             }
         }
@@ -917,7 +999,7 @@ namespace GVRET
         public bool extended;
         public int len;
         public byte[] data = new byte[8];
-        public UInt32 timestamp;
+        public UInt64 timestamp;
     }
 
 }
