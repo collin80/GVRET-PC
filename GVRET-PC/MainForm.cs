@@ -782,6 +782,9 @@ namespace GVRET
                     case 4:
                         Speed1 = 1000000;
                         break;
+                    case 5:
+                        Speed1 = 33333;
+                        break;
                 }
             }
             if (cbCAN2Speed.SelectedIndex > 0)
@@ -799,6 +802,9 @@ namespace GVRET
                         break;
                     case 4:
                         Speed2 = 1000000;
+                        break;
+                    case 5:
+                        Speed2 = 33333;
                         break;
                 }                
             }

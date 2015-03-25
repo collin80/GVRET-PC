@@ -85,7 +85,7 @@
             // btnConnect
             // 
             this.btnConnect.Location = new System.Drawing.Point(1071, 53);
-            this.btnConnect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnConnect.Margin = new System.Windows.Forms.Padding(4);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(153, 28);
             this.btnConnect.TabIndex = 1;
@@ -96,7 +96,7 @@
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(859, 204);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(181, 28);
             this.button4.TabIndex = 4;
@@ -107,7 +107,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(1043, 204);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(183, 28);
             this.button1.TabIndex = 7;
@@ -119,7 +119,7 @@
             // 
             this.cbAutoScroll.AutoSize = true;
             this.cbAutoScroll.Location = new System.Drawing.Point(859, 247);
-            this.cbAutoScroll.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbAutoScroll.Margin = new System.Windows.Forms.Padding(4);
             this.cbAutoScroll.Name = "cbAutoScroll";
             this.cbAutoScroll.Size = new System.Drawing.Size(201, 21);
             this.cbAutoScroll.TabIndex = 8;
@@ -166,7 +166,7 @@
             this.Length,
             this.data});
             this.dataGridView1.Location = new System.Drawing.Point(16, 57);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(811, 442);
             this.dataGridView1.TabIndex = 0;
@@ -256,7 +256,7 @@
             // 
             this.cbPortNum.FormattingEnabled = true;
             this.cbPortNum.Location = new System.Drawing.Point(943, 53);
-            this.cbPortNum.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbPortNum.Margin = new System.Windows.Forms.Padding(4);
             this.cbPortNum.Name = "cbPortNum";
             this.cbPortNum.Size = new System.Drawing.Size(119, 24);
             this.cbPortNum.TabIndex = 6;
@@ -264,7 +264,7 @@
             // btnContLog
             // 
             this.btnContLog.Location = new System.Drawing.Point(835, 394);
-            this.btnContLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnContLog.Margin = new System.Windows.Forms.Padding(4);
             this.btnContLog.Name = "btnContLog";
             this.btnContLog.Size = new System.Drawing.Size(360, 30);
             this.btnContLog.TabIndex = 40;
@@ -280,9 +280,10 @@
             "125K",
             "250K",
             "500K",
-            "1M"});
+            "1M",
+            "33333"});
             this.cbCAN1Speed.Location = new System.Drawing.Point(909, 118);
-            this.cbCAN1Speed.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbCAN1Speed.Margin = new System.Windows.Forms.Padding(4);
             this.cbCAN1Speed.Name = "cbCAN1Speed";
             this.cbCAN1Speed.Size = new System.Drawing.Size(119, 24);
             this.cbCAN1Speed.TabIndex = 42;
@@ -306,9 +307,10 @@
             "125K",
             "250K",
             "500K",
-            "1M"});
+            "1M",
+            "33333"});
             this.cbCAN2Speed.Location = new System.Drawing.Point(1089, 118);
-            this.cbCAN2Speed.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbCAN2Speed.Margin = new System.Windows.Forms.Padding(4);
             this.cbCAN2Speed.Name = "cbCAN2Speed";
             this.cbCAN2Speed.Size = new System.Drawing.Size(119, 24);
             this.cbCAN2Speed.TabIndex = 44;
@@ -337,7 +339,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(859, 151);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(365, 28);
             this.button2.TabIndex = 46;
@@ -438,7 +440,7 @@
             this.pbActivity.BackColor = System.Drawing.Color.White;
             this.pbActivity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbActivity.Location = new System.Drawing.Point(16, 522);
-            this.pbActivity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbActivity.Margin = new System.Windows.Forms.Padding(4);
             this.pbActivity.Name = "pbActivity";
             this.pbActivity.Size = new System.Drawing.Size(1207, 144);
             this.pbActivity.TabIndex = 34;
@@ -448,7 +450,7 @@
             // 
             this.cbStaticMode.AutoSize = true;
             this.cbStaticMode.Location = new System.Drawing.Point(859, 276);
-            this.cbStaticMode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbStaticMode.Margin = new System.Windows.Forms.Padding(4);
             this.cbStaticMode.Name = "cbStaticMode";
             this.cbStaticMode.Size = new System.Drawing.Size(189, 21);
             this.cbStaticMode.TabIndex = 48;
@@ -484,7 +486,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "Generalized Vehicle Reverse Engineering Tool";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
