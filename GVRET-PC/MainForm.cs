@@ -1008,4 +1008,15 @@ namespace GVRET
         public UInt64 timestamp;
     }
 
+    public class J1939ID
+    {
+        public int src;
+        public int dest;
+        public int pgn;
+        public int pf;
+        public int ps;
+        public int priority;
+        public bool isBroadcast;
+    }
+
 }
