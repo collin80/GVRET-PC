@@ -212,7 +212,7 @@ namespace GVRET
             if (which < 0 || which > (numGraphs - 1)) return;
 
             float bias, scale;
-            int v1, v2, numFrames, idx, tempVal;
+            int v1, v2, numFrames, idx, tempVal, stride;
             Boolean signed;
 
             Graphs[which].minVal = 9999999.0F;
@@ -221,11 +221,12 @@ namespace GVRET
             bias = Graphs[which].bias;
             scale = Graphs[which].scale;
             signed = Graphs[which].signed;
+            stride = Graphs[which].stride;
 
             v1 = Graphs[which].B1;
             v2 = Graphs[which].B2;
             idx = getIdxForID(Graphs[which].ID);
-            numFrames = frames[idx].Count;
+            numFrames = frames[idx].Count / stride;
 
             Graphs[which].valueCache = new float[numFrames];
 
@@ -244,7 +245,7 @@ namespace GVRET
                 {
                     for (int j = 0; j < numFrames; j++)
                     {
-                        tempVal = (frames[idx].ElementAt(j).data[v1] & Graphs[which].mask);
+                        tempVal = (frames[idx].ElementAt(j*stride).data[v1] & Graphs[which].mask);
                         if (signed && tempVal > 127)
                         {
                             tempVal = tempVal - 256;
@@ -389,10 +390,10 @@ namespace GVRET
                 else
                     baseNode = treeDetails.Nodes.Add("Data Length: " + minLen.ToString());
 
-                for (int d = 0; d < 8; d++)
+                for (int d = 0; d < numGraphs; d++)
                 {
-                    Graphs[6 + d].valueCache = null;
-                    Graphs[6 + d].ID = 0;
+                    Graphs[d].valueCache = null;
+                    Graphs[d].ID = 0;
                 }
 
                 for (int c = 0; c < maxLen; c++)
@@ -405,6 +406,11 @@ namespace GVRET
                     Graphs[6 + c].ID = targettedID;
                     Graphs[6 + c].color = theseColors[c];
                     Graphs[6 + c].signed = false;
+                    if (numFrames > 100)
+                    {
+                        Graphs[6 + c].stride = (int)((((float)numFrames) / 100.0f) + 0.5f);
+                    }
+                    else Graphs[6 + c].stride = 1;
 
                     dataBase = baseNode.Nodes.Add("Data Byte " + c.ToString());
                     dataBase.Nodes.Add("Range: " + minData[c] + " to " + maxData[c]);
@@ -429,11 +435,11 @@ namespace GVRET
 
         private void btnRefresh1_Click(object sender, EventArgs e)
         {
-            int ID, B1, B2, whichGraph;
+            int ID, B1, B2, whichGraph, stride;
             int Mask;
                     
             float Bias, Scale;
-            String strID, strMask, strBytes, strBias, strScale;
+            String strID, strMask, strBytes, strBias, strScale, strStride;
             Color thisColor;
             Boolean signedVal;
 
@@ -442,6 +448,7 @@ namespace GVRET
             strBytes = "";
             strBias = "";
             strScale = "";
+            strStride = "";
             signedVal = false;
             whichGraph = 0;
             thisColor = pbColor1.BackColor;
@@ -455,6 +462,7 @@ namespace GVRET
                 signedVal = cbSigned1.Checked;
                 strBias = txtBias1.Text;
                 strScale = txtScale1.Text;
+                strStride = txtStride1.Text;
                 thisColor = pbColor1.BackColor;
                 whichGraph = 0;
             }
@@ -465,6 +473,7 @@ namespace GVRET
                 strBytes = txtByte2.Text;
                 signedVal = cbSigned2.Checked;
                 strBias = txtBias2.Text;
+                strStride = txtStride2.Text;
                 strScale = txtScale2.Text;
                 thisColor = pbColor2.BackColor;
                 whichGraph = 1;
@@ -477,6 +486,7 @@ namespace GVRET
                 signedVal = cbSigned3.Checked;
                 strBias = txtBias3.Text;
                 strScale = txtScale3.Text;
+                strStride = txtStride3.Text;
                 thisColor = pbColor3.BackColor;
                 whichGraph = 2;
             }
@@ -488,6 +498,7 @@ namespace GVRET
                 signedVal = cbSigned4.Checked;
                 strBias = txtBias4.Text;
                 strScale = txtScale4.Text;
+                strStride = txtStride4.Text;
                 thisColor = pbColor4.BackColor;
                 whichGraph = 3;
             }
@@ -499,6 +510,7 @@ namespace GVRET
                 signedVal = cbSigned5.Checked;
                 strBias = txtBias5.Text;
                 strScale = txtScale5.Text;
+                strStride = txtStride5.Text;
                 thisColor = pbColor5.BackColor;
                 whichGraph = 4;
             }
@@ -510,6 +522,7 @@ namespace GVRET
                 signedVal = cbSigned6.Checked;
                 strBias = txtBias6.Text;
                 strScale = txtScale6.Text;
+                strStride = txtStride6.Text;
                 thisColor = pbColor6.BackColor;
                 whichGraph = 5;
             }
@@ -519,6 +532,7 @@ namespace GVRET
                 Mask = Utility.ParseStringToNum(strMask);
                 Bias = float.Parse(strBias);
                 Scale = float.Parse(strScale);
+                stride = Utility.ParseStringToNum(strStride);
             }
             catch (FormatException fe) 
             {
@@ -526,10 +540,18 @@ namespace GVRET
                 Mask = 0;
                 Bias = 0f;
                 Scale = 0f;
+                stride = 1;
             }
 
             B1 = -1;
             B2 = -1;
+
+            //remove the temporary graphs used if you clicked on an ID on the side list.
+            for (int d = 0; d < 8; d++)
+            {
+                Graphs[6 + d].valueCache = null;
+                Graphs[6 + d].ID = 0;
+            }
 
             if (strBytes.ToUpper().StartsWith("B")) //bit based
             {
@@ -585,6 +607,7 @@ namespace GVRET
             Graphs[whichGraph].ID = ID;
             Graphs[whichGraph].color = thisColor;
             Graphs[whichGraph].signed = signedVal;
+            Graphs[whichGraph].stride = stride;
 
             //At long last all input value parsing is done. Now recalculate the given graph.
 
@@ -629,6 +652,7 @@ namespace GVRET
         public float minVal, maxVal;
         public int ID;
         public int B1, B2;
+        public int stride;
         public Color color;
         public Boolean signed;
     }
